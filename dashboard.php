@@ -1,5 +1,13 @@
 <?php
-// ----------> Site configurations 
+// File: dashboard.php
+
+// Check if session is not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Log session data for debugging
+error_log("Session data on page load (in dashboard.php): " . print_r($_SESSION, true));
 
 // ----------> Define constants
 defined("site") or define("site", $_SERVER['DOCUMENT_ROOT'] . "/");
@@ -8,10 +16,9 @@ defined("site_title") or define("site_title", "Social Transact App");
 
 // ----------> display all errors 
 include_once site . "/error.php";
-// ----------- error display ------------
 
 // ----------> check for session
 include_once site . "/session.php";
-// ----------- error display ------------
 
+// ----------> Your dashboard content starts here
 include site . "/dashboard/pages/overview/overview.php";

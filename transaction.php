@@ -1,5 +1,9 @@
 <?php
-// ----------> Site configurations 
+// ----------> Site configurations
+// Check if session is not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} 
 
 // ----------> Define constants
 defined("site") or define("site", $_SERVER['DOCUMENT_ROOT'] . "/");

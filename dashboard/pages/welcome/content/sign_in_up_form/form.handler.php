@@ -31,7 +31,7 @@ $(document).ready(function() {
     }
 
     $.ajax({
-      url: 'https://mdskenya.co.ke/endpoint/auth/sign.in.up.php',
+      url: 'https://complytech.mdskenya.co.ke/endpoint/auth/sign.in.up.php',
       type: 'POST',
       contentType: 'application/json',
       headers: {
@@ -50,7 +50,7 @@ $(document).ready(function() {
             showPopup('Success', 'Sign-in successful. Redirecting to dashboard...');
             setTimeout(function() {
               window.location.href = '/dashboard.php';
-            }, 2000);
+            }, 2000);  // Redirect to dashboard.php
           }
         } else {
           // Error
