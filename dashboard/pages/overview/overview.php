@@ -24,44 +24,58 @@ include_once site . "/error.php";
     ?>
 </head>
 
-<body id="crancy-dark-light">
-    <div class="crancy-body-area">
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+    <div class="wrapper">
+    <div id="loader"></div>
+    <header class="main-header">
+        <!-- Header-->
+    <?php
+    include_once site . "/dashboard/modules/header/header.php";
+    ?>
+    </header>
+
+    <aside class="main-sidebar">
 
         <!-- Left Nav-->
     <?php
-    include_once site . "/dashboard/modules/nav/left.nav.php";
+    include_once site . "/dashboard/modules/nav/side.nav.php";
     ?>
+    </aside>
 
-    <!-- Header-->
-    <?php
-    include_once site . "/dashboard/modules/header/overview.header.php";
-    ?>
-
+    <div class="content-wrapper">
     <!-- Content-->
     <?php
     include_once site . "/dashboard/pages/overview/content/content.php";
     ?>
     </div>
 
-<!--  Scripts -->
-    <script src="/dashboard/js/jquery.min.js"></script>
-    <script src="/dashboard/js/jquery-migrate.js"></script>
-    <script src="/dashboard/js/popper.min.js"></script>
-    <script src="/dashboard/js/bootstrap.min.js"></script>
-    <script src="/dashboard/js/charts.js"></script>
-    <script src="/dashboard/js/final-countdown.min.js"></script>
-    <script src="/dashboard/js/fancy-box.min.js"></script>
-    <script src="/dashboard/js/fullcalendar.min.js"></script>
-    <script src="/dashboard/js/datatables.min.js"></script>
-    <script src="/dashboard/js/circle-progress.min.js"></script>
-    <script src="/dashboard/js/nice-select.min.js"></script>
-    <script src="/dashboard/js/pikaday.min.js"></script>
-    <script src="/dashboard/js/main.js"></script>
-
-    <!-- The Script File for this page-->
+    <!-- footer-->
     <?php
-    include_once site . "/dashboard/pages/overview/script.php";
+    include_once site . "/dashboard/modules/footer/footer.php";
     ?>
+    <!-- righ nav-->
+    <?php
+    include_once site . "/dashboard/modules/nav/right.nav.php";
+    ?>
+    </div>
+
+    <!-- chat nav-->
+    <?php
+    include_once site . "/dashboard/modules/nav/chat.nav.php";
+    ?>
+
+<!-- Vendor JS -->
+<script src="js/vendors.min.js"></script>
+	<script src="js/pages/chat-popup.js"></script>
+    <script src="assets/icons/feather-icons/feather.min.js"></script>
+	
+	<script src="assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
+	<script src="assets/vendor_components/jvectormap/lib2/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="assets/vendor_components/jvectormap/lib2/jquery-jvectormap-world-mill-en.js"></script>
+	
+	<!-- Master Admin App -->
+	<script src="js/template.js"></script>
+	<script src="js/pages/dashboard3.js"></script>
 </body>
 
 </html>
