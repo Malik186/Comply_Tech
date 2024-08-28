@@ -21,8 +21,14 @@ try {
         session_start();
     }
 
-    // Connect to the SQLite database
-    $db = new PDO('sqlite:/home/mdskenya/database/comply_tech/users.db');
+    // MySQL database connection details
+    $host = 'your_mysql_host'; // Usually 'localhost' or an IP address
+    $dbName = 'your_existing_database_name'; // The name of the database you manually created
+    $username = 'your_mysql_username'; // Your MySQL username
+    $password = 'your_mysql_password'; // Your MySQL password
+
+    // Connect to the MySQL database
+    $db = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Get the JSON input
@@ -32,32 +38,65 @@ try {
     // Log received data for debugging
     logError("Received data: " . print_r($data, true));
 
+    // Check if the data contains a password
     if (isset($data['password'])) {
         $password = $data['password'];
 
-        // Handle sign-in request
-        $identifier = isset($data['email']) ? $data['email'] : $data['phone'];
-        $field = isset($data['email']) ? 'email' : 'phone';
+        // Handle sign-up request
+        if (isset($data['email']) && isset($data['phone']) && isset($data['username'])) {
+            $email = $data['email'];
+            $phone = $data['phone'];
+            $username = $data['username'];
 
-        $stmt = $db->prepare("SELECT * FROM users WHERE $field = :identifier");
-        $stmt->bindParam(':identifier', $identifier);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Check if the user already exists
+            $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR phone = :phone");
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':phone', $phone);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password'])) {
-            // Start session and set session variables
-            $_SESSION['user'] = [
-                'email' => $user['email'],
-                'phone' => $user['phone'],
-                // Add any other user-related data you need to store in the session
-            ];
+            if ($user) {
+                echo json_encode(['status' => 'error', 'message' => 'Email or phone number already in use.']);
+            } else {
+                // Hash the password
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            // Debugging output
-            logError("Session started. Session variables: " . print_r($_SESSION, true));
+                // Insert the new user into the database
+                $stmt = $db->prepare("INSERT INTO users (username, email, phone, password) VALUES (:username, :email, :phone, :password)");
+                $stmt->bindParam(':username', $username);
+                $stmt->bindParam(':email', $email);
+                $stmt->bindParam(':phone', $phone);
+                $stmt->bindParam(':password', $hashedPassword);
+                $stmt->execute();
 
-            echo json_encode(['status' => 'success', 'message' => 'Sign-in successful.']);
+                echo json_encode(['status' => 'success', 'message' => 'User registered successfully.']);
+            }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid credentials.']);
+            // Handle sign-in request
+            $identifier = isset($data['email']) ? $data['email'] : $data['phone'];
+            $field = isset($data['email']) ? 'email' : 'phone';
+
+            $stmt = $db->prepare("SELECT * FROM users WHERE $field = :identifier");
+            $stmt->bindParam(':identifier', $identifier);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($password, $user['password'])) {
+                // Start session and set session variables
+                $_SESSION['user'] = [
+                    'username' => $user['username'],
+                    'email' => $user['email'],
+                    'phone' => $user['phone'],
+                    // Add any other user-related data you need to store in the session
+                ];
+
+                // Debugging output
+                logError("Session started. Session variables: " . print_r($_SESSION, true));
+
+                echo json_encode(['status' => 'success', 'message' => 'Sign-in successful.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Invalid credentials.']);
+            }
         }
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Password is required.']);

@@ -1,161 +1,106 @@
-<div class="crancy-wc__form-inner">
-              <div class="crancy-wc__logo">
-                <a href="/"><img src="/dashboard/img/ST-logo.png" alt="#" /></a>
-              </div>
-              <div class="crancy-wc__form-inside">
-                <div class="crancy-wc__form-middle">
-                  <div class="crancy-wc__form-top">
-                    <div class="crancy-wc__heading pd-btm-20">
-                      <h3
-                        class="crancy-wc__form-title crancy-wc__form-title__one m-0"
-                        id="header-form"
-                      >
-                        Create your account
-                      </h3>
+<div class="col-12">
+    <div class="row justify-content-center g-0">
+        <div class="col-lg-5 col-md-5 col-12">
+            <div class="bg-white rounded10 shadow-lg">
+                <!-- Content Title -->
+                <div class="content-top-agile p-20 pb-0">
+                    <h2 class="text-primary" id="form-title">Let's Get Started</h2>
+                    <p class="mb-0" id="form-subtitle">Sign in to continue to Comply Tech.</p>
+                </div>
+
+                <!-- Sign-In Form -->
+                <div class="p-40" id="sign-in" style="display: block;">
+                    <form action="index.html">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
+                                <input type="text" id="email-number" class="form-control ps-15 bg-transparent" placeholder="Email or Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-transparent"><i class="ti-lock"></i></span>
+                                <input type="password" id="password-signin" class="form-control ps-15 bg-transparent" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="basic_checkbox_1">
+                                    <label for="basic_checkbox_1">Remember Me</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="fog-pwd text-end">
+                                    <a href="javascript:void(0)" class="hover-warning"><i class="ion ion-locked"></i> Forgot pwd?</a><br>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" id="submit-sign-in" class="btn btn-danger mt-10">SIGN IN</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <p class="mt-15 mb-0">Don't have an account? <a href="javascript:void(0);" class="text-warning ms-5 toggle-form">Sign Up</a></p>
                     </div>
-                    <!-- Sign in Form -->
-                    <form class="crancy-wc__form-main">
+                </div>
+
+                <!-- Sign-Up Form -->
+                <div class="p-40" id="sign-up" style="display: none;">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
+                                <input type="text" id="name-signup" class="form-control ps-15 bg-transparent" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-transparent"><i class="ti-email"></i></span>
+                                <input type="email" id="email-signup" class="form-control ps-15 bg-transparent" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-transparent"><i class="ti-mobile"></i></span>
+                                <input type="password" id="number-signup" class="form-control ps-15 bg-transparent" placeholder="Phone Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-transparent"><i class="ti-lock"></i></span>
+                                <input type="password" id="password-signup" class="form-control ps-15 bg-transparent" placeholder="Password">
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-12">
-                            <!-- Form Group -->
-                            <div class="form-group">
-                                <div class="form-group__input">
-                                <input
-                                    class="crancy-wc__form-input"
-                                    type="text"
-                                    id="nameField"
-                                    name="Name"
-                                    placeholder="Your Name"
-                                />
+                                <div class="checkbox">
+                                    <input type="checkbox" id="basic_checkbox_2">
+                                    <label for="basic_checkbox_2">I agree to the <a href="#" class="text-warning"><b>Terms</b></a></label>
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-12">
-                            <!-- Form Group -->
-                            <div class="form-group">
-                                <div class="form-group__input">
-                                <input
-                                    class="crancy-wc__form-input"
-                                    type="email"
-                                    id="emailField"
-                                    name="Email"
-                                    placeholder="Your Email"
-                                />
-                                </div>
-                            </div>
-                            </div>
-                            <div class="col-12">
-                            <!-- Form Group -->
-                            <div class="form-group">
-                                <div class="form-group__input">
-                                <input
-                                    class="crancy-wc__form-input"
-                                    type="text"
-                                    name="Phone"
-                                    id="phoneField"
-                                    placeholder="Phone Number"
-                                />
-                                </div>
-                            </div>
-                            </div>
-                            <div class="col-12">
-                            <!-- Form Group -->
-                            <div class="form-group">
-                                <div class="form-group__input">
-                                <input
-                                    class="crancy-wc__form-input"
-                                    placeholder="Password"
-                                    id="passwordField"
-                                    type="password"
-                                    name="password"
-                                    maxlength="20"
-                                />
-                                <span class="crancy-wc__toggle">
-                                    <i class="fas fa-eye" id="toggle-icon"></i>
-                                </span>
-                                </div>
-                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-info margin-top-10" id="submit-sign-up">SIGN UP</button>
                             </div>
                         </div>
-
-                        <!-- Form Group -->
-                        <div class="form-group" id="termsGroup">
-                            <div class="crancy-wc__check-inline">
-                            <div class="crancy-wc__checkbox">
-                                <input
-                                class="crancy-wc__form-check"
-                                id="checkbox"
-                                name="checkbox"
-                                type="checkbox"
-                                />
-                                <label for="checkbox">
-                                By proceeding, you agree to the
-                                <a href="#">Terms and Conditions</a>
-                                </label>
-                            </div>
-                            </div>
-                        </div>
-                        <!-- Form Group -->
-                        <div class="form-group mg-top-30">
-                            <div class="crancy-wc__button">
-                            <button class="ntfmax-wc__btn" id="submitButton" type="submit">
-                                Sign Up with email
-                            </button>
-                            </div>
-                            <div class="crancy-wc__form-login--label">
-                            <span id="authToggleLabel">Or sign up with</span>
-                            </div>
-                            <div class="crancy-wc__button--group">
-                            <button class="ntfmax-wc__btn ntfmax-wc__btn--two" type="submit">
-                                <div class="ntfmax-wc__btn-icon">
-                                <img src="/dashboard/img/google-logo.png" />
-                                </div>
-                                Google
-                            </button>
-                            <button class="ntfmax-wc__btn ntfmax-wc__btn--two" type="submit">
-                                <div class="ntfmax-wc__btn-icon">
-                                <img src="/dashboard/img/apple-logo.png" />
-                                </div>
-                                Apple
-                            </button>
-                            </div>
-                        </div>
-                        <!-- Form Group -->
-                        <div class="form-group form-mg-top30">
-                            <div class="crancy-wc__bottom">
-                            <p class="crancy-wc__text">
-                                <span id="toggleText">Already have an account ?</span>
-                                <a href="javascript:void(0);" id="toggleLink">Sign in</a>
-                            </p>
-                            </div>
-                        </div>
-                        </form>
-
-                    <!-- End Sign in Form -->
-                  </div>
-                  <!-- Footer Top -->
-                  <div class="crancy-wc__footer--top">
-                    <div class="crancy-wc__footer">
-                      <ul class="crancy-wc__footer--list list-none">
-                        <li><a href="#">Terms & Condition</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Help</a></li>
-                      </ul>
-                      <div class="crancy-wc__footer--languages">
-                        <select class="crancy-wc__footer--language">
-                          <option data-display="English">English</option>
-                          <option value="2">English(UK)</option>
-                        </select>
-                      </div>
+                    </form>
+                    <div class="text-center">
+                        <p class="mt-15 mb-0">Already have an account?<a href="javascript:void(0);" class="text-danger ms-5 toggle-form"> Sign In</a></p>
                     </div>
-                    <p class="crancy-wc__footer--copyright">
-                      @ 2024 <a href="https://socialtransact.com">Social Transact.</a> All Right Reserved.
-                    </p>
-                  </div>
-                  <!-- End Footer Top -->
                 </div>
-              </div>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Social Sign-In/Sign-Up -->
+                <div class="text-center">
+                    <p class="mt-20 text-white" id="social-text">- Sign With -</p>
+                    <p class="gap-items-2 mb-20">
+                        <a class="btn btn-social-icon btn-round btn-facebook" href="#"><i class="fa fa-facebook"></i></a>
+                        <a class="btn btn-social-icon btn-round btn-twitter" href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a class="btn btn-social-icon btn-round btn-instagram" href="#"><i class="fa fa-instagram"></i></a>
+                    </p>
+                </div>
             <?php
             include_once site . "/dashboard/pages/welcome/content/sign_in_up_form/toggle.form.php";
             ?>

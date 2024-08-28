@@ -1,33 +1,25 @@
 <script>
-    document.getElementById('toggleLink').addEventListener('click', function() {
+    document.querySelectorAll('.toggle-form').forEach(function(element) {
+        element.addEventListener('click', function() {
+            const signInForm = document.getElementById('sign-in');
+            const signUpForm = document.getElementById('sign-up');
+            const formTitle = document.getElementById('form-title');
+            const formSubtitle = document.getElementById('form-subtitle');
+            const socialText = document.getElementById('social-text');
 
-    var headerform = document.getElementById('header-form');
-  var nameField = document.getElementById('nameField');
-  var phoneField = document.getElementById('phoneField');
-  var submitButton = document.getElementById('submitButton');
-  var authToggleLabel = document.getElementById('authToggleLabel');
-  var termsGroup = document.getElementById('termsGroup');
-  var toggleText = document.getElementById('toggleText');
-
-  // Toggle form elements visibility
-  if (nameField.style.display === 'none') {
-    nameField.style.display = '';
-    phoneField.style.display = '';
-    submitButton.innerText = 'Sign Up with email';
-    authToggleLabel.innerText = 'Or sign up with';
-    termsGroup.style.display = '';
-    headerform.innerText = 'Create your account';
-    toggleText.innerText = 'Already have an account ?';
-    this.innerText = 'Sign in';
-  } else {
-    nameField.style.display = 'none';
-    phoneField.style.display = 'none';
-    submitButton.innerText = 'Sign In with email';
-    authToggleLabel.innerText = 'Or sign in with';
-    termsGroup.style.display = 'none';
-    headerform.innerText = 'Sign In';
-    toggleText.innerText = 'Don\'t have an account ?';
-    this.innerText = 'Sign up';
-  }
-});
+            if (signInForm.style.display === 'block') {
+                signInForm.style.display = 'none';
+                signUpForm.style.display = 'block';
+                formTitle.textContent = 'Get started with Us';
+                formSubtitle.textContent = 'Register a new membership';
+                socialText.textContent = 'Sign Up With';
+            } else {
+                signInForm.style.display = 'block';
+                signUpForm.style.display = 'none';
+                formTitle.textContent = "Let's Get Started";
+                formSubtitle.textContent = 'Sign in to continue to Comply Tech.';
+                socialText.textContent = 'Sign With';
+            }
+        });
+    });
 </script>
