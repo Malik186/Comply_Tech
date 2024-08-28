@@ -2,14 +2,14 @@
 <!-- Meta tags  -->
 <!-- Meta Tags -->
 <meta charset="UTF-8">
-	<meta name="keywords" content="Social Transact, digital tipping platform, content creator's payments, social media payments, mobile money tips">
-	<meta name="description" content="Social Transact allows you to send money to social media content creators on TikTok, YouTube, Facebook, and Instagram as tips or for raising money for a cause.">
-    <meta property="og:site_name" content="Social Transact">
-    <meta property="og:url" content="https://socialtransact.co.ke">
+	<meta name="keywords" content="Comply Tech, digital tax calculator, Tax engine analyze, Online Tax calculation engine, Detailed tax summary">
+	<meta name="description" content="Comply Tech enables users to have a quick detailed calculation in managing their tax, it provides analytics for different tax rules based on input data">
+    <meta property="og:site_name" content="Comply Tech">
+    <meta property="og:url" content="https://complytech.mdskenya.co.ke">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Social Transact App - Send Money to Content Creators">
-    <meta property="og:description" content="Get started by using the Social Transact platform to send tips to your favourite content creators">
-	<meta property='og:image' content='/dashboard/img/Social Transact-logo.png'>
+    <meta property="og:title" content="Comply Tech - Smart Taxes Simple Solutions">
+    <meta property="og:description" content="Get started by using Comply Tech platform to analyze and get detailed calculation on your taxes">
+	<meta property='og:image' content='/dashboard/img/fav-icon/favicon-32x32.png'>
 	<!-- For IE -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<!-- For Responsive Device -->
@@ -23,7 +23,7 @@
 	<meta name="msapplication-TileColor" content="#028e71">
 	<meta name="theme-color" content="#ffffff">
     <!-- Favicon -->
-	<link rel="icon" type="image/png" sizes="56x56" href="/dashboard/img/fav-icon/favicon.ico">
+	<link rel="icon" type="image/png" sizes="56x56" href="">
 
 <title>
     <?PHP
