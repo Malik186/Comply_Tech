@@ -22,10 +22,10 @@ try {
     }
 
     // MySQL database connection details
-    $host = 'your_mysql_host'; // Usually 'localhost' or an IP address
-    $dbName = 'your_existing_database_name'; // The name of the database you manually created
-    $username = 'your_mysql_username'; // Your MySQL username
-    $password = 'your_mysql_password'; // Your MySQL password
+    $host = 'localhost'; // Usually 'localhost' or an IP address
+    $dbName = 'mdskenya_comply_tech'; // The name of the database you manually created
+    $username = 'mdskenya_malik186'; // Your MySQL username
+    $password = 'Malik@Ndoli186'; // Your MySQL password
 
     // Connect to the MySQL database
     $db = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8", $username, $password);
