@@ -19,8 +19,8 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="/dashboard/img/fav-icon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/dashboard/img/fav-icon/favicon-16x16.png">
 	<link rel="manifest" href="/dashboard/img/fav-icon/site.webmanifest">
-	<link rel="mask-icon" href="/dashboard/img/fav-icon/safari-pinned-tab.svg" color="#028e71">
-	<meta name="msapplication-TileColor" content="#028e71">
+	<link rel="mask-icon" href="/dashboard/img/fav-icon/safari-pinned-tab.svg" color="#fa2627">
+	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
     <!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="56x56" href="/dashboard/img/fav-icon/favicon.ico">
