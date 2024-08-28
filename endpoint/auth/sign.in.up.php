@@ -48,15 +48,22 @@ try {
             $phone = $data['phone'];
             $username = $data['username'];
 
-            // Check if the user already exists
-            $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR phone = :phone");
+            // Check if the email or phone number already exists
+            $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR phone = :phone OR username = :username");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':phone', $phone);
+            $stmt->bindParam(':username', $username);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
-                echo json_encode(['status' => 'error', 'message' => 'Email or phone number already in use.']);
+                if ($user['email'] === $email) {
+                    echo json_encode(['status' => 'error', 'message' => 'Email already in use.']);
+                } elseif ($user['phone'] === $phone) {
+                    echo json_encode(['status' => 'error', 'message' => 'Phone number already in use.']);
+                } elseif ($user['username'] === $username) {
+                    echo json_encode(['status' => 'error', 'message' => 'Username already in use.']);
+                }
             } else {
                 // Hash the password
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
