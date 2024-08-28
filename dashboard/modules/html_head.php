@@ -47,14 +47,9 @@ defined("site") or define("site", $_SERVER["DOCUMENT_ROOT"] . "/");
 
 
 ?>
-<!--  Stylesheet -->
-    <link rel="stylesheet" href="/dashboard/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/dashboard/css/slick.min.css" />
-    <link rel="stylesheet" href="/dashboard/css/font-awesome-all.min.css" />
-    <link rel="stylesheet" href="/dashboard/css/charts.min.css" />
-    <link rel="stylesheet" href="/dashboard/css/datatables.min.css" />
-    <link rel="stylesheet" href="/dashboard/css/fancy-box.min.css" />
-    <link rel="stylesheet" href="/dashboard/css/nice-select.min.css" />
-    <link rel="stylesheet" href="/dashboard/css/pikaday.min.css" />
-    <link rel="stylesheet" href="/dashboard/css/reset.css" />
-    <link rel="stylesheet" href="/dashboard/style.css" />
+<!-- Vendors Style-->
+<link rel="stylesheet" href="css/vendors_css.css">
+	  
+<!-- Style-->  
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/skin_color.css">	
