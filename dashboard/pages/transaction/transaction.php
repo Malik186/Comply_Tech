@@ -4,7 +4,7 @@
 // ----------> Define constants 
 defined("site") or define("site", $_SERVER['DOCUMENT_ROOT'] . "/");
 defined("page_title") or define("page_title", "Transaction");
-defined("site_title") or define("site_title", "Social Transact App");
+defined("site_title") or define("site_title", "Comply Tech");
 
 // ----------> display all errors 
 include_once site . "/error.php";
