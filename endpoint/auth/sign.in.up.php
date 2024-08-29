@@ -15,11 +15,36 @@ function logError($message) {
     error_log(date('[Y-m-d H:i:s] ') . $message . PHP_EOL, 3, 'error.log');
 }
 
+// Function to validate the request origin
+function validateOrigin() {
+    $allowedDomain = 'https://complytech.mdskenya.co.ke';
+    
+    // Check if the HTTP_REFERER header is set and matches the allowed domain
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        $referer = $_SERVER['HTTP_REFERER'];
+        if (strpos($referer, $allowedDomain) !== 0) {
+            // Log unauthorized access attempt
+            logError("Unauthorized access attempt from: " . $referer);
+            // Return an error response
+            echo json_encode(['status' => 'error', 'message' => 'Unauthorized domain.']);
+            exit;
+        }
+    } else {
+        // If the HTTP_REFERER is not set, reject the request
+        logError("Unauthorized access attempt with no referer.");
+        echo json_encode(['status' => 'error', 'message' => 'No referer. Unauthorized domain.']);
+        exit;
+    }
+}
+
 try {
     // Start the session
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+
+    // Validate the request origin
+    validateOrigin();
 
     // MySQL database connection details
     $host = 'localhost'; // Usually 'localhost' or an IP address
@@ -48,22 +73,26 @@ try {
             $phone = $data['phone'];
             $username = $data['username'];
 
-            // Check if the email or phone number already exists
-            $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR phone = :phone OR username = :username");
+            // Check if the username already exists
+            $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($existingUser) {
+                echo json_encode(['status' => 'error', 'message' => 'Username already in use.']);
+                exit;
+            }
+
+            // Check if the user already exists
+            $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR phone = :phone");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':phone', $phone);
-            $stmt->bindParam(':username', $username);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
-                if ($user['email'] === $email) {
-                    echo json_encode(['status' => 'error', 'message' => 'Email already in use.']);
-                } elseif ($user['phone'] === $phone) {
-                    echo json_encode(['status' => 'error', 'message' => 'Phone number already in use.']);
-                } elseif ($user['username'] === $username) {
-                    echo json_encode(['status' => 'error', 'message' => 'Username already in use.']);
-                }
+                echo json_encode(['status' => 'error', 'message' => 'Email or phone number already in use.']);
             } else {
                 // Hash the password
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
