@@ -1,4 +1,4 @@
-<?php
+<!--?php
 // File: session.php
 
 // Check if session is not already started
