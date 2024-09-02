@@ -1,6 +1,6 @@
 <head>
 <?php
-    include_once site . "/dashboard/pages/engine/content/modal_form/css/select.rule.css.php";
+    include_once site . "/dashboard/pages/admin/content/modal_form/css/select.rule.css.php";
     ?>
 </head>
 <div class="container">
@@ -81,7 +81,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="taxTypeForm" action="tax.php" method="POST">
+                                    <form id="taxTypeForm" action="update.rule.php" method="POST">
                                         <input type="hidden" name="country" value="${country}">
                                         <div class="form-group">
                                             <label for="taxTypeSelect">Tax Type</label>

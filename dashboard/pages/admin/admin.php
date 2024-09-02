@@ -45,7 +45,7 @@ include_once site . "/error.php";
     <div class="content-wrapper">
     <!-- Content-->
     <?php
-    include_once site . "/dashboard/pages/engine/content/content.php";
+    include_once site . "/dashboard/pages/admin/content/content.php";
     ?>
     </div>
 

@@ -3,7 +3,7 @@
 
 // ----------> Define constants 
 defined("site") or define("site", $_SERVER['DOCUMENT_ROOT'] . "/");
-defined("page_title") or define("page_title", "Dashboard");
+defined("page_title") or define("page_title", "Kenya");
 defined("site_title") or define("site_title", "Comply Tech");
 
 // ----------> display all errors 
@@ -45,7 +45,7 @@ include_once site . "/error.php";
     <div class="content-wrapper">
     <!-- Content-->
     <?php
-    include_once site . "/dashboard/pages/engine/content/content.php";
+    include_once site . "/region/update/content/content.php";
     ?>
     </div>
 
