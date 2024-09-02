@@ -63,45 +63,86 @@ try {
     // Log received data for debugging
     logError("Received data: " . print_r($data, true));
 
-    // Validate the incoming data
-    if (
-        isset($data['tax_band'], $data['tax_rate'], $data['housing_levy'], 
-              $data['nssf_tier_1'], $data['nssf_tier_2'], $data['nhif_contribution'], $data['income_range'])
-    ) {
-        $tax_band = $data['tax_band'];
-        $tax_rate = $data['tax_rate'];
-        $housing_levy = $data['housing_levy'];
-        $nssf_tier_1 = $data['nssf_tier_1'];
-        $nssf_tier_2 = $data['nssf_tier_2'];
-        $nhif_contribution = $data['nhif_contribution'];
-        $income_range = $data['income_range'];
+    // Check if PAYE bands exist
+    if (isset($data['paye_bands']) && is_array($data['paye_bands'])) {
+        foreach ($data['paye_bands'] as $band) {
+            if (isset($band['band'], $band['rate'])) {
+                $tax_band = $band['band'];
+                $tax_rate = $band['rate'];
 
-        // Insert or update the data in the Kenya PAYE rules table
+                // Insert or update the PAYE band
+                $stmt = $db->prepare("INSERT INTO `Kenya PAYE rules` 
+                    (tax_band, tax_rate) 
+                    VALUES (:tax_band, :tax_rate)
+                    ON DUPLICATE KEY UPDATE 
+                    tax_rate = VALUES(tax_rate)");
+
+                $stmt->bindParam(':tax_band', $tax_band);
+                $stmt->bindParam(':tax_rate', $tax_rate);
+                
+                $stmt->execute();
+            }
+        }
+    }
+
+    // Check if housing levy exists
+    if (isset($data['housing_levy'])) {
+        $housing_levy = $data['housing_levy'];
+
+        // Insert or update the housing levy
         $stmt = $db->prepare("INSERT INTO `Kenya PAYE rules` 
-            (tax_band, tax_rate, housing_levy, nssf_tier_1, nssf_tier_2, nhif_contribution, income_range) 
-            VALUES (:tax_band, :tax_rate, :housing_levy, :nssf_tier_1, :nssf_tier_2, :nhif_contribution, :income_range)
+            (tax_band, housing_levy) 
+            VALUES ('Housing Levy', :housing_levy)
             ON DUPLICATE KEY UPDATE 
-            tax_rate = VALUES(tax_rate),
-            housing_levy = VALUES(housing_levy),
-            nssf_tier_1 = VALUES(nssf_tier_1),
-            nssf_tier_2 = VALUES(nssf_tier_2),
-            nhif_contribution = VALUES(nhif_contribution),
-            income_range = VALUES(income_range)");
-        
-        $stmt->bindParam(':tax_band', $tax_band);
-        $stmt->bindParam(':tax_rate', $tax_rate);
+            housing_levy = VALUES(housing_levy)");
+
         $stmt->bindParam(':housing_levy', $housing_levy);
-        $stmt->bindParam(':nssf_tier_1', $nssf_tier_1);
-        $stmt->bindParam(':nssf_tier_2', $nssf_tier_2);
-        $stmt->bindParam(':nhif_contribution', $nhif_contribution);
-        $stmt->bindParam(':income_range', $income_range);
         
         $stmt->execute();
-
-        echo json_encode(['status' => 'success', 'message' => 'PAYE rule added or updated successfully.']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid input. Please provide all required fields.']);
     }
+
+    // Check if NSSF contributions exist
+    if (isset($data['nssf']['tier_1'], $data['nssf']['tier_2'])) {
+        $nssf_tier_1 = $data['nssf']['tier_1'];
+        $nssf_tier_2 = $data['nssf']['tier_2'];
+
+        // Insert or update NSSF contributions
+        $stmt = $db->prepare("INSERT INTO `Kenya PAYE rules` 
+            (tax_band, nssf_tier_1, nssf_tier_2) 
+            VALUES ('NSSF', :nssf_tier_1, :nssf_tier_2)
+            ON DUPLICATE KEY UPDATE 
+            nssf_tier_1 = VALUES(nssf_tier_1),
+            nssf_tier_2 = VALUES(nssf_tier_2)");
+
+        $stmt->bindParam(':nssf_tier_1', $nssf_tier_1);
+        $stmt->bindParam(':nssf_tier_2', $nssf_tier_2);
+        
+        $stmt->execute();
+    }
+
+    // Check if NHIF rates exist
+    if (isset($data['nhif_rates']) && is_array($data['nhif_rates'])) {
+        foreach ($data['nhif_rates'] as $rate) {
+            if (isset($rate['income_range'], $rate['contribution'])) {
+                $income_range = $rate['income_range'];
+                $nhif_contribution = $rate['contribution'];
+
+                // Insert or update the NHIF contribution
+                $stmt = $db->prepare("INSERT INTO `Kenya PAYE rules` 
+                    (tax_band, income_range, nhif_contribution) 
+                    VALUES ('NHIF', :income_range, :nhif_contribution)
+                    ON DUPLICATE KEY UPDATE 
+                    nhif_contribution = VALUES(nhif_contribution)");
+
+                $stmt->bindParam(':income_range', $income_range);
+                $stmt->bindParam(':nhif_contribution', $nhif_contribution);
+                
+                $stmt->execute();
+            }
+        }
+    }
+
+    echo json_encode(['status' => 'success', 'message' => 'Tax rules updated successfully.']);
 } catch (PDOException $e) {
     logError("Database error: " . $e->getMessage());
     echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
