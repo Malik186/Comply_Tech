@@ -15,11 +15,11 @@ $(document).ready(function() {
         ];
 
         // Capture Housing Levy percentage
-        var housingLevy = $('#housing-levy').val();
+        var housingLevy = $('#housingLevyPercentage').val() || null;
 
         // Capture NSSF contributions
-        var nssfTierI = $('#nssf-tier-1').val();
-        var nssfTierII = $('#nssf-tier-2').val();
+        var nssfTierI = $('#nssfTierI').val() || null;
+        var nssfTierII = $('#nssfTierII').val() || null;
 
         // Capture NHIF contributions
         var nhifRates = [
@@ -52,6 +52,9 @@ $(document).ready(function() {
             },
             "nhif_rates": nhifRates
         };
+
+        // Log the data to the console
+        console.log("Captured Data:", data);
 
         // Send data via AJAX
         $.ajax({
