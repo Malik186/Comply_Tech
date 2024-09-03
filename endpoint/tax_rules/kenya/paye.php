@@ -63,19 +63,33 @@ try {
     // Log received data for debugging
     logError("Received data: " . print_r($data, true));
 
-    // Check if PAYE bands exist
+    // Validate input data
+    if (!isset($data['paye_bands']) || !is_array($data['paye_bands'])) {
+        throw new Exception('Invalid input: PAYE bands are missing.');
+    }
+    if (!isset($data['housing_levy'])) {
+        throw new Exception('Invalid input: Housing levy is missing.');
+    }
+    if (!isset($data['nssf']) || !isset($data['nssf']['tier_1']) || !isset($data['nssf']['tier_2'])) {
+        throw new Exception('Invalid input: NSSF data is missing.');
+    }
+    if (!isset($data['nhif_rates']) || !is_array($data['nhif_rates'])) {
+        throw new Exception('Invalid input: NHIF rates are missing.');
+    }
+
+    // Delete all existing entries in the kenya_paye_rules table
+    $db->exec("DELETE FROM `kenya_paye_rules`");
+
+    // Insert new PAYE bands
     if (isset($data['paye_bands']) && is_array($data['paye_bands'])) {
         foreach ($data['paye_bands'] as $band) {
             if (isset($band['band'], $band['rate'])) {
                 $tax_band = $band['band'];
                 $tax_rate = $band['rate'];
 
-                // Insert or update the PAYE band
-                $stmt = $db->prepare("INSERT INTO `Kenya PAYE rules` 
+                $stmt = $db->prepare("INSERT INTO `kenya_paye_rules` 
                     (tax_band, tax_rate) 
-                    VALUES (:tax_band, :tax_rate)
-                    ON DUPLICATE KEY UPDATE 
-                    tax_rate = VALUES(tax_rate)");
+                    VALUES (:tax_band, :tax_rate)");
 
                 $stmt->bindParam(':tax_band', $tax_band);
                 $stmt->bindParam(':tax_rate', $tax_rate);
@@ -85,34 +99,27 @@ try {
         }
     }
 
-    // Check if housing levy exists
+    // Insert new housing levy
     if (isset($data['housing_levy'])) {
         $housing_levy = $data['housing_levy'];
 
-        // Insert or update the housing levy
-        $stmt = $db->prepare("INSERT INTO `Kenya PAYE rules` 
+        $stmt = $db->prepare("INSERT INTO `kenya_paye_rules` 
             (tax_band, housing_levy) 
-            VALUES ('Housing Levy', :housing_levy)
-            ON DUPLICATE KEY UPDATE 
-            housing_levy = VALUES(housing_levy)");
+            VALUES ('Housing Levy', :housing_levy)");
 
         $stmt->bindParam(':housing_levy', $housing_levy);
         
         $stmt->execute();
     }
 
-    // Check if NSSF contributions exist
+    // Insert new NSSF contributions
     if (isset($data['nssf']['tier_1'], $data['nssf']['tier_2'])) {
         $nssf_tier_1 = $data['nssf']['tier_1'];
         $nssf_tier_2 = $data['nssf']['tier_2'];
 
-        // Insert or update NSSF contributions
-        $stmt = $db->prepare("INSERT INTO `Kenya PAYE rules` 
+        $stmt = $db->prepare("INSERT INTO `kenya_paye_rules` 
             (tax_band, nssf_tier_1, nssf_tier_2) 
-            VALUES ('NSSF', :nssf_tier_1, :nssf_tier_2)
-            ON DUPLICATE KEY UPDATE 
-            nssf_tier_1 = VALUES(nssf_tier_1),
-            nssf_tier_2 = VALUES(nssf_tier_2)");
+            VALUES ('NSSF', :nssf_tier_1, :nssf_tier_2)");
 
         $stmt->bindParam(':nssf_tier_1', $nssf_tier_1);
         $stmt->bindParam(':nssf_tier_2', $nssf_tier_2);
@@ -120,19 +127,16 @@ try {
         $stmt->execute();
     }
 
-    // Check if NHIF rates exist
+    // Insert new NHIF rates
     if (isset($data['nhif_rates']) && is_array($data['nhif_rates'])) {
         foreach ($data['nhif_rates'] as $rate) {
             if (isset($rate['income_range'], $rate['contribution'])) {
                 $income_range = $rate['income_range'];
                 $nhif_contribution = $rate['contribution'];
 
-                // Insert or update the NHIF contribution
-                $stmt = $db->prepare("INSERT INTO `Kenya PAYE rules` 
+                $stmt = $db->prepare("INSERT INTO `kenya_paye_rules` 
                     (tax_band, income_range, nhif_contribution) 
-                    VALUES ('NHIF', :income_range, :nhif_contribution)
-                    ON DUPLICATE KEY UPDATE 
-                    nhif_contribution = VALUES(nhif_contribution)");
+                    VALUES ('NHIF', :income_range, :nhif_contribution)");
 
                 $stmt->bindParam(':income_range', $income_range);
                 $stmt->bindParam(':nhif_contribution', $nhif_contribution);
