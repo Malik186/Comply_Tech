@@ -1,0 +1,17 @@
+{
+    "status": "success",
+    "data": {
+        "timestamp": "2024-09-04 12:49:49",
+        "gross_salary": 1200000.00,
+        "paye": 374500.20,
+        "housing_levy": 18000.00,
+        "nhif": 1800.00,
+        "nssf": 3600.00,
+        "mortgage_interest": 24000.00,
+        "insurance_premium": 12000.00,
+        "savings_deposit": 6000.00,
+        "deductions": 0.00,
+        "total_deductions": 428900.20,
+        "net_salary": 772099.80
+    }
+}
