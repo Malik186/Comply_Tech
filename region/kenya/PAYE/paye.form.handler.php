@@ -33,7 +33,7 @@
         console.log('Data sent to the endpoint:', data);  // Log the data being sent
     
         $.ajax({
-            url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/kenya.php',
+            url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/paye.php',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
