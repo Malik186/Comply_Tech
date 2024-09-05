@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $_SESSION['user']['username'];
         
         // Prepare SQL to insert data into kenya_paye_results table
-        $stmt = $pdo->prepare("
+                $stmt = $pdo->prepare("
             INSERT INTO kenya_paye_results (
                 Username, 
                 gross_salary, 
@@ -204,19 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 :total_deductions, 
                 :net_salary
             )
-            ON DUPLICATE KEY UPDATE
-                gross_salary = VALUES(gross_salary),
-                paye = VALUES(paye),
-                housing_levy = VALUES(housing_levy),
-                nhif = VALUES(nhif),
-                nssf = VALUES(nssf),
-                mortgage_interest = VALUES(mortgage_interest),
-                insurance_premium = VALUES(insurance_premium),
-                savings_deposit = VALUES(savings_deposit),
-                deductions = VALUES(deductions),
-                total_deductions = VALUES(total_deductions),
-                net_salary = VALUES(net_salary)
-        ");
+            ");
         
         // Bind parameters
         $stmt->bindParam(':Username', $user);
