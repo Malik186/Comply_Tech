@@ -105,17 +105,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 item_description, 
                 quantity, 
                 unit_price, 
+                vat,
+                total_vat,
                 payment_terms
             ) VALUES (
                 :Username, 
                 :Invoice, 
                 NOW(), 
-                :due_date, 
+                DATE_ADD(NOW(), INTERVAL 30 DAY), 
                 :customer_name, 
                 :customer_address, 
                 :item_description, 
                 :quantity, 
                 :unit_price, 
+                :vat,
+                :total_vat,
                 :payment_terms
             )
         ");
@@ -135,12 +139,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Bind parameters for each item
             $stmt->bindParam(':Username', $user);
             $stmt->bindParam(':Invoice', $invoiceNumber);
-            $stmt->bindParam(':due_date', $due_date);
             $stmt->bindParam(':customer_name', $customer_name);
             $stmt->bindParam(':customer_address', $customer_address);
             $stmt->bindParam(':item_description', $item_description);
             $stmt->bindParam(':quantity', $quantity);
             $stmt->bindParam(':unit_price', $unit_price);
+            $stmt->bindParam(':vat', $vat);
+            $stmt->bindParam(':total_vat', $total_vat);
             $stmt->bindParam(':payment_terms', $payment_terms);
 
             // Execute the query for each item
