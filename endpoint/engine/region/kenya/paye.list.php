@@ -32,19 +32,19 @@ try {
     }
     $username = $_SESSION['user']['username'];
 
-    // Prepare and execute the SQL query to fetch data
-    $stmt = $pdo->prepare("SELECT * FROM kenya_paye_results WHERE Username = :username ORDER BY timestamp DESC LIMIT 1");
+    // Prepare and execute the SQL query to fetch all records for the user
+    $stmt = $pdo->prepare("SELECT * FROM kenya_paye_results WHERE Username = :username ORDER BY timestamp DESC");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
 
-    // Fetch the result
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Fetch all results
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($result) {
-        // Prepare the response in the specified format
-        $response = [
-            'status' => 'success',
-            'data' => [
+    if ($results) {
+        // Prepare the response with all records
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = [
                 'timestamp' => $result['timestamp'],
                 'gross_salary' => (float)$result['gross_salary'],
                 'paye' => (float)$result['paye'],
@@ -57,7 +57,12 @@ try {
                 'deductions' => (float)$result['deductions'],
                 'total_deductions' => (float)$result['total_deductions'],
                 'net_salary' => (float)$result['net_salary']
-            ]
+            ];
+        }
+
+        $response = [
+            'status' => 'success',
+            'data' => $data
         ];
     } else {
         $response = ['status' => 'error', 'message' => 'No records found for the current user.'];
