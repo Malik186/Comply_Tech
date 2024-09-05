@@ -1,102 +1,94 @@
-<div class="box" id="kenya-vat-form" style="display: none;">
-    <div class="box-header with-border">
-        <h4 class="box-title">Kenya VAT Calculation Input</h4>
-    </div>
-    <div class="box-body wizard-content">
-        <form action="#" class="tab-wizard wizard-circle">
-            <!-- Step 1: Basic Information -->
-            <h6>Transaction Details</h6>
-            <section>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="transactionType" class="form-label">Transaction Type : <span class="text-danger">*</span></label>
-                            <select class="form-select" id="transactionType" required>
-                                <option value="">Select Type</option>
-                                <option value="sale">Sale</option>
-                                <option value="purchase">Purchase</option>
-                            </select>
+<div class="box" id="kenya-vat-form">
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Kenya VAT Calculation and Invoice Data Input</h4>
+        </div>
+        <div class="card-body">
+            <form id="VAT-INVOICE-CALC">
+                <!-- Customer Details -->
+                <div class="mb-4">
+                    <h5>Customer Details</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customerName" class="form-label">Customer Name: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="customerName" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="vatRate" class="form-label">VAT Rate : <span class="text-danger">*</span></label>
-                            <select class="form-select" id="vatRate" required>
-                                <option value="">Select Rate</option>
-                                <option value="16">16% (Standard Rate)</option>
-                                <option value="8">8% (Reduced Rate)</option>
-                                <option value="0">0% (Zero-Rated)</option>
-                                <option value="exempt">Exempt</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 2: Amount Details -->
-            <h6>Amount Details</h6>
-            <section>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="amountType" class="form-label">Amount Type : <span class="text-danger">*</span></label>
-                            <select class="form-select" id="amountType" required>
-                                <option value="">Select Type</option>
-                                <option value="exclusive">VAT Exclusive</option>
-                                <option value="inclusive">VAT Inclusive</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="amount" class="form-label">Amount (KES) : <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="amount" required step="0.01">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 3: Additional Information -->
-            <h6>Additional Information</h6>
-            <section>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="transactionDate" class="form-label">Transaction Date :</label>
-                            <input type="date" class="form-control" id="transactionDate">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="invoiceNumber" class="form-label">Invoice Number :</label>
-                            <input type="text" class="form-control" id="invoiceNumber">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="description" class="form-label">Description :</label>
-                            <textarea id="description" class="form-control" rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 4: Confirmation -->
-            <h6>Confirmation</h6>
-            <section>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <div class="c-inputs-stacked">
-                                <input type="checkbox" id="confirmAccuracy" required>
-                                <label for="confirmAccuracy" class="d-block">I confirm that the information provided is accurate and complete.</label>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customerAddress" class="form-label">Customer Address:</label>
+                                <input type="text" class="form-control" id="customerAddress">
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </form>
+
+                <!-- Item Details -->
+                <div class="mb-4">
+                    <h5>Item Details</h5>
+                    <div id="itemsContainer">
+                        <div class="item-entry mb-3">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="itemDescription0" class="form-label">Item Description: <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="itemDescription[]" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="quantity0" class="form-label">Quantity: <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="quantity[]" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="unitPrice0" class="form-label">Unit Price (Ksh): <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="unitPrice[]" required>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="button" class="btn btn-danger remove-item" style="display: none;">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="addItem" class="btn btn-secondary mt-2">Add Another Item</button>
+                </div>
+
+                <!-- Additional Invoice Details -->
+                <div class="mb-4">
+                    <h5>Additional Invoice Details</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="paymentTerms" class="form-label">Payment Terms:</label>
+                                <input type="text" class="form-control" id="paymentTerms">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="dueDate" class="form-label">Due Date:</label>
+                                <input type="date" class="form-control" id="dueDate">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Confirmation -->
+                <div class="mb-4">
+                    <h5>Confirmation</h5>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="confirmAccuracy" required>
+                        <label class="form-check-label" for="confirmAccuracy">I confirm that the information provided is accurate and complete.</label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-end">
+                    <button type="submit" id="calculate-vat" class="btn btn-primary">Calculate VAT and Prepare Invoice Data</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+</div>
+<?php
+    include_once site . "/region/kenya/VAT/vat.form.handler.php";
+    ?>
