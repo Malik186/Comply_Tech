@@ -59,7 +59,8 @@ function generateUniqueInvoiceNumber($pdo) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if (!isset($data['customer_name']) || !isset($data['item_description']) || !isset($data['unit_price']) || !isset($data['quantity'])) {
+    // Ensure required fields are present
+    if (!isset($data['customer_name'], $data['items']) || empty($data['items'])) {
         echo json_encode(['error' => 'Missing required fields']);
         exit;
     }
@@ -67,14 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Assigning received data to variables
     $customer_name = $data['customer_name'];
     $customer_address = $data['customer_address'] ?? 'No address provided';
-    $item_description = $data['item_description'];
-    $quantity = $data['quantity'];
-    $unit_price = $data['unit_price'];
     $payment_terms = $data['payment_terms'] ?? 'None';
+    $due_date = $data['due_date'] ?? date('Y-m-d', strtotime('+30 days'));
 
-    // Calculate VAT
-    $vat = calculateVAT($unit_price, $quantity);
-    
     // Database connection details
     $host = 'localhost';
     $dbName = 'mdskenya_comply_tech';
@@ -114,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 :Username, 
                 :Invoice, 
                 NOW(), 
-                DATE_ADD(NOW(), INTERVAL 30 DAY), 
+                :due_date, 
                 :customer_name, 
                 :customer_address, 
                 :item_description, 
@@ -124,18 +120,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             )
         ");
 
-        // Bind parameters
-        $stmt->bindParam(':Username', $user);
-        $stmt->bindParam(':Invoice', $invoiceNumber);
-        $stmt->bindParam(':customer_name', $customer_name);
-        $stmt->bindParam(':customer_address', $customer_address);
-        $stmt->bindParam(':item_description', $item_description);
-        $stmt->bindParam(':quantity', $quantity);
-        $stmt->bindParam(':unit_price', $unit_price);
-        $stmt->bindParam(':payment_terms', $payment_terms);
+        $total_vat = 0;
 
-        // Execute the query
-        $stmt->execute();
+        // Iterate over the items and insert each one into the database
+        foreach ($data['items'] as $item) {
+            $item_description = $item['item_description'];
+            $quantity = $item['quantity'];
+            $unit_price = $item['unit_price'];
+
+            // Calculate VAT for each item
+            $vat = calculateVAT($unit_price, $quantity);
+            $total_vat += $vat;
+
+            // Bind parameters for each item
+            $stmt->bindParam(':Username', $user);
+            $stmt->bindParam(':Invoice', $invoiceNumber);
+            $stmt->bindParam(':due_date', $due_date);
+            $stmt->bindParam(':customer_name', $customer_name);
+            $stmt->bindParam(':customer_address', $customer_address);
+            $stmt->bindParam(':item_description', $item_description);
+            $stmt->bindParam(':quantity', $quantity);
+            $stmt->bindParam(':unit_price', $unit_price);
+            $stmt->bindParam(':payment_terms', $payment_terms);
+
+            // Execute the query for each item
+            $stmt->execute();
+        }
 
         // Return response with calculated VAT and invoice details
         $response = [
@@ -143,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'message' => 'Data inserted successfully',
             'invoice_number' => $invoiceNumber,
             'customer_name' => $customer_name,
-            'vat' => $vat
+            'total_vat' => $total_vat
         ];
 
         echo json_encode($response);
