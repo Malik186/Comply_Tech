@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':allowances', $data['allowances']);
         $stmt->bindParam(':payment_method', $data['payment_method']);
         $stmt->bindParam(':bank_name', $data['bank_name']);
-        $stmt->bindParam(':account_no', $data['account_no']);
+        $stmt->bindParam(':account_no', $data['account_number']);
         
         // Execute the statement
         $stmt->execute();
