@@ -47,10 +47,10 @@ try {
             'data' => [
                 'timestamp' => $result['timestamp'],
                 'gross_salary' => (float)$result['gross_salary'],
-                'employee_name' => (float)$result['employee_name'],
+                'employee_name' => $result['employee_name'],
                 'id_number' => (float)$result['id_number'],
                 'employee_no' => (float)$result['employee_no'],
-                'job_title' => (float)$result['job_title'],
+                'job_title' => $result['job_title'],
                 'paye' => (float)$result['paye'],
                 'housing_levy' => (float)$result['housing_levy'],
                 'nhif' => (float)$result['nhif'],
@@ -62,8 +62,8 @@ try {
                 'total_deductions' => (float)$result['total_deductions'],
                 'net_salary' => (float)$result['net_salary'],
                 'allowances' => (float)$result['allowances'],
-                'payment_method' => (float)$result['payment_method'],
-                'bank_name' => (float)$result['bank_name'],
+                'payment_method' => $result['payment_method'],
+                'bank_name' => $result['bank_name'],
                 'account_no' => (float)$result['account_no']
             ]
         ];
