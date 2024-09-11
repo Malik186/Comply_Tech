@@ -39,28 +39,27 @@ function validateOrigin() {
 function calculateImportDuty($typeOfGoods, $cif) {
     switch ($typeOfGoods) {
         case 'Capital Goods and Raw Materials':
-            return 0;
+            return 0;  // 0% duty
         case 'Intermediate Goods':
-            return $cif * 0.10;
+            return $cif * 0.10; // 10% duty
         case 'Finished Goods':
-            return $cif * 0.25;
-        case 'Sensitive Items':
-            return $cif * 0.25; // Assuming same rate as Finished Goods for Sensitive Items
+            return $cif * 0.25; // 25% duty
         default:
             return 0;
     }
 }
 
-// Function to calculate VAT
+// Function to calculate VAT (16% of Dutiable Value)
 function calculateVAT($dutiableValue, $vatRate = 0.16) {
     return $dutiableValue * $vatRate;
 }
 
-// Function to calculate IDF and RDL
+// Function to calculate IDF (3.5% of CIF)
 function calculateIDF($cif, $idfRate = 0.035) {
     return $cif * $idfRate;
 }
 
+// Function to calculate RDL (2% of CIF)
 function calculateRDL($cif, $rdlRate = 0.02) {
     return $cif * $rdlRate;
 }
@@ -69,36 +68,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
     // Ensure required fields are present
-    if (!isset($data['name'], $data['nameOfGoods'], $data['typeOfGoods'], $data['cif'], $data['cost'], $data['insurance'], $data['freight']) || empty($data['typeOfGoods'])) {
+    if (!isset($data['nameOfGoods'], $data['typeOfGoods'], $data['cif']) || empty($data['typeOfGoods'])) {
         echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
         exit;
     }
 
-    // Assigning received data to variables
+    // Extracting data from the request
     $username = $_SESSION['user']['username'];
-    $name = $data['name'];
     $nameOfGoods = $data['nameOfGoods'];
     $typeOfGoods = $data['typeOfGoods'];
+    
+    // Extract CIF details
     $cif = $data['cif'];
-    $cost = $data['cost'];
-    $insurance = $data['insurance'];
-    $freight = $data['freight'];
-    
-    // Calculate Import Duty
-    $importDuty = calculateImportDuty($typeOfGoods, $cif);
-    
-    // Calculate Dutiable Value
-    $dutiableValue = $cif + $importDuty;
+    $cost = $cif['cost'] ?? 0;       // Assign 0 if not set
+    $insurance = $cif['insurance'] ?? 0;
+    $freight = $cif['freight'] ?? 0;
 
-    // Calculate VAT
+    // Calculate the total CIF
+    $totalCIF = $cost + $insurance + $freight;
+
+    // Calculate Import Duty
+    $importDuty = calculateImportDuty($typeOfGoods, $totalCIF);
+    
+    // Calculate Dutiable Value (CIF + Import Duty)
+    $dutiableValue = $totalCIF + $importDuty;
+
+    // Calculate VAT on the Dutiable Value
     $vat = calculateVAT($dutiableValue);
 
-    // Calculate IDF and RDL
-    $idf = calculateIDF($cif);
-    $rdl = calculateRDL($cif);
+    // Calculate IDF and RDL based on CIF
+    $idf = calculateIDF($totalCIF);
+    $rdl = calculateRDL($totalCIF);
 
-    // Total Customs Duty
-    $customDuty = $importDuty + $vat + $idf + $rdl;
+    // Total Customs Duty (Import Duty + VAT + IDF + RDL)
+    $totalCustomDuty = $importDuty + $vat + $idf + $rdl;
 
     // Database connection details
     $host = 'localhost';
@@ -115,37 +118,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("
             INSERT INTO kenya_custom_results (
                 username, 
-                name, 
                 nameOfGoods, 
                 typeOfGoods, 
                 cif, 
                 cost, 
                 insurance, 
                 freight, 
-                customDuty
+                Custom_Duty
             ) VALUES (
-                :username, 
-                :name, 
+               :username, 
                 :nameOfGoods, 
                 :typeOfGoods, 
                 :cif, 
                 :cost, 
                 :insurance, 
                 :freight, 
-                :customDuty
+                :Custom_Duty
             )
         ");
 
         // Bind parameters
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':name', $name);
+         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':nameOfGoods', $nameOfGoods);
         $stmt->bindParam(':typeOfGoods', $typeOfGoods);
-        $stmt->bindParam(':cif', $cif);
+        $stmt->bindParam(':cif', $totalCIF);
         $stmt->bindParam(':cost', $cost);
         $stmt->bindParam(':insurance', $insurance);
         $stmt->bindParam(':freight', $freight);
-        $stmt->bindParam(':customDuty', $customDuty);
+        $stmt->bindParam(':Custom_Duty', $totalCustomDuty);
 
         // Execute the query
         $stmt->execute();
@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = [
             'status' => 'success',
             'message' => 'Custom Duty calculated and data inserted successfully',
-            'custom_duty' => $customDuty
+            'custom_duty' => $totalCustomDuty
         ];
 
         echo json_encode($response);
