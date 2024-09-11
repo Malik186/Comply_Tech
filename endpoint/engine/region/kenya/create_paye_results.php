@@ -1,5 +1,5 @@
 <?php
-// File: create_vat_results_table.php
+// File: create_payroll_results_table.php
 
 $host = 'localhost'; // Usually 'localhost' or an IP address
 $dbName = 'mdskenya_comply_tech'; // The name of the database
@@ -13,22 +13,30 @@ try {
     // Set error mode to exceptions
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create the kenya_vat_results table
-    $pdo->exec("CREATE TABLE IF NOT EXISTS kenya_vat_results (
+    // Create the kenya_payroll_results table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS kenya_payroll_results (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        Username VARCHAR(255) NOT NULL,
-        Invoice VARCHAR(255) NOT NULL,
-        date_generated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        due_date DATE NOT NULL,
-        customer_name VARCHAR(255) NOT NULL,
-        customer_address VARCHAR(255) NOT NULL,
-        item_description TEXT NOT NULL,
-        quantity INT NOT NULL,
-        unit_price DECIMAL(10, 2) NOT NULL,
-        payment_terms VARCHAR(255) NOT NULL
+        username VARCHAR(255) NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        gross_salary DECIMAL(10, 2) NOT NULL,
+        employee_name VARCHAR(255) NOT NULL,
+        id_number VARCHAR(20) NOT NULL,
+        employee_no VARCHAR(50) NOT NULL,
+        job_title VARCHAR(255) NOT NULL,
+        allowances DECIMAL(10, 2) DEFAULT 0,
+        paye DECIMAL(10, 2) NOT NULL,
+        housing_levy DECIMAL(10, 2) DEFAULT 0,
+        nhif DECIMAL(10, 2) NOT NULL,
+        nssf DECIMAL(10, 2) NOT NULL,
+        mortgage_interest DECIMAL(10, 2) DEFAULT 0,
+        insurance_premium DECIMAL(10, 2) DEFAULT 0,
+        savings_deposit DECIMAL(10, 2) DEFAULT 0,
+        deductions DECIMAL(10, 2) DEFAULT 0,
+        total_deductions DECIMAL(10, 2) NOT NULL,
+        net_salary DECIMAL(10, 2) NOT NULL
     )");
 
-    echo "Kenya VAT results table created successfully in the '$dbName' database.";
+    echo "Kenya Payroll Results table created successfully in the '$dbName' database.";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
