@@ -1,5 +1,5 @@
 <?php
-// File: create_payroll_results_table.php
+// File: create_kenya_custom_results_table.php
 
 $host = 'localhost'; // Usually 'localhost' or an IP address
 $dbName = 'mdskenya_comply_tech'; // The name of the database
@@ -13,33 +13,22 @@ try {
     // Set error mode to exceptions
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create the kenya_payroll_results table
-    $pdo->exec("CREATE TABLE IF NOT EXISTS kenya_payroll_results (
+    // Create the kenya_custom_results table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS kenya_custom_results (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(255) NOT NULL,
         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        gross_salary DECIMAL(10, 2) NOT NULL,
-        employee_name VARCHAR(255) NOT NULL,
-        id_number VARCHAR(20) NOT NULL,
-        employee_no VARCHAR(50) NOT NULL,
-        job_title VARCHAR(255) NOT NULL,
-        allowances DECIMAL(10, 2) DEFAULT 0,
-        paye DECIMAL(10, 2) NOT NULL,
-        housing_levy DECIMAL(10, 2) DEFAULT 0,
-        nhif DECIMAL(10, 2) NOT NULL,
-        nssf DECIMAL(10, 2) NOT NULL,
-        mortgage_interest DECIMAL(10, 2) DEFAULT 0,
-        insurance_premium DECIMAL(10, 2) DEFAULT 0,
-        savings_deposit DECIMAL(10, 2) DEFAULT 0,
-        deductions DECIMAL(10, 2) DEFAULT 0,
-        payment_method VARCHAR(255) NOT NULL,
-        bank_name VARCHAR(255) NOT NULL,
-        account_no VARCHAR(50) NOT NULL,
-        total_deductions DECIMAL(10, 2) NOT NULL,
-        net_salary DECIMAL(10, 2) NOT NULL
+        name VARCHAR(255) NOT NULL,
+        nameOfGoods VARCHAR(255) NOT NULL,
+        typeOfGoods ENUM('Capital Goods and Raw Materials', 'Intermediate Goods', 'Finished Goods', 'Sensitive Items') NOT NULL,
+        cif DECIMAL(10, 2) DEFAULT 0,
+        cost DECIMAL(10, 2) NOT NULL,
+        insurance DECIMAL(10, 2) NOT NULL,
+        freight DECIMAL(10, 2) NOT NULL,
+        Custom_Duty DECIMAL(10, 2) NOT NULL
     )");
 
-    echo "Kenya Payroll Results table created successfully in the '$dbName' database.";
+    echo "Kenya Custom Results table created successfully in the '$dbName' database.";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
