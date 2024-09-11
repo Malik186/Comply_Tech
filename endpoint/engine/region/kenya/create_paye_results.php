@@ -32,6 +32,9 @@ try {
         insurance_premium DECIMAL(10, 2) DEFAULT 0,
         savings_deposit DECIMAL(10, 2) DEFAULT 0,
         deductions DECIMAL(10, 2) DEFAULT 0,
+        payment_method VARCHAR(255) NOT NULL,
+        bank_name VARCHAR(255) NOT NULL,
+        account_no VARCHAR(50) NOT NULL,
         total_deductions DECIMAL(10, 2) NOT NULL,
         net_salary DECIMAL(10, 2) NOT NULL
     )");
