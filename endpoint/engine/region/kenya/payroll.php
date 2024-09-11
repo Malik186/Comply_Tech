@@ -115,6 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Before calculations, add allowances to gross_salary if provided
+        $gross_salary = $data['gross_salary'];
         $allowances = isset($data['allowances']) ? $data['allowances'] : 0;
         $gross_salary_with_allowances = $gross_salary + $allowances;
 
