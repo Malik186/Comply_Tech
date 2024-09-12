@@ -14,6 +14,7 @@ document.getElementById('submit-custom-tax').addEventListener('click', function(
         }
     };
 
+    
     // Log the data to the console
     console.log('Data being sent:', data);
 
