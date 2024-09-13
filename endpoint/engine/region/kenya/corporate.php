@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $user = $_SESSION['user']['username'];
         
-        // Prepare SQL to insert data into kenya_payroll_results table
+        // Prepare SQL to insert data into kenya_corporate_results table
         $stmt = $pdo->prepare("
             INSERT INTO kenya_corporate_results (
                 Username, 
