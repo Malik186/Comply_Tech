@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':yearlyProfit', $yearlyProfit);
         $stmt->bindParam(':specialRatesType', $specialRatesType);
         $stmt->bindParam(':corporate_tax', $corporateTax);
-        $stmt->bindparam(param: ':net_profit', var: $netprofit);
+        $stmt->bindParam(':net_profit', $netprofit);
         
         // Execute the statement
         $stmt->execute();
