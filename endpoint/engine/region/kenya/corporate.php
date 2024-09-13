@@ -134,7 +134,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Call the function to calculate the tax
     $result = calculateCorporateTax($typeOfCompany, $yearsOfOperation, $yearlyProfit, $specialRatesType);
 
-    // net profit
+    // Extract the corporateTax value from the result array
+    $corporateTax = $result['corporateTax'];
+
+    // Calculate net profit
     $netprofit = $yearlyProfit - $corporateTax;
 
     // Database connection details
@@ -194,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Execute the statement
         $stmt->execute();
         
-        echo json_encode($response);
+        echo json_encode(['status' => 'success']);
     } catch (PDOException $e) {
         logError($e->getMessage());
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
