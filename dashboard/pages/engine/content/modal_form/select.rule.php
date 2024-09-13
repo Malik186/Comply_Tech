@@ -57,7 +57,7 @@
 <script>
     $(document).ready(function() {
         const taxTypes = {
-            Kenya: ["PAYE", "VAT", "Payroll", "Custom", "Excise"],
+            Kenya: ["PAYE", "VAT", "Payroll", "Custom", "Excise", "Corporate"],
             Uganda: ["Income Tax", "VAT", "Excise", "Custom", "Property"],
             Tanzania: ["Income", "VAT", "Custom", "Excise"]
         };
