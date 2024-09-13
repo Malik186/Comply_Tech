@@ -23,8 +23,8 @@
           <div class="mb-4">
             <h5>Goods Information</h5>
             <div class="mb-3">
-              <label for="goodsType" class="form-label">Type of Goods: <span class="text-danger">*</span></label>
-              <select class="form-select" id="goodsType" required onchange="showAdditionalFields()">
+              <label for="productsType" class="form-label">Type of Products: <span class="text-danger">*</span></label>
+              <select class="form-select" id="productsType" required onchange="showAdditionalFields()">
                 <option value="" disabled selected>Select type of goods</option>
                 <option value="Alcoholic Beverages">Alcoholic Beverages</option>
                 <option value="Tobacco Products">Tobacco Products</option>
@@ -35,6 +35,16 @@
 
             <!-- Additional Fields for Goods -->
             <div id="additionalFields" class="row"></div>
+            <div class="mb-3">
+              <label for="goodsType" class="form-label">Type of Goods: <span class="text-danger">*</span></label>
+              <select class="form-select" id="goodsType" required>
+                <option value="" disabled selected>Select type of goods</option>
+                <option value="Capital Goods and Raw Materials">Capital Goods and Raw Materials</option>
+                <option value="Intermediate Goods">Intermediate Goods</option>
+                <option value="Finished Goods">Finished Goods</option>
+                <option value="Sensitive Items">Sensitive Items</option>
+              </select>
+            </div>
           </div>
 
           <!-- Description of Goods -->
@@ -95,10 +105,10 @@
 
 <script>
   function showAdditionalFields() {
-    const goodsType = document.getElementById('goodsType').value;
+    const productsType = document.getElementById('productsType').value;
     let additionalFields = '';
 
-    if (goodsType === 'Alcoholic Beverages') {
+    if (productsType === 'Alcoholic Beverages') {
       additionalFields = `
         <div class="col-md-6 mb-3">
           <label for="alcoholType" class="form-label">Alcohol Type: <span class="text-danger">*</span></label>
@@ -119,7 +129,7 @@
           <input type="number" class="form-control" id="alcoholQuantity" required>
         </div>
       `;
-    } else if (goodsType === 'Tobacco Products') {
+    } else if (productsType === 'Tobacco Products') {
       additionalFields = `
         <div class="col-md-6 mb-3">
           <label for="tobaccoType" class="form-label">Tobacco Type: <span class="text-danger">*</span></label>
@@ -135,7 +145,7 @@
           <input type="number" class="form-control" id="tobaccoQuantity" required>
         </div>
       `;
-    } else if (goodsType === 'Petroleum Products') {
+    } else if (productsType === 'Petroleum Products') {
       additionalFields = `
         <div class="col-md-6 mb-3">
           <label for="petroleumType" class="form-label">Petroleum Type: <span class="text-danger">*</span></label>
@@ -151,7 +161,7 @@
           <input type="number" class="form-control" id="petroleumQuantity" required>
         </div>
       `;
-    } else if (goodsType === 'Motor Vehicles') {
+    } else if (productsType === 'Motor Vehicles') {
       additionalFields = `
         <div class="col-md-6 mb-3">
           <label for="vehicleType" class="form-label">Vehicle Type: <span class="text-danger">*</span></label>
