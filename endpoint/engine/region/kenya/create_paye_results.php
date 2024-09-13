@@ -13,7 +13,7 @@ try {
     // Set error mode to exceptions
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create the kenya_excise_results table
+    // Create the kenya_corporate_results table
     $pdo->exec("CREATE TABLE IF NOT EXISTS kenya_corporate_results (
         id INT AUTO_INCREMENT PRIMARY KEY,
         Username VARCHAR(255) NOT NULL,
@@ -23,7 +23,7 @@ try {
         typeOfCompany ENUM('Resident Company', 'Non-Resident Company', 'Special Rates', 'Repatriated Income', 'Turnover Tax') NOT NULL,
         yearlyProfit DECIMAL(10, 2) NOT NULL,
         specialRatesType VARCHAR(255) NOT NULL,
-        corporate_tax DECIMAL(10, 2) NOT NULL
+        corporate_tax DECIMAL(10, 2) NOT NULL,
         net_profit DECIMAL(10, 2) NOT NULL
     )");
 
