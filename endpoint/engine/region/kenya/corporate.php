@@ -1,6 +1,8 @@
 <?php
 // File: corporate.php
 
+session_start(); // Start the session to access session variables
+
 // Allow CORS from the front-end domain
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
@@ -150,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Connect to the MySQL database
         $pdo = new PDO("mysql:host=$host;dbname=$dbName", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
+
         // Check if the session username is set
         if (!isset($_SESSION['user']['username'])) {
             echo json_encode(['error' => 'No active session or user not logged in']);
@@ -163,7 +165,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("
             INSERT INTO kenya_corporate_results (
                 Username, 
-                timestamp,
                 companyName,
                 yearsOfOperation,
                 typeOfCompany,
@@ -172,8 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 corporate_tax,
                 net_profit
             ) VALUES (
-                :Username, 
-                :timestamp,
+                :Username,
                 :companyName,
                 :yearsOfOperation,
                 :typeOfCompany,
