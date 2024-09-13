@@ -22,7 +22,7 @@ try {
         yearsOfOperation DECIMAL(10, 2) NOT NULL,
         typeOfCompany ENUM('Resident Company', 'Non-Resident Company', 'Special Rates', 'Repatriated Income', 'Turnover Tax') NOT NULL,
         yearlyProfit DECIMAL(10, 2) NOT NULL,
-        specialRatesType VARCHAR(255) NOT NULL,
+        specialRatesType VARCHAR(255) DEFAULT NULL,
         corporate_tax DECIMAL(10, 2) NOT NULL,
         net_profit DECIMAL(10, 2) NOT NULL
     )");
