@@ -33,7 +33,7 @@ try {
     $username = $_SESSION['user']['username'];
 
     // Prepare and execute the SQL query to fetch all records for the user
-    $stmt = $pdo->prepare("SELECT * FROM kenya_custom_results WHERE Username = :username ORDER BY timestamp DESC");
+    $stmt = $pdo->prepare("SELECT * FROM kenya_corporate_results WHERE Username = :username ORDER BY timestamp DESC");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
 

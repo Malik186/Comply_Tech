@@ -33,7 +33,7 @@ try {
     $username = $_SESSION['user']['username'];
 
     // Prepare and execute the SQL query to fetch data
-    $stmt = $pdo->prepare("SELECT * FROM kenya_excise_results WHERE Username = :username ORDER BY timestamp DESC LIMIT 1");
+    $stmt = $pdo->prepare("SELECT * FROM kenya_corporate_results WHERE Username = :username ORDER BY timestamp DESC LIMIT 1");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
 
