@@ -14,34 +14,20 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Create the kenya_excise_results table
-    $pdo->exec("CREATE TABLE IF NOT EXISTS kenya_excise_results (
+    $pdo->exec("CREATE TABLE IF NOT EXISTS kenya_corporate_results (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(255) NOT NULL,
+        Username VARCHAR(255) NOT NULL,
         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        importerManufacturer VARCHAR(255) NOT NULL,
-        contactInfo VARCHAR(255) NOT NULL,
-        typeOfGoods ENUM('Alcoholic Beverages', 'Tobacco Products', 'Petroleum Products', 'Motor Vehicles') NOT NULL,
-        goodsDescription VARCHAR(255) NOT NULL,
-        cif_cost DECIMAL(10, 2) NOT NULL,
-        cif_insurance DECIMAL(10, 2) NOT NULL,
-        cif_freight DECIMAL(10, 2) NOT NULL,
-        Custom_Duty DECIMAL(10, 2) DEFAULT 0,
-        Excise_Duty DECIMAL(10, 2) DEFAULT 0,
-        VAT DECIMAL(10, 2) DEFAULT 0,
-        IDF DECIMAL(10, 2) DEFAULT 0,
-        RDL DECIMAL(10, 2) DEFAULT 0,
-        goodsOrigin ENUM('Locally Manufactured', 'Imported Goods') NOT NULL,
-        alcoholType VARCHAR(255) DEFAULT NULL,
-        alcoholQuantity DECIMAL(10, 2) DEFAULT NULL,
-        tobaccoType VARCHAR(255) DEFAULT NULL,
-        tobaccoQuantity DECIMAL(10, 2) DEFAULT NULL,
-        petroleumType VARCHAR(255) DEFAULT NULL,
-        petroleumQuantity DECIMAL(10, 2) DEFAULT NULL,
-        vehicleType VARCHAR(255) DEFAULT NULL,
-        vehicleQuantity DECIMAL(10, 2) DEFAULT NULL
+        companyName VARCHAR(255) NOT NULL,
+        yearsOfOperation DECIMAL(10, 2) NOT NULL,
+        typeOfCompany ENUM('Resident Company', 'Non-Resident Company', 'Special Rates', 'Repatriated Income', 'Turnover Tax') NOT NULL,
+        yearlyProfit DECIMAL(10, 2) NOT NULL,
+        specialRatesType VARCHAR(255) NOT NULL,
+        corporate_tax DECIMAL(10, 2) NOT NULL
+        net_profit DECIMAL(10, 2) NOT NULL
     )");
 
-    echo "Kenya Excise Results table created successfully in the '$dbName' database.";
+    echo "Kenya Corporate Results table created successfully in the '$dbName' database.";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
