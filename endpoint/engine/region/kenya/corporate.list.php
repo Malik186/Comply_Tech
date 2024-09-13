@@ -46,7 +46,7 @@ try {
         foreach ($results as $result) {
             $data[] = [
                'timestamp' => $result['timestamp'],
-                'companyname' => $result['companyname'],
+                'companyName' => $result['companyName'],
                 'yearsOfOperation' => $result['yearsOfOperation'],
                 'typeOfCompany' => $result['typeOfCompany'],
                 'yearlyProfit' => $result['yearlyProfit'],
