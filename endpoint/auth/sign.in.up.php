@@ -1,5 +1,12 @@
 <?php
 // File: sign.in.up.php
+// Import PHPMailer classes
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '/php_mailer/src/Exception.php';
+require '/php_mailer/src/PHPMailer.php';
+require '/php_mailer/src/SMTP.php';
 
 // Allow CORS from the front-end domain
 header("Access-Control-Allow-Origin: *");
@@ -106,6 +113,51 @@ try {
                 $stmt->execute();
 
                 echo json_encode(['status' => 'success', 'message' => 'User registered successfully.']);
+
+                function sendWelcomeEmail($toEmail, $toName) {
+                    $mail = new PHPMailer(true);
+                    try {
+                        //Server settings
+                        $mail->isSMTP();                                    // Send using SMTP
+                        $mail->Host       = 'complytech.mdskenya.co.ke';          // Set the SMTP server to send through (use your domain's SMTP)
+                        $mail->SMTPAuth   = true;                           // Enable SMTP authentication
+                        $mail->Username   = 'no-reply@complytech.mdskenya.co.ke'; // SMTP username
+                        $mail->Password   = 'Comply_Tech_186_1999';          // SMTP password
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption, `PHPMailer::ENCRYPTION_SMTPS` also accepted
+                        $mail->Port       = 587;                            // TCP port to connect to
+
+                        //Recipients
+                        $mail->setFrom('no-reply@complytech.mdskenya.co.ke', 'ComplyTech Admin');
+                        $mail->addAddress($toEmail, $toName);               // Add the recipient's email and name
+
+                        // Content
+                        $mail->isHTML(true);                                // Set email format to HTML
+                        $mail->Subject = 'Welcome to ComplyTech!';
+                        $mail->Body    = "
+                        <h1>Welcome to ComplyTech, $toName!</h1>
+                        <p>Thank you for signing up with us. We are thrilled to have you on board!</p>
+                        <p>You can now log in and start using your account.</p>
+                        <p>Best regards,<br>ComplyTech Team</p>";
+                        $mail->AltBody = "Welcome to ComplyTech, $toName! Thank you for signing up with us. We are thrilled to have you on board!";
+
+                        $mail->send();
+                        return true;
+                    } catch (Exception $e) {
+                        logError("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+                        return false;
+                    }
+                }
+
+                // After user registration
+                if ($stmt->execute()) {
+                    // Send a welcome email
+                    if (sendWelcomeEmail($email, $username)) {
+                        echo json_encode(['status' => 'success', 'message' => 'User registered successfully. Welcome email sent.']);
+                    } else {
+                        echo json_encode(['status' => 'success', 'message' => 'User registered successfully, but failed to send welcome email.']);
+                    }
+                }
+
             }
         } else {
             // Handle sign-in request
