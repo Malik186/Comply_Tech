@@ -260,7 +260,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $invoice = isset($data['invoice_calculated']) ? 1 : 0;
     
     // Insert data into tax_overview table
-    $username = $_SESSION['username'];  // Get username from session
-    insertTaxOverview($pdo, $username, "Kenya PAYE", $status, $activity, $payroll, $invoice, $report);
+    insertTaxOverview($pdo, $user, "Kenya PAYE", $status, $activity, $payroll, $invoice, $report);
 }
 ?>
