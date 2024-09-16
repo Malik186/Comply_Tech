@@ -82,7 +82,7 @@
 
                 <!-- Submit Button -->
                 <div class="text-end">
-                    <button type="submit" id="calculate-vat" class="btn btn-primary">Calculate VAT and Prepare Invoice Data</button>
+                    <button type="button" id="calculate-vat" class="btn btn-primary">Calculate VAT and Prepare Invoice Data</button>
                 </div>
             </form>
         </div>
