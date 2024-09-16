@@ -1,5 +1,5 @@
 <?php
-// File: create_kenya_excise_results_table.php
+// File: create_tax_results_table.php
 
 $host = 'localhost'; // Usually 'localhost' or an IP address
 $dbName = 'mdskenya_comply_tech'; // The name of the database
@@ -13,21 +13,20 @@ try {
     // Set error mode to exceptions
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create the kenya_corporate_results table
-    $pdo->exec("CREATE TABLE IF NOT EXISTS kenya_corporate_results (
+    // Create the tax_results table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS tax_overview (
         id INT AUTO_INCREMENT PRIMARY KEY,
         Username VARCHAR(255) NOT NULL,
         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        companyName VARCHAR(255) NOT NULL,
-        yearsOfOperation DECIMAL(10, 2) NOT NULL,
-        typeOfCompany ENUM('Resident Company', 'Non-Resident Company', 'Special Rates', 'Repatriated Income', 'Turnover Tax') NOT NULL,
-        yearlyProfit DECIMAL(10, 2) NOT NULL,
-        specialRatesType VARCHAR(255) DEFAULT NULL,
-        corporate_tax DECIMAL(10, 2) NOT NULL,
-        net_profit DECIMAL(10, 2) NOT NULL
+        Tax_Type VARCHAR(255) NOT NULL,
+        Status TINYINT(1) NOT NULL,      -- 1 or 0 for Status
+        Activity TINYINT(1) NOT NULL,    -- 1 or 0 for Activity
+        Report TINYINT(1) DEFAULT NULL,      -- 1 or 0 for Report
+        Payroll TINYINT(1) DEFAULT NULL,     -- 1 or 0 for Payroll
+        Invoice TINYINT(1) DEFAULT NULL      -- 1 or 0 for Invoice
     )");
 
-    echo "Kenya Corporate Results table created successfully in the '$dbName' database.";
+    echo "Tax Results table created successfully in the '$dbName' database.";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
