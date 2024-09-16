@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status = 0;  // Calculation failed
             $activity = 0;  // Activity failed
             $report = 0;    // Report not generated
-            logError("PAYE calculation failed: " . $e->getMessage());
+            logError("VAT calculation failed: " . $e->getMessage());
         }
         
         // Determine Payroll and Invoice fields based on input
