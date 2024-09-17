@@ -8,52 +8,6 @@ $(function () {
 
     'use strict';
       
-          var options = {
-            series: [{
-              name: "Expenses",
-              data: [30, 41, 20, 51, 80, 60]
-          }],
-            chart: {
-            height: 252,
-            type: 'area',
-                foreColor:"#bac0c7",
-            zoom: {
-              enabled: false
-            }
-          },
-          colors:['#EA5455'],
-          fill: {
-            type: 'gradient',
-            gradient: {
-              shadeIntensity: 1,
-              inverseColors: false,
-              opacityFrom: 0.5,
-              opacityTo: 0,
-              stops: [0, 90, 100]
-            },
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'smooth'
-          },
-          grid: {
-            row: {
-              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-              opacity: 0.5
-            },
-          },
-          xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-          }
-          };
-  
-          var chart = new ApexCharts(document.querySelector("#chart-main"), options);
-          chart.render();
-      
-      
-      
       
       var options = {
           series: [

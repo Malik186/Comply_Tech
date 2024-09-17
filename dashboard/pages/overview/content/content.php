@@ -13,7 +13,7 @@
 
     <!-- Expenses-->
     <?php
-    include_once site . "/dashboard/pages/overview/content/expenses/expenses.php";
+    include_once site . "/dashboard/pages/overview/content/activity/activity.php";
     ?>
 
     <!-- Booking-->
