@@ -76,7 +76,7 @@
         },
         error: function(error) {
             console.log("Error:", error);
-            // Display "No Recent Records Found"
+            // Display "No Recent Records Found" message in case of error
             var tableBody = $('.table tbody');
             tableBody.empty();
             var errorRow = `

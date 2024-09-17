@@ -7,18 +7,12 @@ $(document).ready(function() {
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-            if (response.status === "success") {
+            if (response.status === "success" && response.data && Array.isArray(response.data) && response.data.length > 0) {
                 var data = response.data;
-                
-                if (!Array.isArray(data) || data.length === 0) {
-                    return;
-                }
-
                 var activityByMonth = {};
                 
                 data.forEach(function(item) {
                     if (!item.timestamp || !item.Activity) {
-                        //console.warn("Invalid item:", item);
                         return;
                     }
 
@@ -34,69 +28,82 @@ $(document).ready(function() {
                     }
                 });
 
-
                 var months = Object.keys(activityByMonth);
                 var activities = Object.values(activityByMonth);
 
-                var options = {
-                    series: [{
-                        name: "Activity",
-                        data: activities
-                    }],
-                    chart: {
-                        height: 252,
-                        type: 'area',
-                        foreColor: "#bac0c7",
-                        zoom: {
+                if (months.length > 0 && activities.length > 0) {
+                    var options = {
+                        series: [{
+                            name: "Activity",
+                            data: activities
+                        }],
+                        chart: {
+                            height: 252,
+                            type: 'area',
+                            foreColor: "#bac0c7",
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        colors: ['#EA5455'],
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shadeIntensity: 1,
+                                inverseColors: false,
+                                opacityFrom: 0.5,
+                                opacityTo: 0,
+                                stops: [0, 90, 100]
+                            },
+                        },
+                        dataLabels: {
                             enabled: false
+                        },
+                        stroke: {
+                            curve: 'smooth'
+                        },
+                        grid: {
+                            row: {
+                                colors: ['#f3f3f3', 'transparent'],
+                                opacity: 0.5
+                            },
+                        },
+                        xaxis: {
+                            categories: months
                         }
-                    },
-                    colors: ['#EA5455'],
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            shadeIntensity: 1,
-                            inverseColors: false,
-                            opacityFrom: 0.5,
-                            opacityTo: 0,
-                            stops: [0, 90, 100]
-                        },
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    stroke: {
-                        curve: 'smooth'
-                    },
-                    grid: {
-                        row: {
-                            colors: ['#f3f3f3', 'transparent'],
-                            opacity: 0.5
-                        },
-                    },
-                    xaxis: {
-                        categories: months
+                    };
+
+                    var chartElement = document.querySelector("#activity");
+                    if (chartElement) {
+                        try {
+                            var chart = new ApexCharts(chartElement, options);
+                            chart.render();
+                        } catch (error) {
+                            console.error("Error rendering chart:", error);
+                            displayNoRecordsFound(chartElement);
+                        }
+                    } else {
+                        console.error("Chart element not found");
+                        displayNoRecordsFound(document.body);
                     }
-                };
-
-                var chartElement = document.querySelector("#activity");
-                if (!chartElement) {
-                    return;
-                }
-
-                try {
-                    var chart = new ApexCharts(chartElement, options);
-                    chart.render();
-                } catch (error) {
-                    
+                } else {
+                    displayNoRecordsFound(document.querySelector("#activity") || document.body);
                 }
             } else {
-                //console.error("Error in API response:", response);
+                console.error("Error in API response or no data:", response);
+                displayNoRecordsFound(document.querySelector("#activity") || document.body);
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            //console.error("AJAX request failed:", textStatus, errorThrown);
+            console.error("AJAX request failed:", textStatus, errorThrown);
+            displayNoRecordsFound(document.querySelector("#activity") || document.body);
         }
     });
+
+    function displayNoRecordsFound(element) {
+        if (element) {
+            element.innerHTML = '<div class="d-flex justify-content-center align-items-center" style="height: 252px;"><p class="text-muted">No Records Found</p></div>';
+        }
+    }
 });
 </script>
