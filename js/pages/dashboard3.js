@@ -212,37 +212,7 @@ $(function () {
           var chart = new ApexCharts(document.querySelector("#recent_trend"), options);
           chart.render();
       
-        
-          var options = {
-            series: [60, 30],
-              labels: ['Booked', 'Cancelled'],
-            chart: {
-            width: 202,
-            type: 'donut',
-          },
-          colors: ['#7367F0', '#EA5455'],
-          dataLabels: {
-            enabled: false
-          },
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                show: false
-              }
-            }
-          }],
-          legend: {
-            show: false
-          }
-          };
-  
-          var chart = new ApexCharts(document.querySelector("#analytics_chart"), options);
-          chart.render();
-      
+       
       
       
       
