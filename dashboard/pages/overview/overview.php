@@ -73,7 +73,7 @@ include_once site . "/error.php";
 	<script src="assets/vendor_components/jvectormap/lib2/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="assets/vendor_components/jvectormap/lib2/jquery-jvectormap-world-mill-en.js"></script>
 	
-	<!-- Master Admin App -->
+	<!-- Comply Tech App -->
 	<script src="js/template.js"></script>
 	<script src="js/pages/dashboard3.js"></script>
 </body>
