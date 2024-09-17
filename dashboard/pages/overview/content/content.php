@@ -16,16 +16,6 @@
     include_once site . "/dashboard/pages/overview/content/activity/activity.php";
     ?>
 
-    <!-- Booking-->
-    <?php
-    include_once site . "/dashboard/pages/overview/content/booking/booking.php";
-    ?>
-
-    <!-- Weather-earning-->
-    <?php
-    include_once site . "/dashboard/pages/overview/content/weather_earning/weather.earning.php";
-    ?>
-
     <!-- Location-->
     <?php
     include_once site . "/dashboard/pages/overview/content/location/location.php";
