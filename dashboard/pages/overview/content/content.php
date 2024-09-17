@@ -3,7 +3,7 @@
     <div class="row">
       <!-- sales stats-->
     <?php
-    include_once site . "/dashboard/pages/overview/content/sales_stats/sales.stats.php";
+    include_once site . "/dashboard/pages/overview/content/overview_info/overview.info.php";
     ?>
 
     <!-- Analytics-->
