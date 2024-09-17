@@ -18,7 +18,7 @@ $(document).ready(function() {
                 
                 data.forEach(function(item) {
                     if (!item.timestamp || !item.Activity) {
-                        console.warn("Invalid item:", item);
+                        //console.warn("Invalid item:", item);
                         return;
                     }
 
