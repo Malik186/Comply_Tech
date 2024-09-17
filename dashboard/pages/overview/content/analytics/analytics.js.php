@@ -27,13 +27,13 @@
                 var cancelledPercent = (cancelledCount / totalCount) * 100;
 
                 // Update percentages in HTML
-                $('#booked-percent').html('<span class="fs-12">Booked</span><br>' + bookedPercent.toFixed(2) + '%');
+                $('#booked-percent').html('<span class="fs-12">Success</span><br>' + bookedPercent.toFixed(2) + '%');
                 $('#cancelled-percent').html('<span class="fs-12">Cancelled</span><br>' + cancelledPercent.toFixed(2) + '%');
 
                 // Create the chart
                 var options = {
                     series: [bookedPercent, cancelledPercent],
-                    labels: ['Booked', 'Cancelled'],
+                    labels: ['Success', 'Cancelled'],
                     chart: {
                         width: 202,
                         type: 'donut',
@@ -58,7 +58,7 @@
                     }
                 };
 
-                var chart = new ApexCharts(document.querySelector("#analytics_chart"), options);
+                var chart = new ApexCharts(document.querySelector("#analytic_chart"), options);
                 chart.render();
             } else {
                 console.log("Error fetching data from the API");
