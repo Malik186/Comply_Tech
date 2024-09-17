@@ -18,7 +18,7 @@
                     <div class="info-box bg-transparent no-shadow px-0 min-h-80">
                         <span class="info-box-icon bg-success-light rounded-circle"><span class="icon-Ticket"></span></span>
                         <div class="info-box-content pb-0">
-                          <p class="mb-0 fs-16">Reports Generated</p>
+                          <p class="mb-0 fs-16">Reports</p>
                           <h2 class="my-0 fw-500 text-success" id="reports-generated">0</h2>
                         </div>
                      </div>
