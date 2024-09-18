@@ -23,7 +23,7 @@ if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
     // Redirect to dashboard.php if the user is logged in and on the welcome page
     if ($current_page === 'welcome.php') {
         error_log("User logged in. Redirecting to dashboard.php from welcome.php");
-        header("Location: /dashboard.php");
+        header("Location: /engine.php");
         exit();
     }
 }
