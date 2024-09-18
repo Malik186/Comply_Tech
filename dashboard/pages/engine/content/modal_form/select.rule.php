@@ -1,17 +1,19 @@
-<head>
-<?php
-    include_once site . "/dashboard/pages/engine/content/modal_form/css/select.rule.css.php";
-?>
-</head>
-<div class="container">
-    <div class="row centered-box">
-        <div class="col-12 col-lg-6">
-            <div class="box">
-                <div class="box-body text-center">
-                    <h4 class="box-title d-block">Power On</h4>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectRegionModal">
-                        Select Region
-                    </button>
+<div class="col-xl-6"> 
+    <div class="box">
+        <div class="box-body d-flex p-0">
+            <div class="flex-grow-1 p-30 flex-grow-1 bg-img" style="background-color: #211f33; background-position: left bottom; background-size: auto 80%;">
+                <div class="row">
+                    <div class="col-12 col-xl-7"></div>
+                    <div class="col-12 col-xl-5">
+                        <h4 class="text-warning fw-500">Get Instant Tax Insights</h4>
+
+                        <p class="text-white my-10 fs-16">
+                        Receive accurate estimations and comprehensive summaries tailored to your region.
+                        </p>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#selectRegionModal">
+                        Choose Your Region
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
