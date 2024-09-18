@@ -67,14 +67,12 @@ include_once site . "/error.php";
 <!-- Vendor JS -->
 <script src="js/vendors.min.js"></script>
 	<script src="js/pages/chat-popup.js"></script>
-    <script src="assets/icons/feather-icons/feather.min.js"></script>	<script src="assets/vendor_components/jquery-steps-master/build/jquery.steps.js"></script>
-    <script src="assets/vendor_components/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
-    <script src="assets/vendor_components/sweetalert/sweetalert.min.js"></script>
+    <script src="assets/icons/feather-icons/feather.min.js"></script>	<script src="/assets/vendor_components/jvectormap/lib2/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="assets/vendor_components/jvectormap/lib2/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="assets/vendor_components/jvectormap/lib2/jvectormap.custom.js"></script>
 	
 	<!-- Master Admin App -->
 	<script src="js/template.js"></script>
-	
-    <script src="js/pages/steps.js"></script>
 </body>
 
 </html>
