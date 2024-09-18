@@ -9,5 +9,5 @@
 		  </li>
 		</ul>
     </div>
-	  &copy; 2024 <a href="https://www.multipurposethemes.com/">Multipurpose Themes</a>. All Rights Reserved.
+	  &copy; 2024 ComplyTech. All Rights Reserved. Powered by<a href="https://www.mdskenya.co.ke"> MDS KENYA</a>
   </footer>
