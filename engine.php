@@ -11,7 +11,7 @@ error_log("Session data on page load (in dashboard.php): " . print_r($_SESSION, 
 
 // ----------> Define constants
 defined("site") or define("site", $_SERVER['DOCUMENT_ROOT'] . "/");
-defined("page_title") or define("page_title", "Engine");
+defined("page_title") or define("page_title", "Dashboard");
 defined("site_title") or define("site_title", "Comply Tech");
 
 // ----------> display all errors 

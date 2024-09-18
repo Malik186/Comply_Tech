@@ -4,11 +4,17 @@
 	  	<div class="multinav">
 		  <div class="multinav-scroll" style="height: 100%;">	
 			  <!-- sidebar menu-->
-			  <ul class="sidebar-menu" data-widget="tree">	
-				<li>
+			  <ul class="sidebar-menu" data-widget="tree">
+			  <li>
 				  <a href="/engine.php">
-					<i data-feather="power"></i>
-					<span>Engine</span>
+				  <img src="/dashboard/img/dashboard.svg" class="svg-icon" alt="">
+					<span>Dashboard</span>
+				  </a>
+				</li> 	
+				<li>
+				  <a href="/dashboard.php">
+				  <img src="/dashboard/img/chart.svg" class="svg-icon" alt="">
+					<span>Overview</span>
 				  </a>
 				</li> 				  						 	 	     
 			  </ul>

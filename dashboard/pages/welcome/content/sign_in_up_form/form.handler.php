@@ -69,7 +69,7 @@ $(document).ready(function() {
                     } else {
                         showPopup('Success', 'Sign-in successful. Redirecting to dashboard...');
                         setTimeout(function() {
-                            window.location.href = '/dashboard.php';
+                            window.location.href = '/engine.php';
                         }, 2000);  // Redirect to dashboard.php
                     }
                 } else {
