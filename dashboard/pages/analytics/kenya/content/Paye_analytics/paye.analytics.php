@@ -37,7 +37,7 @@
 				<div class="col-xl-4 col-lg-6 col-12">
 					<div class="d-flex align-items-center">
 						<div>
-							<div id="progressbar1" class="mx-auto w-100 my-10 position-relative"></div>
+							<div id="progress1" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
 						<div class="text-start">
 							<h5>NSSF</h5>
@@ -48,7 +48,7 @@
 				<div class="col-xl-4 col-lg-6 col-12">
 					<div class="d-flex align-items-center">
 						<div>
-							<div id="progressbar2" class="mx-auto w-100 my-10 position-relative"></div>
+							<div id="progress2" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
 						<div class="text-start">
 							<h5>NHIF</h5>
@@ -59,7 +59,7 @@
 				<div class="col-xl-4 col-lg-6 col-12">
 					<div class="d-flex align-items-center">
 						<div>
-							<div id="progressbar3" class="mx-auto w-100 my-10 position-relative"></div>
+							<div id="progress3" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
 						<div class="text-start">
 							<h5>PAYE</h5>
@@ -70,7 +70,7 @@
 				<div class="col-xl-4 col-lg-6 col-12">
 					<div class="d-flex align-items-center">
 						<div>
-							<div id="progressbar4" class="mx-auto w-100 my-10 position-relative"></div>
+							<div id="progress4" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
 						<div class="text-start">
 							<h5>Housing Levy</h5>
@@ -92,7 +92,7 @@
 				<div class="col-xl-4 col-lg-6 col-12">
 					<div class="d-flex align-items-center">
 						<div>
-							<div id="progressbar6" class="mx-auto w-100 my-10 position-relative"></div>
+							<div id="progress6" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
 						<div class="text-start">
 							<h5>Mortgage</h5>
