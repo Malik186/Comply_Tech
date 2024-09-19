@@ -33,10 +33,74 @@
 					</div>
 				</div>
 			</div>
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-			<?php
-    include_once site . "/dashboard/pages/analytics/kenya/content/Paye_analytics/progress.bar.php";
-    ?>
+			<div class="row mt-30">
+				<div class="col-xl-4 col-lg-6 col-12">
+					<div class="d-flex align-items-center">
+						<div>
+							<div id="progress1" class="mx-auto w-100 my-10 position-relative"></div>
+						</div>
+						<div class="text-start">
+							<h5>NSSF</h5>
+							<h3 class="fw-500">Ksh 85,254 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 3%</span></h3>
+						</div>
+					</div> 
+				</div>
+				<div class="col-xl-4 col-lg-6 col-12">
+					<div class="d-flex align-items-center">
+						<div>
+							<div id="progress2" class="mx-auto w-100 my-10 position-relative"></div>
+						</div>
+						<div class="text-start">
+							<h5>NHIF</h5>
+							<h3 class="fw-500">Ksh 48,254 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span></h3>
+						</div>
+					</div> 
+				</div>
+				<div class="col-xl-4 col-lg-6 col-12">
+					<div class="d-flex align-items-center">
+						<div>
+							<div id="progress3" class="mx-auto w-100 my-10 position-relative"></div>
+						</div>
+						<div class="text-start">
+							<h5>PAYE</h5>
+							<h3 class="fw-500">Ksh 11,254 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 2%</span></h3>
+						</div>
+					</div> 
+				</div>
+				<div class="col-xl-4 col-lg-6 col-12">
+					<div class="d-flex align-items-center">
+						<div>
+							<div id="progress4" class="mx-auto w-100 my-10 position-relative"></div>
+						</div>
+						<div class="text-start">
+							<h5>Housing Levy</h5>
+							<h3 class="fw-500">Ksh 254 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span></h3>
+						</div>
+					</div> 
+				</div>
+				<div class="col-xl-4 col-lg-6 col-12">
+					<div class="d-flex align-items-center">
+						<div>
+							<div id="progressbar5" class="mx-auto w-100 my-10 position-relative"></div>
+						</div>
+						<div class="text-start">
+							<h5>Insurance</h5>
+							<h3 class="fw-500">Ksh 454 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span></h3>
+						</div>
+					</div> 
+				</div>
+				<div class="col-xl-4 col-lg-6 col-12">
+					<div class="d-flex align-items-center">
+						<div>
+							<div id="progress6" class="mx-auto w-100 my-10 position-relative"></div>
+						</div>
+						<div class="text-start">
+							<h5>Mortgage</h5>
+							<h3 class="fw-500">Ksh 754 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 2%</span></h3>
+						</div>
+					</div> 
+				</div>
+			</div>
 		</div>
 	</div>	
 </div>
