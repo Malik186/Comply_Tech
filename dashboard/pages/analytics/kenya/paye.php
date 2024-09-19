@@ -74,6 +74,7 @@ include_once site . "/error.php";
 	
 	<!-- Comply Tech App -->
 	<script src="js/template.js"></script>
+	<script src="js/pages/dashboard2.js"></script>
 </body>
 
 </html>
