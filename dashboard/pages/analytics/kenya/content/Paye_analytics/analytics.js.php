@@ -16,8 +16,6 @@ $(document).ready(function() {
 
                 let total = data.nssf + data.nhif + data.paye + data.housing_levy + data.insurance_premium + data.mortgage_interest;
 
-                // Update the h3 elements
-                updateValues(data);
 
                 // Calculate progress and update progress bars
                 updateProgressBars(data, total);
@@ -27,6 +25,14 @@ $(document).ready(function() {
                 $(".gross-pay h2").text("Ksh " + formatK(data.gross_salary));
                 $(".deductions h2").text("Ksh " + formatK(data.total_deductions));
                 $(".savings h2").text("Ksh " + formatK(data.savings_deposit));
+
+                // Fill in the div section with relevant data
+                $(".nssf h3").text("Ksh " + (data.nssf));
+                $(".nhif h3").text("Ksh " + (data.nhif));
+                $(".paye h3").text("Ksh " + (data.paye));
+                $(".housing-levy h3").text("Ksh " + (data.housing_levy));
+                $(".insurance h3").text("Ksh " + (data.insurance_premium));
+                $(".mortgage h3").text("Ksh " + (data.mortgage_interest));
 
                 // Bar chart to compare deductions
                 createBarChart(data);
@@ -44,15 +50,6 @@ $(document).ready(function() {
         }
     });
 
-    // Update the h3 values dynamically
-    function updateValues(data) {
-        $('h3:contains("NSSF")').html(`Ksh ${data.nssf.toLocaleString()} <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 3%</span>`);
-        $('h3:contains("NHIF")').html(`Ksh ${data.nhif.toLocaleString()} <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span>`);
-        $('h3:contains("PAYE")').html(`Ksh ${data.paye.toLocaleString()} <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 2%</span>`);
-        $('h3:contains("Housing Levy")').html(`Ksh ${data.housing_levy.toLocaleString()} <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span>`);
-        $('h3:contains("Insurance")').html(`Ksh ${data.insurance_premium.toLocaleString()} <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span>`);
-        $('h3:contains("Mortgage")').html(`Ksh ${data.mortgage_interest.toLocaleString()} <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 2%</span>`);
-    }
 
     // Update the progress bars dynamically
     function updateProgressBars(data, total) {
@@ -110,7 +107,7 @@ $(document).ready(function() {
                     data.nssf,       // NSSF
                     data.nhif,       // NHIF
                     data.paye,       // PAYE
-                    data.total_deductions - (data.nssf + data.nhif + data.paye) // Other Deductions
+                    data.total_deductions // Other Deductions
                 ]
             }],
             chart: {
@@ -126,7 +123,7 @@ $(document).ready(function() {
                 }
             },
             dataLabels: {
-                enabled: true,
+                enabled: false,
                 formatter: function (val) {
                     return "Ksh " + formatK(val);
                 },

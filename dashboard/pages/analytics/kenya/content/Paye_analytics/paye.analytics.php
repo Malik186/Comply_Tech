@@ -1,7 +1,7 @@
 <div class="col-12">
 	<div class="box">
 		<div class="box-header no-border pb-0">
-			<h4 class="box-title">Spend Overview</h4>
+			<h4 class="box-title">Deductions Comparison</h4>
 		</div>
 		<div class="box-body">
 			<div class="row align-items-center">
@@ -39,7 +39,7 @@
 						<div>
 							<div id="progress1" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
-						<div class="text-start">
+						<div class="text-start nssf">
 							<h5>NSSF</h5>
 							<h3 class="fw-500">Ksh 85,254 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 3%</span></h3>
 						</div>
@@ -50,7 +50,7 @@
 						<div>
 							<div id="progress2" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
-						<div class="text-start">
+						<div class="text-start nhif">
 							<h5>NHIF</h5>
 							<h3 class="fw-500">Ksh 48,254 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span></h3>
 						</div>
@@ -61,7 +61,7 @@
 						<div>
 							<div id="progress3" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
-						<div class="text-start">
+						<div class="text-start paye">
 							<h5>PAYE</h5>
 							<h3 class="fw-500">Ksh 11,254 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 2%</span></h3>
 						</div>
@@ -72,7 +72,7 @@
 						<div>
 							<div id="progress4" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
-						<div class="text-start">
+						<div class="text-start housing-levy">
 							<h5>Housing Levy</h5>
 							<h3 class="fw-500">Ksh 254 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span></h3>
 						</div>
@@ -81,9 +81,9 @@
 				<div class="col-xl-4 col-lg-6 col-12">
 					<div class="d-flex align-items-center">
 						<div>
-							<div id="progressbar5" class="mx-auto w-100 my-10 position-relative"></div>
+							<div id="progress5" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
-						<div class="text-start">
+						<div class="text-start insurance">
 							<h5>Insurance</h5>
 							<h3 class="fw-500">Ksh 454 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 1%</span></h3>
 						</div>
@@ -94,7 +94,7 @@
 						<div>
 							<div id="progress6" class="mx-auto w-100 my-10 position-relative"></div>
 						</div>
-						<div class="text-start">
+						<div class="text-start mortgage">
 							<h5>Mortgage</h5>
 							<h3 class="fw-500">Ksh 754 <span class="fs-16 mx-10 text-fade"><i class="fa fa-arrow-up"></i> 2%</span></h3>
 						</div>
