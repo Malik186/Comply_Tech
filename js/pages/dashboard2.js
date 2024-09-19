@@ -8,7 +8,7 @@ $(function () {
 
     'use strict';
       
-          var bar = new ProgressBar.Circle(progressbar1, {
+          var bar = new ProgressBar.Circle(progress1, {
             color: '#3699ff',
             // This has to be the same size as the maximum width to
             // prevent clipping
@@ -40,7 +40,7 @@ $(function () {
           bar.animate(0.78);
       
       
-          var bar = new ProgressBar.Circle(progressbar2, {
+          var bar = new ProgressBar.Circle(progress2, {
             color: '#EA5455',
             // This has to be the same size as the maximum width to
             // prevent clipping
@@ -72,7 +72,7 @@ $(function () {
           bar.animate(0.5);
       
       
-          var bar = new ProgressBar.Circle(progressbar3, {
+          var bar = new ProgressBar.Circle(progress3, {
             color: '#FF9F43',
             // This has to be the same size as the maximum width to
             // prevent clipping
@@ -105,7 +105,7 @@ $(function () {
       
       
       
-          var bar = new ProgressBar.Circle(progressbar4, {
+          var bar = new ProgressBar.Circle(progress4, {
             color: '#28C76F',
             // This has to be the same size as the maximum width to
             // prevent clipping
@@ -138,7 +138,7 @@ $(function () {
       
       
       
-          var bar = new ProgressBar.Circle(progressbar5, {
+          var bar = new ProgressBar.Circle(progress5, {
             color: '#3699ff',
             // This has to be the same size as the maximum width to
             // prevent clipping
@@ -171,7 +171,7 @@ $(function () {
       
       
       
-          var bar = new ProgressBar.Circle(progressbar6, {
+          var bar = new ProgressBar.Circle(progress6, {
             color: '#7367F0',
             // This has to be the same size as the maximum width to
             // prevent clipping
