@@ -7,18 +7,8 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.status === 'success') {
-                            let formattedDateGenerated = '';
-                            // Format date generated outside the loop using the first item
-                            if (data.length > 0) {
-                                let dateGenerated = new Date(data[0].timestamp);
-                                formattedDateGenerated = dateGenerated.toLocaleDateString('en-GB', {
-                                    day: '2-digit',
-                                    month: 'long',
-                                    year: 'numeric'
-                                });
-                            }
                             const data = response.data;
-                            $('#timestamp').text(formattedDateGenerated);
+                            $('#timestamp').text(data.timestamp);
                             $('#employeeName').text(data.employee_name);
                             $('#idNumber').text(data.id_number);
                             $('#employeeNo').text(data.employee_no);
