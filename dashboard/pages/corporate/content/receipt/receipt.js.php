@@ -13,8 +13,6 @@
                     year: 'numeric'
                 }).replace(/\//g, '/');
             }
-
-            $('#fetchData').click(function() {
                 $.ajax({
                     url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/corporate.recent.php',
                     method: 'GET',
@@ -45,7 +43,6 @@
                         alert('An error occurred while fetching the data. Please try again.');
                     }
                 });
-            });
 
             $('#print').click(function() {
                 window.print();
