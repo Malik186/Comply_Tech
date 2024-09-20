@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
     // Ensure required fields are present
-    if (!isset($data['customer_name'], $data['items']) || empty($data['items'])) {
+    if (!isset($data['customer_name'], $data['customer_address'], $data['customer_email'], $data['customer_number'], $data['items']) || empty($data['items'])) {
         echo json_encode(['error' => 'Missing required fields']);
         exit;
     }
@@ -68,8 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Assigning received data to variables
     $customer_name = $data['customer_name'];
     $customer_address = $data['customer_address'] ?? 'No address provided';
+    $customer_email = $data['customer_email'];
+    $customer_number = $data['customer_number'];
     $payment_terms = $data['payment_terms'] ?? 'None';
     $due_date = $data['due_date'] ?? date('Y-m-d', strtotime('+30 days'));
+    $bank_name = $data['bank_name'];
+    $acc_no = $data['acc_no'];
 
     // Database connection details
     $host = 'localhost';
@@ -101,26 +105,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 date_generated, 
                 due_date, 
                 customer_name, 
-                customer_address, 
+                customer_address,
+                email_address,
+                phone_number, 
                 item_description, 
                 quantity, 
                 unit_price, 
                 vat,
                 total_vat,
-                payment_terms
+                payment_terms,
+                account_no,
+                bank
             ) VALUES (
                 :Username, 
                 :Invoice, 
                 NOW(), 
                 DATE_ADD(NOW(), INTERVAL 30 DAY), 
                 :customer_name, 
-                :customer_address, 
+                :customer_address,
+                :email_address,
+                :phone_number, 
                 :item_description, 
                 :quantity, 
                 :unit_price, 
                 :vat,
                 :total_vat,
-                :payment_terms
+                :payment_terms,
+                :account_no,
+                :bank
             )
         ");
 
@@ -141,12 +153,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':Invoice', $invoiceNumber);
             $stmt->bindParam(':customer_name', $customer_name);
             $stmt->bindParam(':customer_address', $customer_address);
+            $stmt->bindParam(':customer_email', $customer_email);
+            $stmt->bindParam(':customer_number', $customer_number);
             $stmt->bindParam(':item_description', $item_description);
             $stmt->bindParam(':quantity', $quantity);
             $stmt->bindParam(':unit_price', $unit_price);
             $stmt->bindParam(':vat', $vat);
             $stmt->bindParam(':total_vat', $total_vat);
             $stmt->bindParam(':payment_terms', $payment_terms);
+            $stmt->bindParam(':account_no', $acc_no);
+            $stmt->bindParam(':bank', $bank_name);
 
             // Execute the query for each item
             $stmt->execute();

@@ -18,8 +18,22 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="customerAddress" class="form-label">Customer Address:</label>
-                                <input type="text" class="form-control" id="customerAddress">
+                                <label for="customerAddress" class="form-label">Customer Address (Country, City, Street): <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="customerAddress" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customerName" class="form-label">Customer Email: <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="customerEmail" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customerAddress" class="form-label">Customer Phone: <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="customerNumber" required>
                             </div>
                         </div>
                     </div>
@@ -66,6 +80,20 @@
                             <div class="mb-3">
                                 <label for="dueDate" class="form-label">Due Date:</label>
                                 <input type="date" class="form-control" id="dueDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="paymentTerms" class="form-label">Bank Name (Incase you choose Bank in Payment terms)</label>
+                                <input type="text" class="form-control" id="bank_name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="dueDate" class="form-label">Account Number</label>
+                                <input type="number" class="form-control" id="acc_no">
                             </div>
                         </div>
                     </div>

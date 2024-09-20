@@ -62,9 +62,13 @@
             const data = {
                 customer_name: $('#customerName').val(),
                 customer_address: $('#customerAddress').val(),
+                customer_email: $('#customerEmail').val(),
+                customer_number: $('#customerNumber').val(),
                 items: items,
                 payment_terms: $('#paymentTerms').val(),
-                due_date: $('#dueDate').val()
+                due_date: $('#dueDate').val(),
+                bank_name: $('#bank_name').val(),
+                acc_no: $('#acc_no').val()
             };
         
             console.log('Data sent to the endpoint:', data);  // Log the data being sent
