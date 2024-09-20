@@ -153,8 +153,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':Invoice', $invoiceNumber);
             $stmt->bindParam(':customer_name', $customer_name);
             $stmt->bindParam(':customer_address', $customer_address);
-            $stmt->bindParam(':customer_email', $customer_email);
-            $stmt->bindParam(':customer_number', $customer_number);
+            $stmt->bindParam(':email_address', $customer_email);
+            $stmt->bindParam(':phone_number', $customer_number);
             $stmt->bindParam(':item_description', $item_description);
             $stmt->bindParam(':quantity', $quantity);
             $stmt->bindParam(':unit_price', $unit_price);

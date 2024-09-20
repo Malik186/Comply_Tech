@@ -32,34 +32,38 @@ try {
     }
     $username = $_SESSION['user']['username'];
 
-    // Prepare and execute the SQL query to fetch data from kenya_vat_results
-    $stmt = $pdo->prepare("SELECT * FROM kenya_vat_results WHERE Username = :username ORDER BY date_generated DESC LIMIT 1");
-    $stmt->bindParam(':username', $username);
-    $stmt->execute();
+    // Find the most recent invoice number for the user
+    $invoiceStmt = $pdo->prepare("SELECT Invoice FROM kenya_vat_results WHERE Username = :username ORDER BY date_generated DESC LIMIT 1");
+    $invoiceStmt->bindParam(':username', $username);
+    $invoiceStmt->execute();
+    $invoice = $invoiceStmt->fetchColumn();
 
-    // Fetch the result
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($invoice) {
+        // Prepare and execute the SQL query to fetch all products for the most recent invoice
+        $stmt = $pdo->prepare("SELECT * FROM kenya_vat_results WHERE Username = :username AND Invoice = :invoice ORDER BY date_generated DESC");
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':invoice', $invoice);
+        $stmt->execute();
 
-    if ($result) {
-        // Prepare the response in the specified format
-        $response = [
-            'status' => 'success',
-            'data' => [
-                'invoice' => $result['Invoice'],
-                'date_generated' => $result['date_generated'],
-                'due_date' => $result['due_date'],
-                'customer_name' => $result['customer_name'],
-                'customer_address' => $result['customer_address'],
-                'item_description' => $result['item_description'],
-                'quantity' => (int)$result['quantity'],
-                'unit_price' => (float)$result['unit_price'],
-                'vat' => (float)$result['vat'],
-                'total_vat' => (float)$result['total_vat'],
-                'payment_terms' => $result['payment_terms']
-            ]
-        ];
+        // Fetch all the results
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($results) {
+            // Prepare the response, excluding 'id' and 'Username' fields
+            $filteredResults = array_map(function($result) {
+                unset($result['id'], $result['Username']); // Remove 'id' and 'Username'
+                return $result;
+            }, $results);
+
+            $response = [
+                'status' => 'success',
+                'data' => $filteredResults
+            ];
+        } else {
+            $response = ['status' => 'error', 'message' => 'No VAT records found for the current user.'];
+        }
     } else {
-        $response = ['status' => 'error', 'message' => 'No VAT records found for the current user.'];
+        $response = ['status' => 'error', 'message' => 'No recent invoice found for the current user.'];
     }
 
     // Send the response as JSON
