@@ -63,6 +63,15 @@
 <div class="row">
     <div class="col-12 table-responsive">
         <table class="table table-bordered">
+		<thead>
+                <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th class="text-end">Quantity</th>
+                    <th class="text-end">Unit Cost</th>
+                    <th class="text-end">Subtotal</th>
+                </tr>
+            </thead>
             <tbody id="invoice-items">
                 <!-- Invoice items will be inserted here -->
             </tbody>
