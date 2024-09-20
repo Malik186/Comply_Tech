@@ -1,120 +1,90 @@
+<div class="row">
+    <div class="col-12">
+        <div class="bb-1 clearFix">
+            <div class="text-end pb-15">
+                <button class="btn btn-success" type="button"> <span><i class="fa fa-print"></i> Save</span> </button>
+                <button id="print2" class="btn btn-warning" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
+            </div>    
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="page-header">
+            <h2 class="d-inline"><span class="fs-30">Invoice</span></h2>
+            <div class="pull-right text-end" id="date-generated">
+                <!-- Date generated will be inserted here -->
+            </div>    
+        </div>
+    </div>
+</div>
+<div class="row invoice-info">
+    <div class="col-md-6 invoice-col">
+        <strong>From</strong>    
+        <address>
+            <strong class="text-blue fs-24"><?php 
+                            if (isset($_SESSION['user']['username'])) {
+                                echo htmlspecialchars($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8');
+                            } else {
+                                echo 'Guest'; // Fallback text if the user is not signed in
+                            }
+                        ?></strong><br>
+            The Stables Karen, Nairobi, Kenya<br>
+            <strong>Phone: <?php 
+                            if (isset($_SESSION['user']['phone'])) {
+                                echo htmlspecialchars($_SESSION['user']['phone'], ENT_QUOTES, 'UTF-8');
+                            } else {
+                                echo '0712345678'; // Fallback text if the user is not signed in
+                            }
+                        ?> &nbsp;&nbsp;&nbsp;&nbsp; Email: <?php 
+						if (isset($_SESSION['user']['email'])) {
+							echo htmlspecialchars($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8');
+						} else {
+							echo 'example@email.com'; // Fallback text if the user is not signed in
+						}
+					?></strong>
+        </address>
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6 invoice-col text-end">
+        <strong>To</strong>
+        <address id="to-address">
+            <!-- Customer address will be inserted here -->
+        </address>
+    </div>
+    <!-- /.col -->
+    <div class="col-sm-12 invoice-col mb-15">
+        <div class="invoice-details row no-margin">
+            <div class="col-md-6 col-lg-3"><b>Invoice </b><span id="invoice-number"></span></div>
+            <div class="col-md-6 col-lg-3"><b>Payment Due:</b> <span id="payment-due"></span></div>
+            <div class="col-md-6 col-lg-3"><b>Payment Method:</b> <span id="payment-method"></span></div>
+            <div class="col-md-6 col-lg-3"><b>Account:</b> <span id="account-number"></span></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 table-responsive">
+        <table class="table table-bordered">
+            <tbody id="invoice-items">
+                <!-- Invoice items will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <!-- /.col -->
+</div>
+<div class="row">
+    <div class="col-12 text-end">
+        <p class="lead"><b>Payment Due</b><span class="text-danger" id="payment-due-2"></span></p>
 
-		  <div class="row">
-			<div class="col-12">
-			  <div class="bb-1 clearFix">
-				<div class="text-end pb-15">
-					<button class="btn btn-success" type="button"> <span><i class="fa fa-print"></i> Save</span> </button>
-					<button id="print2" class="btn btn-warning" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
-				</div>	
-			  </div>
-			</div>
-			<div class="col-12">
-			  <div class="page-header">
-				<h2 class="d-inline"><span class="fs-30">Invoice Sample</span></h2>
-				<div class="pull-right text-end">
-					<h3>22 April 2018</h3>
-				</div>	
-			  </div>
-			</div>
-			<!-- /.col -->
-		  </div>
-		  <div class="row invoice-info">
-			<div class="col-md-6 invoice-col">
-			  <strong>From</strong>	
-			  <address>
-				<strong class="text-blue fs-24">Master Admin</strong><br>
-				<strong class="d-inline">124 Simple text, Suite 478,  Dummuy, USA 123456</strong><br>
-				<strong>Phone: (00) 123-456-7890 &nbsp;&nbsp;&nbsp;&nbsp; Email: info@example.com</strong>  
-			  </address>
-			</div>
-			<!-- /.col -->
-			<div class="col-md-6 invoice-col text-end">
-			  <strong>To</strong>
-			  <address>
-				<strong class="text-blue fs-24">Doe Shina</strong><br>
-				124 Simple text, Suite 478, Dummuy, USA 123456<br>
-				<strong>Phone: (00) 789-456-1230 &nbsp;&nbsp;&nbsp;&nbsp; Email: conatct@example.com</strong>
-			  </address>
-			</div>
-			<!-- /.col -->
-			<div class="col-sm-12 invoice-col mb-15">
-				<div class="invoice-details row no-margin">
-				  <div class="col-md-6 col-lg-3"><b>Invoice </b>#0154879</div>
-				  <div class="col-md-6 col-lg-3"><b>Order ID:</b> FC12548</div>
-				  <div class="col-md-6 col-lg-3"><b>Payment Due:</b> 14/08/2018</div>
-				  <div class="col-md-6 col-lg-3"><b>Account:</b> 00215487541296</div>
-				</div>
-			</div>
-		  <!-- /.col -->
-		  </div>
-		  <div class="row">
-			<div class="col-12 table-responsive">
-			  <table class="table table-bordered">
-				<tbody>
-				<tr>
-				  <th>#</th>
-				  <th>Description</th>
-				  <th>Serial #</th>
-				  <th class="text-end">Quantity</th>
-				  <th class="text-end">Unit Cost</th>
-				  <th class="text-end">Subtotal</th>
-				</tr>
-				<tr>
-				  <td>1</td>
-				  <td>Milk Powder</td>
-				  <td>12345678912514</td>
-				  <td class="text-end">2</td>
-				  <td class="text-end">$26.00</td>
-				  <td class="text-end">$52.00</td>
-				</tr>
-				<tr>
-				  <td>2</td>
-				  <td>Air Conditioner</td>
-				  <td>12345678912514</td>
-				  <td class="text-end">1</td>
-				  <td class="text-end">$1500.00</td>
-				  <td class="text-end">$1500.00</td>
-				</tr>
-				<tr>
-				  <td>3</td>
-				  <td>TV</td>
-				  <td>12345678912514</td>
-				  <td class="text-end">2</td>
-				  <td class="text-end">$540.00</td>
-				  <td class="text-end">$1080.00</td>
-				</tr>
-				<tr>
-				  <td>4</td>
-				  <td>Mobile</td>
-				  <td>12345678912514</td>
-				  <td class="text-end">3</td>
-				  <td class="text-end">$320.00</td>
-				  <td class="text-end">$960.00</td>
-				</tr>
-				</tbody>
-			  </table>
-			</div>
-			<!-- /.col -->
-		  </div>
-		  <div class="row">
-			<div class="col-12 text-end">
-				<p class="lead"><b>Payment Due</b><span class="text-danger"> 14/08/2018 </span></p>
+        <div>
+            <p>Sub - Total amount  :  <span id="sub-total">Ksh 0.00</span></p>
+            <p>Tax (16%)  :  <span id="tax-amount">Ksh 0.00</span></p>
+        </div>
+        <div class="total-payment">
+            <h3><b>Total :</b> <span id="total-amount">Ksh 0.00</span></h3>
+        </div>
+    </div>
+</div>
 
-				<div>
-					<p>Sub - Total amount  :  $3,592.00</p>
-					<p>Tax (18%)  :  $646.56</p>
-					<p>Shipping  :  $110.44</p>
-				</div>
-				<div class="total-payment">
-					<h3><b>Total :</b> $4,349.00</h3>
-				</div>
 
-			</div>
-			<!-- /.col -->
-		  </div>
-		  <div class="row no-print">
-			<div class="col-12">
-			  <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment
-			  </button>
-			</div>
-		  </div>
+	<?php
+    include_once site . "/dashboard/pages/invoice/content/form/invoice.js.php";
+    ?>
