@@ -11,7 +11,9 @@
         <div class="page-header">
             <h2 class="d-inline"><span class="fs-30">Invoice</span></h2>
             <div class="pull-right text-end" id="date-generated">
+			<strong class="text-blue fs-24">
                 <!-- Date generated will be inserted here -->
+				 </strong>
             </div>    
         </div>
     </div>
@@ -81,7 +83,7 @@
 </div>
 <div class="row">
     <div class="col-12 text-end">
-        <p class="lead"><b>Payment Due</b><span class="text-danger" id="payment-due-2"></span></p>
+        <p class="lead"><b>Payment Due </b><span class="text-danger" id="payment-due-2"></span></p>
 
         <div>
             <p>Sub - Total amount  :  <span id="sub-total">Ksh 0.00</span></p>

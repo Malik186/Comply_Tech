@@ -12,17 +12,20 @@
                 let subTotal = 0;
                 let totalVat = 0;
                 let invoiceNumber = 1;
+                let formattedDateGenerated = '';
 
-                // Loop through each item in the response
-                data.forEach(function(item, index) {
-                    // Format date for date_generated and due_date
-                    let dateGenerated = new Date(item.date_generated);
-                    let formattedDateGenerated = dateGenerated.toLocaleDateString('en-GB', {
+                // Format date generated outside the loop using the first item
+                if (data.length > 0) {
+                    let dateGenerated = new Date(data[0].date_generated);
+                    formattedDateGenerated = dateGenerated.toLocaleDateString('en-GB', {
                         day: '2-digit',
                         month: 'long',
                         year: 'numeric'
                     });
+                }
 
+                // Loop through each item in the response
+                data.forEach(function(item, index) {
                     let dueDate = new Date(item.due_date);
                     let formattedDueDate = dueDate.toLocaleDateString('en-GB', {
                         day: '2-digit',
@@ -56,6 +59,7 @@
                     // Populate other invoice details
                     $('#invoice-number').text(item.Invoice);
                     $('#payment-due').text(formattedDueDate);
+                    $('#payment-due-2').text(formattedDueDate);
                     $('#payment-method').text(item.payment_terms);
                     $('#account-number').text(item.account_no ? item.account_no : 'No account number');
                 });
