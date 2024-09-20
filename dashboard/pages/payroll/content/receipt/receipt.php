@@ -77,6 +77,18 @@
                             <td class="text-end" id="nssf"></td>
                         </tr>
                         <tr>
+                            <td>mortgage</td>
+                            <td class="text-end" id="mortgage"></td>
+                        </tr>
+                        <tr>
+                            <td>insurance</td>
+                            <td class="text-end" id="insurance"></td>
+                        </tr>
+                        <tr>
+                            <td>savings</td>
+                            <td class="text-end" id="savings"></td>
+                        </tr>
+                        <tr>
                             <td>Other Deductions</td>
                             <td class="text-end" id="deductions"></td>
                         </tr>
