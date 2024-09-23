@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(document).ready(function() {
     // Handle click event of the submit button
@@ -34,14 +35,29 @@ $(document).ready(function() {
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
-            success: function(result) {
-                console.log('Corporate Calculation Result:', result);
-                // Display the result to the user
-                alert('Corporate Tax Calculated Successfully');
+            success: function (result) {
+                // SweetAlert2 success message with redirect
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Now let's go and see the analysis.",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the analytics page
+                        window.location.href = 'corporate.php';
+                    }
+                });
             },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-                alert('An error occurred while processing the request.');
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+                // SweetAlert2 error message
+                Swal.fire({
+                    title: "Oops",
+                    text: "Failed to submit data. Try again later.",
+                    icon: "error",
+                    confirmButtonText: "Close"
+                });
             }
         });
     });

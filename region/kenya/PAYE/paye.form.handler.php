@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // Toggle visibility of mortgage, insurance, and savings fields based on user input
     function toggleMortgageField(show) {
@@ -12,7 +13,7 @@
     function toggleSavingsField(show) {
         $('#savingsDepositField').toggle(show);
     }
-    
+
     // Capture form data and send to the endpoint using AJAX
     $('#calculate-paye').on('click', function (event) {
         event.preventDefault();  // Prevent the default form submission
@@ -38,12 +39,28 @@
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (result) {
-                console.log('PAYE Calculation Result:', result);
-                // Handle the result here, e.g., display it to the user
+                // SweetAlert2 success message with redirect
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Now let's go and see the analysis.",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the analytics page
+                        window.location.href = 'analytics.kenya.paye.php';
+                    }
+                });
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
-                // Handle the error here, e.g., display an error message
+                // SweetAlert2 error message
+                Swal.fire({
+                    title: "Oops",
+                    text: "Failed to submit data. Try again later.",
+                    icon: "error",
+                    confirmButtonText: "Close"
+                });
             }
         });
     });

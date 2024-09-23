@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
         let itemCount = 1;
@@ -78,13 +79,29 @@
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(data),
-                success: function (result) {
-                    console.log('VAT Calculation and Invoice Data Result:', result);
-                    displayResult(result);
+                    success: function (result) {
+                    // SweetAlert2 success message with redirect
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "Now let's check out the Invoice.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to the analytics page
+                            window.location.href = 'invoice.php';
+                        }
+                    });
                 },
                 error: function (xhr, status, error) {
                     console.error('Error:', error);
-                    displayError(error);
+                    // SweetAlert2 error message
+                    Swal.fire({
+                        title: "Oops",
+                        text: "Failed to submit data. Try again later.",
+                        icon: "error",
+                        confirmButtonText: "Close"
+                    });
                 }
             });
         });

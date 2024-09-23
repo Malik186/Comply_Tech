@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // Toggle visibility of mortgage, insurance, and savings fields based on user input
     function toggleMortgageField(show) {
@@ -48,13 +49,28 @@
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (result) {
-                console.log('Payroll Calculation Result:', result);
-                // You can display the result to the user, e.g., using an alert or updating the DOM
-                alert('Payroll Calculated Successfully');
+                // SweetAlert2 success message with redirect
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Now let's go and see the Payroll Receipt!",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the analytics page
+                        window.location.href = 'payroll.php';
+                    }
+                });
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
-                alert('An error occurred while calculating payroll. Please try again.');
+                // SweetAlert2 error message
+                Swal.fire({
+                    title: "Oops",
+                    text: "Failed to submit data. Try again later.",
+                    icon: "error",
+                    confirmButtonText: "Close"
+                });
             }
         });
     });

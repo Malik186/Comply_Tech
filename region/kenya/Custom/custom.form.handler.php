@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.getElementById('submit-custom-tax').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent any default action
@@ -25,14 +26,29 @@ document.getElementById('submit-custom-tax').addEventListener('click', function(
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function (result) {
-            console.log('Custom Calculation Result:', result);
-            // Display the result to the user
-            alert('Custom Calculated Successfully');
-        },
-        error: function (xhr, status, error) {
-            console.error('Error:', error);
-            alert('An error occurred while calculating Custom. Please try again.');
-        }
+                // SweetAlert2 success message with redirect
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Now let's go and see the analysis.",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the analytics page
+                        window.location.href = 'custom.php';
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+                // SweetAlert2 error message
+                Swal.fire({
+                    title: "Oops",
+                    text: "Failed to submit data. Try again later.",
+                    icon: "error",
+                    confirmButtonText: "Close"
+                });
+            }
     });
 });
 </script>
