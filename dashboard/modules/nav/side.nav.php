@@ -8,15 +8,28 @@
 			  <li>
 				  <a href="/engine.php">
 				  <img src="/dashboard/img/dashboard.svg" class="svg-icon" alt="">
-					<span>Dashboard</span>
+					<span>Overview</span>
 				  </a>
 				</li> 	
 				<li>
 				  <a href="/dashboard.php">
 				  <img src="/dashboard/img/chart.svg" class="svg-icon" alt="">
-					<span>Overview</span>
+					<span>Analysis</span>
 				  </a>
-				</li> 				  						 	 	     
+				</li>
+				<li class="header"> Documents </li> 
+				<li>
+				  <a href="/invoices.php">
+				  <img src="/dashboard/img/invoice.svg" class="svg-icon" alt="">
+					<span>Invoice</span>
+				  </a>
+				</li>
+				<li>
+				  <a href="/dashboard.php">
+				  <img src="/dashboard/img/payroll.svg" class="svg-icon" alt="">
+					<span>Payroll</span>
+				  </a>
+				</li>
 			  </ul>
 			  
 			  <div class="sidebar-widgets">				
