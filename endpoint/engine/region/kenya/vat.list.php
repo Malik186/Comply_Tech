@@ -50,12 +50,16 @@ try {
                 'due_date' => $result['due_date'],
                 'customer_name' => $result['customer_name'],
                 'customer_address' => $result['customer_address'],
+                'email_address' => $result['email_address'],
+                'phone_number' => $result['phone_number'],
                 'item_description' => $result['item_description'],
                 'quantity' => (int)$result['quantity'],
                 'unit_price' => (float)$result['unit_price'],
                 'vat' => (float)$result['vat'],
                 'total_vat' => (float)$result['total_vat'],
-                'payment_terms' => $result['payment_terms']
+                'payment_terms' => $result['payment_terms'],
+                'bank' => $result['bank'],
+                'account_no' => $result['account_no']
             ];
         }
 

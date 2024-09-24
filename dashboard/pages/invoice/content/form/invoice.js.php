@@ -21,6 +21,7 @@ $(document).ready(function() {
                     const invoiceData = response.data.filter(item => item.invoice === invoiceNumber);
                     if (invoiceData.length > 0) {
                         displayInvoiceDetails(invoiceData);
+                        console.log('Invoice Data:', invoiceData);
                     } else {
                         $('#invoice-content').html('<p>Invoice not found.</p>');
                     }
@@ -89,6 +90,7 @@ $(document).ready(function() {
                 // Populate other invoice details
                 $('#invoice-number').text(item.invoice);
                 $('#payment-due').text(formattedDueDate);
+                $('#payment-due-2').text(formattedDueDate);
                 $('#payment-method').text(item.payment_terms);
                 $('#account-number').text(item.account_no ? item.account_no : 'No account number');
             }
