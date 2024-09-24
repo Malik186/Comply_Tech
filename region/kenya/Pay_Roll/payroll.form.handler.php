@@ -58,7 +58,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect to the analytics page
-                        window.location.href = 'payroll.php';
+                        window.location.href = 'payroll.recent.php';
                     }
                 });
             },
