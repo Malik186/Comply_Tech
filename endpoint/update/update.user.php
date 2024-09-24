@@ -75,15 +75,13 @@ try {
                 $email = $_POST['email'];
                 $phone = $_POST['phone'];
                 $username = $_POST['username'];
-                $userId = $_SESSION['user']['id']; // Assuming user's ID is stored in the session
 
                 // Update the user's information in the database
-                $stmt = $db->prepare("UPDATE users SET username = :username, email = :email, phone = :phone, avatar = :avatar WHERE id = :id");
+                $stmt = $db->prepare("UPDATE users SET username = :username, email = :email, phone = :phone, avatar = :avatar WHERE username = :username");
                 $stmt->bindParam(':username', $username);
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':phone', $phone);
                 $stmt->bindParam(':avatar', $avatarPath);
-                $stmt->bindParam(':id', $userId);
 
                 if ($stmt->execute()) {
                     // Update session data
