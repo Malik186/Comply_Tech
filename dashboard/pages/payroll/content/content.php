@@ -3,7 +3,7 @@
     <div class="row">
     <!-- Analytics-->
     <?php
-    include_once site . "/dashboard/pages/payroll/content/analytics/analytics.php";
+    //include_once site . "/dashboard/pages/payroll/content/analytics/analytics.php";
     ?>
     </div>
     <?php

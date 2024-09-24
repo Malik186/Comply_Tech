@@ -7,6 +7,7 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
+                    console.log(response); 
                     if (response.status === 'success') {
                         displayPayrolls(response.data);
                     } else {
