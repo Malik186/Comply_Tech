@@ -5,7 +5,7 @@
 
         if (employeeNo) {
             $.ajax({
-                url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/payroll.recent.php?employee_no=' + employeeNo,
+                url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/payroll.list.php?employee_no=' + employeeNo,
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
