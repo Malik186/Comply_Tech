@@ -1,36 +1,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        var employeeNo = new URLSearchParams(window.location.search).get('employee_no');
+         // Get the invoice number from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const employeeNo = urlParams.get('employee_no');
 
-        if (employeeNo) {
             $.ajax({
-                url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/payroll.list.php?employee_no=' + employeeNo,
+                url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/payroll.list.php'
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
-                    if (response.status === 'success') {
-                        const data = response.data;
-                        $('#timestamp').text(data.timestamp);
-                        $('#employeeName').text(data.employee_name);
-                        $('#idNumber').text(data.id_number);
-                        $('#employeeNo').text(data.employee_no);
-                        $('#jobTitle').text(data.job_title);
-                        $('#paymentMethod').text(data.payment_method);
-                        $('#bankName').text(data.bank_name);
-                        $('#accountNo').text(data.account_no);
-                        $('#grossSalary').text(data.gross_salary.toFixed(2));
-                        $('#allowances').text(data.allowances.toFixed(2));
-                        $('#paye').text(data.paye.toFixed(2));
-                        $('#housingLevy').text(data.housing_levy.toFixed(2));
-                        $('#nhif').text(data.nhif.toFixed(2));
-                        $('#nssf').text(data.nssf.toFixed(2));
-                        $('#mortgage').text(data.mortgage_interest.toFixed(2));
-                        $('#insurance').text(data.insurance_premium.toFixed(2));
-                        $('#savings').text(data.savings_deposit.toFixed(2));
-                        $('#deductions').text(data.deductions.toFixed(2));
-                        $('#totalDeductions').text(data.total_deductions.toFixed(2));
-                        $('#netSalary').text(data.net_salary.toFixed(2));
+                    if (response.status === "success") {
+                    const payrollData = response.data.filter(item => item.employee_no === employeeNo);
+                    if (payrollData.length > 0) {
+                        displayPayrollDetails(payrollData);
+                        console.log('Payroll Data:', payrollData);
+                    } else {
+                        $('#invoice-content').html('<p>Invoice not found.</p>');
+                    }
+                        
                     } else {
                         alert('Failed to fetch payroll data. Please try again.');
                     }
@@ -39,9 +27,29 @@
                     alert('An error occurred while fetching the data. Please try again.');
                 }
             });
-        } else {
-            alert('Employee No not provided.');
-        }
+
+            function displayPayrollDetails(data) {
+                $('#timestamp').text(item.timestamp);
+                        $('#employeeName').text(item.employee_name);
+                        $('#idNumber').text(item.id_number);
+                        $('#employeeNo').text(item.employee_no);
+                        $('#jobTitle').text(item.job_title);
+                        $('#paymentMethod').text(item.payment_method);
+                        $('#bankName').text(item.bank_name);
+                        $('#accountNo').text(item.account_no);
+                        $('#grossSalary').text(item.gross_salary.toFixed(2));
+                        $('#allowances').text(item.allowances.toFixed(2));
+                        $('#paye').text(item.paye.toFixed(2));
+                        $('#housingLevy').text(data.housing_levy.toFixed(2));
+                        $('#nhif').text(item.nhif.toFixed(2));
+                        $('#nssf').text(item.nssf.toFixed(2));
+                        $('#mortgage').text(item.mortgage_interest.toFixed(2));
+                        $('#insurance').text(item.insurance_premium.toFixed(2));
+                        $('#savings').text(item.savings_deposit.toFixed(2));
+                        $('#deductions').text(item.deductions.toFixed(2));
+                        $('#totalDeductions').text(item.total_deductions.toFixed(2));
+                        $('#netSalary').text(item.net_salary.toFixed(2));
+    }
 
         $('#print').click(function() {
             window.print();
