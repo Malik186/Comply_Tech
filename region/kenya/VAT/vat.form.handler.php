@@ -89,7 +89,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Redirect to the analytics page
-                            window.location.href = 'invoice.php';
+                            window.location.href = 'invoice.recent.php';
                         }
                     });
                 },
