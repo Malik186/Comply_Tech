@@ -25,7 +25,7 @@
 				  </a>
 				</li>
 				<li>
-				  <a href="/dashboard.php">
+				  <a href="/payrolls.php">
 				  <img src="/dashboard/img/payroll.svg" class="svg-icon" alt="">
 					<span>Payroll</span>
 				  </a>

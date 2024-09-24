@@ -6,50 +6,57 @@ $(document).ready(function() {
         return num >= 1000 ? (num / 1000).toFixed(1) + 'K' : num;
     }
 
-    $.ajax({
-        url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/payroll.recent.php',
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            if(response.status === "success") {
-                const data = response.data;
+    // Trigger data fetch when an employee is selected
+    $('#employee_no').on('change', function() {
+        var selectedEmployeeNo = $(this).val(); // Get selected employee_no
 
-                let total = data.nssf + data.nhif + data.paye + data.housing_levy + data.insurance_premium + data.mortgage_interest;
+        if (selectedEmployeeNo) {
+            // Make an AJAX request to fetch data based on employee_no
+            $.ajax({
+                url: 'https://complytech.mdskenya.co.ke/endpoint/engine/region/kenya/payroll.list.php',
+                method: 'GET',
+                dataType: 'json',
+                data: { employee_no: selectedEmployeeNo }, // Pass the selected employee_no as a parameter
+                success: function(response) {
+                    if(response.status === "success") {
+                        const data = response.data;
 
+                        let total = data.nssf + data.nhif + data.paye + data.housing_levy + data.insurance_premium + data.mortgage_interest;
 
-                // Calculate progress and update progress bars
-                updateProgressBars(data, total);
+                        // Calculate progress and update progress bars
+                        updateProgressBars(data, total);
 
-                // Fill in the div section with relevant data
-                $(".net-pay h2").text("Ksh " + formatK(data.net_salary));
-                $(".gross-pay h2").text("Ksh " + formatK(data.gross_salary));
-                $(".deductions h2").text("Ksh " + formatK(data.total_deductions));
-                $(".savings h2").text("Ksh " + formatK(data.savings_deposit));
+                        // Fill in the div section with relevant data
+                        $(".net-pay h2").text("Ksh " + formatK(data.net_salary));
+                        $(".gross-pay h2").text("Ksh " + formatK(data.gross_salary));
+                        $(".deductions h2").text("Ksh " + formatK(data.total_deductions));
+                        $(".savings h2").text("Ksh " + formatK(data.savings_deposit));
 
-                // Fill in the div section with relevant data
-                $(".nssf h3").text("Ksh " + (data.nssf));
-                $(".nhif h3").text("Ksh " + (data.nhif));
-                $(".paye h3").text("Ksh " + (data.paye));
-                $(".housing-levy h3").text("Ksh " + (data.housing_levy));
-                $(".insurance h3").text("Ksh " + (data.insurance_premium));
-                $(".mortgage h3").text("Ksh " + (data.mortgage_interest));
+                        // Fill in the div section with relevant data
+                        $(".nssf h3").text("Ksh " + (data.nssf));
+                        $(".nhif h3").text("Ksh " + (data.nhif));
+                        $(".paye h3").text("Ksh " + (data.paye));
+                        $(".housing-levy h3").text("Ksh " + (data.housing_levy));
+                        $(".insurance h3").text("Ksh " + (data.insurance_premium));
+                        $(".mortgage h3").text("Ksh " + (data.mortgage_interest));
 
-                // Bar chart to compare deductions
-                createBarChart(data);
+                        // Bar chart to compare deductions
+                        createBarChart(data);
 
-                // Create doughnut progress charts for mortgage and insurance
-                createDoughnutProgressChart("#mortgage_chart", data.mortgage_interest, data.gross_salary, "Mortgage", "#7367F0");
-                createDoughnutProgressChart("#insurance_chart", data.insurance_premium, data.gross_salary, "Insurance", "#3699ff");
+                        // Create doughnut progress charts for mortgage and insurance
+                        createDoughnutProgressChart("#mortgage_chart", data.mortgage_interest, data.gross_salary, "Mortgage", "#7367F0");
+                        createDoughnutProgressChart("#insurance_chart", data.insurance_premium, data.gross_salary, "Insurance", "#3699ff");
 
-            } else {
-                console.error("Failed to fetch data");
-            }
-        },
-        error: function(error) {
-            console.error("API error: ", error);
+                    } else {
+                        console.error("Failed to fetch data for employee_no: " + selectedEmployeeNo);
+                    }
+                },
+                error: function(error) {
+                    console.error("API error: ", error);
+                }
+            });
         }
     });
-
 
     // Update the progress bars dynamically
     function updateProgressBars(data, total) {
