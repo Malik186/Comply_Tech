@@ -38,13 +38,13 @@ try {
 
     // Start building the update query
     $query = "UPDATE users SET ";
-    $params = [];
     $updateFields = [];
+    $params = [":username" => $_SESSION['user']['username']];
 
-    // Check each field and add it to the query if it exists in the incoming data
-    $fields = ['email', 'phone', 'avatar', 'street', 'city', 'state', 'post_code'];
-    foreach ($fields as $field) {
-        if (isset($data[$field])) {
+    // Check each field and add it to the query only if it exists in the incoming data
+    $allowedFields = ['email', 'phone', 'avatar', 'street', 'city', 'state', 'post_code'];
+    foreach ($allowedFields as $field) {
+        if (isset($data[$field]) && $data[$field] !== "") {
             $updateFields[] = "$field = :$field";
             $params[":$field"] = sanitize_input($data[$field]);
         }
@@ -59,7 +59,6 @@ try {
     // Complete the query
     $query .= implode(", ", $updateFields);
     $query .= " WHERE username = :username";
-    $params[":username"] = $_SESSION['user']['username'];
 
     // Prepare and execute the query
     $stmt = $pdo->prepare($query);
