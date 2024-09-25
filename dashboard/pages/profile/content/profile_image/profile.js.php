@@ -8,24 +8,11 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success' && response.data && response.data.avatar) {
-                    // Get the base64 image data
+                    // Get the base64 image data (no need to split as the data is not prefixed with `data:image/...`)
                     var base64Image = response.data.avatar;
 
-                    // Determine the correct image type
-                    var imageType = '';
-                    if (base64Image.includes('data:image/jpeg')) {
-                        imageType = 'jpeg';
-                    } else if (base64Image.includes('data:image/jpg')) {
-                        imageType = 'jpg';
-                    } else if (base64Image.includes('data:image/webp')) {
-                        imageType = 'webp';
-                    } else {
-                        // Fallback to PNG if no type detected
-                        imageType = 'png';
-                    }
-
-                    // Format the base64 image with the correct image type
-                    var avatarImage = 'data:image/' + imageType + ';base64,' + base64Image.split(',')[1];
+                    // Assume the image is PNG by default, but you can add logic to detect other formats if needed.
+                    var avatarImage = 'data:image/png;base64,' + base64Image;
 
                     // Set the avatar image source to the fetched avatar
                     $('#profile-avatar').attr('src', avatarImage);
