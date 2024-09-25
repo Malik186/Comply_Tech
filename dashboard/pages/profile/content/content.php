@@ -1,4 +1,4 @@
-<div class="container-full">
+<div class="container">
   <section class="content">
     <div class="row">
       <!-- Profile Image-->

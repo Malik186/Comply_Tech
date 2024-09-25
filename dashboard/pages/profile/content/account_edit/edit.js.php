@@ -1,6 +1,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-   // Function to convert file to base64
+// Function to convert file to base64
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -10,30 +10,31 @@ function fileToBase64(file) {
   });
 }
 
-// Function to handle form submission
-async function handleSubmit(formId) {
-  const form = document.getElementById(formId);
-  const formData = new FormData(form);
-  const jsonData = {};
-
-  for (let [key, value] of formData.entries()) {
-    if (key === 'avatar' && value instanceof File) {
+// Function to collect data from input fields
+async function collectData(inputIds) {
+  const data = {};
+  for (let id of inputIds) {
+    const element = document.getElementById(id);
+    if (id === 'avatar' && element.files.length > 0) {
       try {
-        jsonData[key] = await fileToBase64(value);
+        data[id] = await fileToBase64(element.files[0]);
       } catch (error) {
         console.error('Error converting file to base64:', error);
-        return;
+        return null;
       }
     } else {
-      jsonData[key] = value;
+      data[id] = element.value;
     }
   }
+  return data;
+}
 
-  // AJAX submission
+// Function to handle data submission
+function submitData(data) {
   $.ajax({
     url: 'https://complytech.mdskenya.co.ke/endpoint/update/update.user.php',
     type: 'POST',
-    data: JSON.stringify(jsonData),
+    data: JSON.stringify(data),
     contentType: 'application/json',
     success: function(response) {
       console.log('Success:', response);
@@ -46,31 +47,19 @@ async function handleSubmit(formId) {
   });
 }
 
-// Event listeners for form submissions
-document.getElementById('account-details').addEventListener('click', function() {
-  handleSubmit('account-form');
+// Event listener for account details submission
+document.getElementById('account-details').addEventListener('click', async function() {
+  const accountData = await collectData(['username', 'email', 'phone', 'avatar']);
+  if (accountData) {
+    submitData(accountData);
+  }
 });
 
-document.getElementById('user-address').addEventListener('click', function() {
-  handleSubmit('address-form');
-});
-
-// Initialize the forms
-document.addEventListener('DOMContentLoaded', function() {
-  const accountForm = document.createElement('form');
-  accountForm.id = 'account-form';
-  accountForm.appendChild(document.getElementById('username').parentNode.parentNode);
-  accountForm.appendChild(document.getElementById('email').parentNode.parentNode);
-  accountForm.appendChild(document.getElementById('phone').parentNode.parentNode);
-  accountForm.appendChild(document.getElementById('avatar').parentNode.parentNode);
-  document.querySelector('.box-body').appendChild(accountForm);
-
-  const addressForm = document.createElement('form');
-  addressForm.id = 'address-form';
-  addressForm.appendChild(document.getElementById('street').parentNode.parentNode);
-  addressForm.appendChild(document.getElementById('city').parentNode.parentNode);
-  addressForm.appendChild(document.getElementById('state').parentNode.parentNode);
-  addressForm.appendChild(document.getElementById('post_code').parentNode.parentNode);
-  document.querySelectorAll('.box-body')[1].appendChild(addressForm);
+// Event listener for address submission
+document.getElementById('user-address').addEventListener('click', async function() {
+  const addressData = await collectData(['street', 'city', 'state', 'post_code']);
+  if (addressData) {
+    submitData(addressData);
+  }
 });
 </script>
