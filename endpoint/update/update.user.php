@@ -4,6 +4,8 @@ session_start();
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type, X-Requested-With");
+header("Content-Type: application/json");
+
 // Database connection details
 $host = "localhost";
 $dbname = "mdskenya_comply_tech";
@@ -34,35 +36,42 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Prepare the update query
-    $query = "UPDATE users SET 
-              email = :email,
-              phone = :phone,
-              avatar = :avatar,
-              street = :street,
-              city = :city,
-              state = :state,
-              post_code = :post_code
-              WHERE username = :username";
+    // Start building the update query
+    $query = "UPDATE users SET ";
+    $params = [];
+    $updateFields = [];
 
+    // Check each field and add it to the query if it exists in the incoming data
+    $fields = ['email', 'phone', 'avatar', 'street', 'city', 'state', 'post_code'];
+    foreach ($fields as $field) {
+        if (isset($data[$field])) {
+            $updateFields[] = "$field = :$field";
+            $params[":$field"] = sanitize_input($data[$field]);
+        }
+    }
+
+    // If no fields to update, exit
+    if (empty($updateFields)) {
+        echo json_encode(["status" => "error", "message" => "No fields to update"]);
+        exit;
+    }
+
+    // Complete the query
+    $query .= implode(", ", $updateFields);
+    $query .= " WHERE username = :username";
+    $params[":username"] = $_SESSION['user']['username'];
+
+    // Prepare and execute the query
     $stmt = $pdo->prepare($query);
+    $stmt->execute($params);
 
-    // Bind parameters
-    $stmt->bindParam(":username", $_SESSION['user']['username']);
-    $stmt->bindParam(":email", $data['email']);
-    $stmt->bindParam(":phone", $data['phone']);
-    $stmt->bindParam(":avatar", $data['avatar']);
-    $stmt->bindParam(":street", $data['street']);
-    $stmt->bindParam(":city", $data['city']);
-    $stmt->bindParam(":state", $data['state']);
-    $stmt->bindParam(":post_code", $data['post_code']);
-
-    // Execute the query
-    $stmt->execute();
-
-    // Update session data
-    $_SESSION['user']['email'] = $data['email'];
-    $_SESSION['user']['phone'] = $data['phone'];
+    // Update session data if email or phone were updated
+    if (isset($data['email'])) {
+        $_SESSION['user']['email'] = $data['email'];
+    }
+    if (isset($data['phone'])) {
+        $_SESSION['user']['phone'] = $data['phone'];
+    }
 
     echo json_encode(["status" => "success", "message" => "User information updated successfully"]);
 } catch(PDOException $e) {
