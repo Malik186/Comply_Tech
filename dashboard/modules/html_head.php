@@ -23,6 +23,7 @@
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
     <!-- Favicon -->
+	<link rel="icon" type="image/png" sizes="384x384" href="/dashboard/img/fav-icon/android-chrome-192x192.png">
 	<link rel="icon" type="image/png" sizes="384x384" href="/dashboard/img/fav-icon/android-chrome-384x384.png">
 
 <title>
