@@ -21,21 +21,6 @@
 					</div>
 				</div>
 			</li>
-			<li class="btn-group nav-item d-none d-xl-inline-block">
-				<a href="contact_app_chat.html" class="waves-effect waves-light nav-link btn-outline no-border svg-bt-icon btn-info-light" title="Chat">
-					<i data-feather="message-circle"></i>
-			    </a>
-			</li>
-			<li class="btn-group nav-item d-none d-xl-inline-block">
-				<a href="mailbox.html" class="waves-effect waves-light nav-link btn-outline no-border svg-bt-icon btn-danger-light" title="Mailbox">
-					<i data-feather="at-sign"></i>
-			    </a>
-			</li>
-			<li class="btn-group nav-item d-none d-xl-inline-block">
-				<a href="extra_taskboard.html" class="waves-effect waves-light btn-outline no-border nav-link svg-bt-icon btn-success-light" title="Taskboard">
-					<i data-feather="clipboard"></i>
-			    </a>
-			</li>
 		</ul> 
 	  </div>
 		
@@ -71,43 +56,26 @@
 				<ul class="menu sm-scrol">
 				  <li>
 					<a href="#">
-					  <i class="fa fa-users text-info"></i> Curabitur id eros quis nunc suscipit blandit.
+					  <i class="fa fa-users text-info"></i> Account created successfuly.
 					</a>
 				  </li>
 				  <li>
 					<a href="#">
-					  <i class="fa fa-warning text-warning"></i> Duis malesuada justo eu sapien elementum, in semper diam posuere.
+					  <i class="fa fa-shopping-cart text-success"></i> Dashboard Contains Kenya Tax Rules
 					</a>
 				  </li>
 				  <li>
 					<a href="#">
-					  <i class="fa fa-users text-danger"></i> Donec at nisi sit amet tortor commodo porttitor pretium a erat.
-					</a>
-				  </li>
-				  <li>
-					<a href="#">
-					  <i class="fa fa-shopping-cart text-success"></i> In gravida mauris et nisi
-					</a>
-				  </li>
-				  <li>
-					<a href="#">
-					  <i class="fa fa-user text-danger"></i> Praesent eu lacus in libero dictum fermentum.
-					</a>
-				  </li>
-				  <li>
-					<a href="#">
-					  <i class="fa fa-user text-primary"></i> Nunc fringilla lorem 
-					</a>
-				  </li>
-				  <li>
-					<a href="#">
-					  <i class="fa fa-user text-success"></i> Nullam euismod dolor ut quam interdum, at scelerisque ipsum imperdiet.
+					  <i class="fa fa-user text-success"></i> Welcome to ComplyTech <?php 
+                if (isset($_SESSION['user']['username'])) {
+                    echo htmlspecialchars($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8');
+                } else {
+                    echo 'Guest'; // Fallback text if the user is not signed in
+                }
+            ?>.
 					</a>
 				  </li>
 				</ul>
-			  </li>
-			  <li class="footer">
-				  <a href="#">View all</a>
 			  </li>
 			</ul>
 		  </li>	
@@ -126,12 +94,6 @@
               </li>
             </ul>
           </li>			  
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-              <a href="#" data-toggle="control-sidebar" title="Setting" class="waves-effect waves-light btn-outline no-border btn-danger-light">
-			  	<i data-feather="settings"></i>
-			  </a>
-          </li>
 			
         </ul>
       </div>
