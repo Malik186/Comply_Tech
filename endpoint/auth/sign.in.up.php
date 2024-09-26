@@ -161,24 +161,40 @@ try {
             // Handle sign-in request
             $identifier = isset($data['email']) ? $data['email'] : $data['phone'];
             $field = isset($data['email']) ? 'email' : 'phone';
-
+        
             $stmt = $db->prepare("SELECT * FROM users WHERE $field = :identifier");
             $stmt->bindParam(':identifier', $identifier);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        
             if ($user && password_verify($password, $user['password'])) {
                 // Start session and set session variables
+                session_start();
                 $_SESSION['user'] = [
                     'username' => $user['username'],
                     'email' => $user['email'],
                     'phone' => $user['phone'],
-                    // Add any other user-related data you need to store in the session
+                    'user_id' => $user['id'] // Store user ID in session
                 ];
-
+        
+                // Capture browser and IP address info
+                $browser = $_SERVER['HTTP_USER_AGENT'];
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $session_id = session_id();
+                $login_time = date('Y-m-d H:i:s');
+        
+                // Insert activity log into the database
+                $logStmt = $db->prepare("INSERT INTO user_activity_logs (user_id, browser_info, ip_address, login_time, session_id) VALUES (:user_id, :browser_info, :ip_address, :login_time, :session_id)");
+                $logStmt->bindParam(':user_id', $user['id']);
+                $logStmt->bindParam(':browser_info', $browser);
+                $logStmt->bindParam(':ip_address', $ip);
+                $logStmt->bindParam(':login_time', $login_time);
+                $logStmt->bindParam(':session_id', $session_id);
+                $logStmt->execute();
+        
                 // Debugging output
                 logError("Session started. Session variables: " . print_r($_SESSION, true));
-
+        
                 echo json_encode(['status' => 'success', 'message' => 'Sign-in successful.']);
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Invalid credentials.']);
