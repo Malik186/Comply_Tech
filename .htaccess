@@ -1,8 +1,0 @@
-# Enable the RewriteEngine
-RewriteEngine On
-
-# Redirect to custom 404 error page
-ErrorDocument 404 /404.php
-
-# Redirect to custom 500 error page
-ErrorDocument 500 /500.php
