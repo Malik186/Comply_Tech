@@ -169,7 +169,6 @@ try {
         
             if ($user && password_verify($password, $user['password'])) {
                 // Start session and set session variables
-                session_start();
                 $_SESSION['user'] = [
                     'username' => $user['username'],
                     'email' => $user['email'],
