@@ -23,25 +23,25 @@
             <div class="row">
                 <div class="col-12">
                     <div class="media-list media-list-hover media-list-divided w-p100 mt-30">
-                        <h4 class="media media-single p-15" href="settings.php">
+                        <h4 class="media media-single p-15" onclick="window.location.href='settings.php';" style="cursor: pointer;">
                             <i class="fa fa-arrow-circle-o-right me-10"></i><span class="title">Settings</span>
                         </h4>
-                        <h4 class="media media-single p-15" href="analytics.kenya.paye.php">
+                        <h4 class="media media-single p-15" onclick="window.location.href='analytics.kenya.paye.php';" style="cursor: pointer;">
                             <i class="fa fa-arrow-circle-o-right me-10"></i><span class="title">Recent PAYE</span>
                         </h4>
-                        <h4 class="media media-single p-15" href="invoice.recent.php">
+                        <h4 class="media media-single p-15" onclick="window.location.href='invoice.recent.php';" style="cursor: pointer;">
                             <i class="fa fa-arrow-circle-o-right me-10"></i><span class="title">Recent Invoice</span>
                         </h4>
-                        <h4 class="media media-single p-15" href="payroll.recent.php">
+                        <h4 class="media media-single p-15" onclick="window.location.href='payroll.recent.php';" style="cursor: pointer;">
                             <i class="fa fa-arrow-circle-o-right me-10"></i><span class="title">Recent Payroll</span>
                         </h4>
-                        <h4 class="media media-single p-15" href="custom.php">
+                        <h4 class="media media-single p-15" onclick="window.location.href='custom.php';" style="cursor: pointer;">
                             <i class="fa fa-arrow-circle-o-right me-10"></i><span class="title">Custom Receipt</span>
                         </h4>
-                        <h4 class="media media-single p-15" href="excise.php">
+                        <h4 class="media media-single p-15" onclick="window.location.href='excise.php';" style="cursor: pointer;">
                             <i class="fa fa-arrow-circle-o-right me-10"></i><span class="title">Excise Receipt</span>
                         </h4>
-                        <h4 class="media media-single p-15" href="corporate.php">
+                        <h4 class="media media-single p-15" onclick="window.location.href='corporate.php';" style="cursor: pointer;">
                             <i class="fa fa-arrow-circle-o-right me-10"></i><span class="title">Corporate Receipt</span>
                         </h4>
                     </div>
