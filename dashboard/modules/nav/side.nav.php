@@ -30,6 +30,19 @@
 					<span>Payroll</span>
 				  </a>
 				</li>
+				<li class="header"> Info </li>
+				<li>
+				  <a href="/faq.php">
+				  <img src="/dashboard/img/search.svg" class="svg-icon" alt="">
+					<span>FAQs</span>
+				  </a>
+				</li>
+				<li>
+				  <a href="/contact.php">
+				  <img src="/dashboard/img/phone.svg" class="svg-icon" alt="">
+					<span>Contact</span>
+				  </a>
+				</li>
 			  </ul>
 			  
 			  <div class="sidebar-widgets">				
