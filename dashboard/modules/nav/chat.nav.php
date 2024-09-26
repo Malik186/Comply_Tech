@@ -1,4 +1,4 @@
-<!-- ./side demo panel -->
+<!-- ./side demo panel
 <div class="sticky-toolbar">	    
 	    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Buy Now" class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
 			<span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
@@ -10,9 +10,9 @@
 			<span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
 		</a>
 	</div>
-	<!-- Sidebar -->
+	<-- Sidebar -->
 		
-	<div id="chat-box-body">
+	<!--div id="chat-box-body">
 		<div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
             <div id="chat-overlay"></div>
             <span class="icon-Group-chat fs-30"><span class="path1"></span><span class="path2"></span></span>
@@ -51,13 +51,7 @@
                 </div>
                 <div class="text-center flex-grow-1">
                 <div class="text-dark fs-18">
-                        <?php 
-                            if (isset($_SESSION['user']['username'])) {
-                                echo htmlspecialchars($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8');
-                            } else {
-                                echo 'Guest'; // Fallback text if the user is not signed in
-                            }
-                        ?>
+
                     </div>
                     <div>
                         <span class="badge badge-sm badge-dot badge-primary"></span>
@@ -116,9 +110,9 @@
                             Nice to meet you Anne.<br>How can i help you?
                         </div>
                     </div>
-                </div><!--chat-log -->
-            </div>
-            <div class="chat-input">      
+                </div>--><!--chat-log -->
+            
+            <!--div class="chat-input">      
                 <form>
                     <input type="text" id="chat-input" placeholder="Send a message..."/>
                     <button type="submit" class="chat-submit" id="chat-submit">
@@ -127,4 +121,4 @@
                 </form>      
             </div>
 		</div>
-	</div>
+	</div>-->

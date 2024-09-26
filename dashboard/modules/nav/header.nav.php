@@ -3,7 +3,7 @@
 	  <div class="app-menu">
 		<ul class="header-megamenu nav">
 			<li class="btn-group nav-item">
-				<a href="#" class="waves-effect waves-light nav-link push-btn btn-outline no-border btn-primary-light" data-toggle="push-menu" role="button">
+				<a href="#" class="waves-effect waves-light nav-link push-btn btn-outline no-border" style="color: #211f33 !important;" data-toggle="push-menu" role="button">
 					<i data-feather="align-left"></i>
 			    </a>
 			</li>				  
