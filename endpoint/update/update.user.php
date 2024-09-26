@@ -64,13 +64,6 @@ try {
     $stmt = $pdo->prepare($query);
     $stmt->execute($params);
 
-    // Update session data if email or phone were updated
-    if (isset($data['email'])) {
-        $_SESSION['user']['email'] = $data['email'];
-    }
-    if (isset($data['phone'])) {
-        $_SESSION['user']['phone'] = $data['phone'];
-    }
 
     echo json_encode(["status" => "success", "message" => "User information updated successfully"]);
 } catch(PDOException $e) {
