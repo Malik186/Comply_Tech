@@ -38,3 +38,6 @@
         </div>
     </div>
 </div>
+    <?php
+    include_once site . "/dashboard/pages/settings/content/update/log/log.js.php";
+    ?>
