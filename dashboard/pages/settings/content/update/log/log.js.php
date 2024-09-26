@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
         fetchLogs();
@@ -79,28 +80,63 @@
         return `${browser} on ${os}`;
     }
 
+    
     // Delete a specific log using AJAX
     function deleteLog(logId, sessionId) {
-        if (confirm('Are you sure you want to delete this log?')) {
-            $.ajax({
-                url: 'https://complytech.mdskenya.co.ke/endpoint/logs/delete.activity.log.php',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ log_id: logId, session_id: sessionId }),
-                dataType: 'json',
-                success: function (data) {
-                    if (data.status === 'success') {
-                        alert('Log deleted successfully.');
-                        fetchLogs(); // Refresh the logs after deletion
-                    } else {
-                        alert(data.message);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error('Error deleting log:', textStatus, errorThrown);
-                    alert('Failed to delete the log. Please try again.');
-                }
+    // SweetAlert2 confirmation dialog
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You will not be able to recover this log!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+        // If confirmed, proceed with the deletion via AJAX
+        $.ajax({
+            url: 'https://complytech.mdskenya.co.ke/endpoint/logs/delete.activity.log.php',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ log_id: logId, session_id: sessionId }),
+            dataType: 'json',
+            success: function (data) {
+            if (data.status === 'success') {
+                Swal.fire({
+                title: "Deleted!",
+                text: "The log has been deleted successfully.",
+                icon: "success",
+                }).then(() => {
+                fetchLogs(); // Refresh the logs after deletion
+                });
+            } else {
+                Swal.fire({
+                title: "Error!",
+                text: data.message,
+                icon: "error",
+                });
+            }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error deleting log:', textStatus, errorThrown);
+            Swal.fire({
+                title: "Failed!",
+                text: "Failed to delete the log. Please try again.",
+                icon: "error",
             });
+            },
+        });
+        } else {
+        // If cancelled, show the cancellation message
+        Swal.fire({
+            title: "Cancelled",
+            text: "Your log is safe :)",
+            icon: "error",
+        });
         }
+    });
     }
+
 </script>

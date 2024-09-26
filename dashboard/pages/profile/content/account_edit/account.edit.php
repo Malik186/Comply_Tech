@@ -7,7 +7,7 @@
     <div class="box-body">
       <div class="row">
         <div class="col-12">
-          <div class="form-group row">
+          <div class="form-group row" style="display: none">
             <label class="col-sm-2 col-form-label">Username</label>
             <div class="col-sm-10">
               <input id="username" class="form-control" type="text" placeholder="<?php 

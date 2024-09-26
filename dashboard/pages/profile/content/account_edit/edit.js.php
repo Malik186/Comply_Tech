@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 // Function to convert file to base64
 function fileToBase64(file) {
@@ -36,14 +37,41 @@ function submitData(data) {
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json',
-    success: function(response) {
-      console.log('Success:', response);
-      alert('Data updated successfully!');
+    success: function (result) {
+      // SweetAlert2 success message with redirect
+      Swal.fire({
+        title: "Success!",
+        text: "Your Details Were Successfully Edited",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
     },
-    error: function(xhr, status, error) {
+    error: function (xhr, status, error) {
       console.error('Error:', error);
-      alert('An error occurred while updating the data.');
-    }
+
+      // Check for specific database error message
+      if (
+        xhr.responseText.includes(
+          "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry"
+        )
+      ) {
+        // SweetAlert2 specific error message
+        Swal.fire({
+          title: "Oops",
+          text: "The Email or Phone number already exists!",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      } else {
+        // SweetAlert2 generic error message
+        Swal.fire({
+          title: "Oops",
+          text: "Failed to Edit your details, please try again!",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      }
+    },
   });
 }
 
