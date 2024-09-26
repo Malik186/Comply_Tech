@@ -41,9 +41,9 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Avatar</label>
+            <label class="col-sm-2 col-form-label">Profile Avatar (PNG File)</label>
             <div class="col-sm-10">
-              <input id="avatar" class="form-control" type="file" accept="image/png, image/jpeg, image/webp">
+              <input id="avatar" class="form-control" type="file" accept="image/png">
             </div>
           </div>
           <div class="form-group row">
