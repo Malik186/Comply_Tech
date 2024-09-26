@@ -2,7 +2,7 @@
     <!-- Profile Image -->
     <div class="box bg-transparent no-border">
         <div class="box-body box-profile">
-            <img id="profile-avatar" class="rounded img-fluid mx-auto d-block max-w-150" src="/dashboard/img/avatar/avatar-1.png" alt="User profile picture">
+            <img id="profile-avatar" class="rounded img-fluid mx-auto d-block max-w-150" src="/" alt="User profile picture">
             
             <h3 class="profile-username text-center mb-0"><?php 
                 if (isset($_SESSION['user']['username'])) {

@@ -115,7 +115,7 @@
 	      <!-- User Account-->
           <li class="dropdown user user-menu">
             <a href="#" class="waves-effect waves-light dropdown-toggle no-border p-5" data-bs-toggle="dropdown" title="User">
-				<img class="avatar avatar-pill" src="/dashboard/img/avatar/3.jpg" alt="">
+				<img id="header-avatar" class="avatar avatar-pill" src="/" alt="">
             </a>
             <ul class="dropdown-menu animated flipInX">
               <li class="user-body">
@@ -136,3 +136,6 @@
         </ul>
       </div>
     </nav>
+	<?php
+    include_once site . "/dashboard/modules/nav/header.js.php";
+    ?>
