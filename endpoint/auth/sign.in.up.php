@@ -53,15 +53,14 @@ try {
     // Validate the request origin
     validateOrigin();
 
-    // MySQL database connection details
-    $host = 'localhost'; // Usually 'localhost' or an IP address
-    $dbName = 'mdskenya_comply_tech'; // The name of the database you manually created
-    $username = 'mdskenya_malik186'; // Your MySQL username
-    $password = 'Malik@Ndoli186'; // Your MySQL password
-
-    // Connect to the MySQL database
-    $db = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8", $username, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Load the database configuration
+    $config = include '/home/mdskenya/config/comply_tech/config.php'; // Adjust the path accordingly
+    // Connect to the MySQL database using the loaded configuration
+    $pdo = new PDO(
+        "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+        $config['db_username'],
+        $config['db_password']
+    );
 
     // Get the JSON input
     $input = file_get_contents('php://input');
