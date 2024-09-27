@@ -80,7 +80,7 @@ try {
             $username = $data['username'];
 
             // Check if the username already exists
-            $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
             $stmt->bindParam(':username', $username);
             $stmt->execute();
             $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -91,7 +91,7 @@ try {
             }
 
             // Check if the user already exists
-            $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR phone = :phone");
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR phone = :phone");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':phone', $phone);
             $stmt->execute();
@@ -104,7 +104,7 @@ try {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
                 // Insert the new user into the database
-                $stmt = $db->prepare("INSERT INTO users (username, email, phone, password) VALUES (:username, :email, :phone, :password)");
+                $stmt = $pdo->prepare("INSERT INTO users (username, email, phone, password) VALUES (:username, :email, :phone, :password)");
                 $stmt->bindParam(':username', $username);
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':phone', $phone);
@@ -161,7 +161,7 @@ try {
             $identifier = isset($data['email']) ? $data['email'] : $data['phone'];
             $field = isset($data['email']) ? 'email' : 'phone';
         
-            $stmt = $db->prepare("SELECT * FROM users WHERE $field = :identifier");
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE $field = :identifier");
             $stmt->bindParam(':identifier', $identifier);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -182,7 +182,7 @@ try {
                 $login_time = date('Y-m-d H:i:s');
         
                 // Insert activity log into the database
-                $logStmt = $db->prepare("INSERT INTO user_activity_logs (user_id, browser_info, ip_address, login_time, session_id) VALUES (:user_id, :browser_info, :ip_address, :login_time, :session_id)");
+                $logStmt = $pdo->prepare("INSERT INTO user_activity_logs (user_id, browser_info, ip_address, login_time, session_id) VALUES (:user_id, :browser_info, :ip_address, :login_time, :session_id)");
                 $logStmt->bindParam(':user_id', $user['id']);
                 $logStmt->bindParam(':browser_info', $browser);
                 $logStmt->bindParam(':ip_address', $ip);
