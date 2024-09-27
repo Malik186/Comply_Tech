@@ -70,7 +70,7 @@
         } else if (userAgent.includes('Mac OS X')) {
             os = 'MacOS';
         } else if (userAgent.includes('Linux')) {
-            os = 'Linux';
+            os = 'Android';
         } else if (userAgent.includes('Android')) {
             os = 'Android';
         } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
