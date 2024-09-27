@@ -6,11 +6,8 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type, X-Requested-With");
 header("Content-Type: application/json");
 
-// Database connection details
-$host = "localhost";
-$dbname = "mdskenya_comply_tech";
-$username = "mdskenya_malik186";
-$password = "Malik@Ndoli186";
+// Database connection 
+$config = include '/home/mdskenya/config/comply_tech/config.php';
 
 // Function to sanitize input
 function sanitize_input($data) {
@@ -33,7 +30,11 @@ if ($data === null) {
 }
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo = new PDO(
+        "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+        $config['db_username'],
+        $config['db_password']
+    );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Start building the update query

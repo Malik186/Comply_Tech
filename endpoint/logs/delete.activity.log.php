@@ -16,15 +16,17 @@ $log_id = $_POST['log_id'];
 $session_id = $_POST['session_id'];
 
 // Database connection (reuse the same connection details)
-$host = 'localhost';
-$dbName = 'mdskenya_comply_tech';
-$username = 'mdskenya_malik186';
-$password = 'Malik@Ndoli186';
-$db = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8", $username, $password);
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$config = include '/home/mdskenya/config/comply_tech/config.php';
+
+$pdo = new PDO(
+    "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+    $config['db_username'],
+    $config['db_password']
+);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Delete the log and terminate the session
-$stmt = $db->prepare("DELETE FROM user_activity_logs WHERE id = :log_id");
+$stmt = $pdo->prepare("DELETE FROM user_activity_logs WHERE id = :log_id");
 $stmt->bindParam(':log_id', $log_id);
 $stmt->execute();
 

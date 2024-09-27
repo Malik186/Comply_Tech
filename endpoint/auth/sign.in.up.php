@@ -62,6 +62,9 @@ try {
         $config['db_password']
     );
 
+     // Set error mode to exceptions
+     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     // Get the JSON input
     $input = file_get_contents('php://input');
     $data = json_decode($input, true);

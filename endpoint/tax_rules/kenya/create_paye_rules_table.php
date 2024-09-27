@@ -1,15 +1,16 @@
 <?php
 // File: create_paye_rules_table.php
 
-$host = 'localhost'; // Usually 'localhost' or an IP address
-$dbName = 'mdskenya_comply_tech'; // The name of the database you manually created
-$username = 'mdskenya_malik186'; // Your MySQL username
-$password = 'Malik@Ndoli186'; // Your MySQL password
+// Database connection 
+$config = include '/home/mdskenya/config/comply_tech/config.php';
 
 try {
     // Connect to the MySQL database
-    $pdo = new PDO("mysql:host=$host;dbname=$dbName", $username, $password);
-
+    $pdo = new PDO(
+        "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+        $config['db_username'],
+        $config['db_password']
+    );
     // Set error mode to exceptions
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

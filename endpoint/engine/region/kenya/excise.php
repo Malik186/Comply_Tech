@@ -196,15 +196,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Total Customs Duty (Import Duty + VAT + IDF + RDL + Excise Duty)
     $totalCustomDuty = $importDuty + $vat + $idf + $rdl;
 
-    // Database connection details
-    $host = 'localhost';
-    $dbName = 'mdskenya_comply_tech';
-    $usernameDb = 'mdskenya_malik186';
-    $passwordDb = 'Malik@Ndoli186';
+    // Load the database configuration
+    $config = include '/home/mdskenya/config/comply_tech/config.php';
 
     try {
         // Connect to the MySQL database
-        $pdo = new PDO("mysql:host=$host;dbname=$dbName", $usernameDb, $passwordDb);
+        $pdo = new PDO(
+            "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+            $config['db_username'],
+            $config['db_password']
+        );
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Prepare SQL to insert data into kenya_custom_results table

@@ -5,8 +5,15 @@ header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json; charset=UTF-8");
 header('Content-Type: application/json');
 
+// Database connection 
+$config = include '/home/mdskenya/config/comply_tech/config.php';
+
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=mdskenya_comply_tech", "mdskenya_malik186", "Malik@Ndoli186");
+    $pdo = new PDO(
+        "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+        $config['db_username'],
+        $config['db_password']
+    );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if (!isset($_SESSION['user']['username'])) {

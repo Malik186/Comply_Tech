@@ -75,15 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bank_name = $data['bank_name'];
     $acc_no = $data['acc_no'];
 
-    // Database connection details
-    $host = 'localhost';
-    $dbName = 'mdskenya_comply_tech';
-    $username = 'mdskenya_malik186';
-    $password = 'Malik@Ndoli186';
-
+    // Load the database configuration
+    $config = include '/home/mdskenya/config/comply_tech/config.php';
     try {
         // Connect to the MySQL database
-        $pdo = new PDO("mysql:host=$host;dbname=$dbName", $username, $password);
+        $pdo = new PDO(
+            "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+            $config['db_username'],
+            $config['db_password']
+        );
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Check if the session username is set

@@ -46,15 +46,16 @@ try {
     // Validate the request origin
     validateOrigin();
 
-    // MySQL database connection details
-    $host = 'localhost'; // Usually 'localhost' or an IP address
-    $dbName = 'mdskenya_comply_tech'; // The name of the database you manually created
-    $username = 'mdskenya_malik186'; // Your MySQL username
-    $password = 'Malik@Ndoli186'; // Your MySQL password
+    // Database connection 
+$config = include '/home/mdskenya/config/comply_tech/config.php';
 
     // Connect to the MySQL database
-    $db = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8", $username, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO(
+        "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+        $config['db_username'],
+        $config['db_password']
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Get the JSON input
     $input = file_get_contents('php://input');
@@ -78,7 +79,7 @@ try {
     }
 
     // Delete all existing entries in the kenya_paye_rules table
-    $db->exec("DELETE FROM `kenya_paye_rules`");
+    $pdo->exec("DELETE FROM `kenya_paye_rules`");
 
     // Insert new PAYE bands
     if (isset($data['paye_bands']) && is_array($data['paye_bands'])) {
@@ -87,7 +88,7 @@ try {
                 $tax_band = $band['band'];
                 $tax_rate = $band['rate'];
 
-                $stmt = $db->prepare("INSERT INTO `kenya_paye_rules` 
+                $stmt = $pdo->prepare("INSERT INTO `kenya_paye_rules` 
                     (tax_band, tax_rate) 
                     VALUES (:tax_band, :tax_rate)");
 
@@ -103,7 +104,7 @@ try {
     if (isset($data['housing_levy'])) {
         $housing_levy = $data['housing_levy'];
 
-        $stmt = $db->prepare("INSERT INTO `kenya_paye_rules` 
+        $stmt = $pdo->prepare("INSERT INTO `kenya_paye_rules` 
             (tax_band, housing_levy) 
             VALUES ('Housing Levy', :housing_levy)");
 
@@ -117,7 +118,7 @@ try {
         $nssf_tier_1 = $data['nssf']['tier_1'];
         $nssf_tier_2 = $data['nssf']['tier_2'];
 
-        $stmt = $db->prepare("INSERT INTO `kenya_paye_rules` 
+        $stmt = $pdo->prepare("INSERT INTO `kenya_paye_rules` 
             (tax_band, nssf_tier_1, nssf_tier_2) 
             VALUES ('NSSF', :nssf_tier_1, :nssf_tier_2)");
 
@@ -134,7 +135,7 @@ try {
                 $income_range = $rate['income_range'];
                 $nhif_contribution = $rate['contribution'];
 
-                $stmt = $db->prepare("INSERT INTO `kenya_paye_rules` 
+                $stmt = $pdo->prepare("INSERT INTO `kenya_paye_rules` 
                     (tax_band, income_range, nhif_contribution) 
                     VALUES ('NHIF', :income_range, :nhif_contribution)");
 
