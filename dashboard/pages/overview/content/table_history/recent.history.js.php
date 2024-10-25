@@ -17,6 +17,23 @@
                     // Get only the first 4 items
                     var recentData = data.slice(0, 4);
                     
+                    // Define the country flags
+                    const countryFlags = {
+                        'Kenya': '/dashboard/img/flag/kenya.png',
+                        'South_Africa': '/dashboard/img/flag/south_africa.png',
+                        // Add more countries here as needed
+                    };
+
+                    // Helper function to get the flag based on the country name in taxType
+                    function getFlagImage(taxType) {
+                        for (let country in countryFlags) {
+                            if (taxType.includes(country)) {
+                                return countryFlags[country];
+                            }
+                        }
+                        return '/dashboard/img/gallery/default-flag.png'; // Default flag if no match
+                    }
+
                     // Loop through the recent data to create table rows dynamically
                     recentData.forEach(function(item) {
                         var taxType = item.Tax_Type;  // e.g., "Kenya Custom", "South Africa VAT"
@@ -24,24 +41,12 @@
                         var status = item.Status;  // 1 or 0
                         // Extract just the type (e.g., "Custom", "VAT")
                         var taxTypeWithoutCountry = taxType.split(' ')[1];
-
-                        // Determine the flag based on the country
-                        var flagImg = '/dashboard/img/gallery/default-flag.png'; // Default flag image
-                        if (taxType.includes('Kenya')) {
-                            flagImg = '/dashboard/img/flag/kenya.png';
-                        } else if (taxType.includes('South Africa')) {
-                            flagImg = '/dashboard/img/flag/south-africa.png';
-                        }
-
+                        // Get the flag image based on the country in taxType
+                        var flagImg = getFlagImage(taxType);
                         // Format the timestamp to show only the date
                         var formattedDate = timestamp.split(' ')[0];
                         // Set badge for status
-                        var statusBadge = '';
-                        if (status === "1") {  // Ensure status is treated as string or number
-                            statusBadge = '<span class="badge bg-success">Success</span>';
-                        } else if (status === "0") {
-                            statusBadge = '<span class="badge bg-danger">Cancelled</span>';
-                        }
+                        var statusBadge = status === "1" ? '<span class="badge bg-success">Success</span>' : '<span class="badge bg-danger">Cancelled</span>';
                         // Create the row with the formatted data
                         var row = `
                             <tr>
