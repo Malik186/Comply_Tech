@@ -1,0 +1,145 @@
+<?php
+// File: southafrica_pit.php
+
+session_start(); // Start session for accessing session variables
+
+// Allow CORS from the front-end domain
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type, X-Requested-With");
+
+// Enable error reporting for debugging (disable in production)
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Function to log errors
+function logError($message) {
+    error_log(date('[Y-m-d H:i:s] ') . $message . PHP_EOL, 3, 'error.log');
+}
+
+// Function to validate the request origin
+function validateOrigin() {
+    $allowedDomain = 'https://complytech.mdskenya.co.ke';
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        $referer = $_SERVER['HTTP_REFERER'];
+        if (strpos($referer, $allowedDomain) !== 0) {
+            logError("Unauthorized access attempt from: " . $referer);
+            echo json_encode(['status' => 'error', 'message' => 'Unauthorized domain.']);
+            exit;
+        }
+    } else {
+        logError("Unauthorized access attempt with no referer.");
+        echo json_encode(['status' => 'error', 'message' => 'No referer. Unauthorized domain.']);
+        exit;
+    }
+}
+
+// Function to calculate South African PIT based on income
+function calculatePIT($annual_income) {
+    if ($annual_income <= 237100) {
+        return $annual_income * 0.18;
+    } elseif ($annual_income <= 370500) {
+        return 42678 + (($annual_income - 237100) * 0.26);
+    } elseif ($annual_income <= 512800) {
+        return 77362 + (($annual_income - 370500) * 0.31);
+    } elseif ($annual_income <= 673000) {
+        return 121475 + (($annual_income - 512800) * 0.36);
+    } elseif ($annual_income <= 857900) {
+        return 179147 + (($annual_income - 673000) * 0.39);
+    } elseif ($annual_income <= 1817000) {
+        return 251258 + (($annual_income - 857900) * 0.41);
+    } else {
+        return 644489 + (($annual_income - 1817000) * 0.45);
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['annual_income'])) {
+        echo json_encode(['error' => 'Missing required field: annual_income']);
+        exit;
+    }
+
+    $annual_income = $data['annual_income'];
+
+    // Load database configuration
+    $config = include '/home/mdskenya/config/comply_tech/config.php';
+
+    try {
+        $pdo = new PDO(
+            "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+            $config['db_username'],
+            $config['db_password']
+        );
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Ensure the user session is set
+        if (!isset($_SESSION['user']['username'])) {
+            echo json_encode(['error' => 'No active session or user not logged in']);
+            exit;
+        }
+
+        $user = $_SESSION['user']['username'];
+        $tax_payable = calculatePIT($annual_income);
+        $monthly_tax = round($tax_payable / 12, 2);
+
+        // Insert results into the southafrica_pit_results table
+        $stmt = $pdo->prepare("
+            INSERT INTO southafrica_pit_results (Username, Annual_Income, Tax_Payable, Monthly_Tax, date_calculated) 
+            VALUES (:Username, :Annual_Income, :Tax_Payable, :Monthly_Tax, NOW())
+        ");
+        $stmt->bindParam(':Username', $user);
+        $stmt->bindParam(':Annual_Income', $annual_income);
+        $stmt->bindParam(':Tax_Payable', $tax_payable);
+        $stmt->bindParam(':Monthly_Tax', $monthly_tax);
+        $stmt->execute();
+
+        // Return response
+        $response = [
+            'status' => 'success',
+            'annual_income' => $annual_income,
+            'tax_payable' => $tax_payable,
+            'monthly_tax' => $monthly_tax
+        ];
+        echo json_encode($response);
+
+    } catch (PDOException $e) {
+        logError('Database error: ' . $e->getMessage());
+        echo json_encode(['status' => 'error', 'message' => 'Database error.']);
+    }
+    // Function to insert results into the tax_overview table
+    function insertTaxOverview($pdo, $username, $tax_type, $status, $activity, $payroll, $invoice, $report) {
+        $sql = "INSERT INTO tax_overview (Username, Tax_Type, Status, Activity, Payroll, Invoice, Report) 
+                VALUES (:Username, :Tax_Type, :Status, :Activity, :Payroll, :Invoice, :Report)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':Username' => $username,
+            ':Tax_Type' => $tax_type,
+            ':Status' => $status,
+            ':Activity' => $activity,
+            ':Payroll' => $payroll,
+            ':Invoice' => $invoice,
+            ':Report' => $report
+        ]);
+        }
+        // Try PIT calculation
+        try {
+            $status = 1;  // Calculation success
+            $activity = 1;  // Calculation successful
+            $report = 1;    // Report is generated by default on success
+        } catch (Exception $e) {
+            $status = 0;  // Calculation failed
+            $activity = 0;  // Activity failed
+            $report = 0;    // Report not generated
+            logError("VAT calculation failed: " . $e->getMessage());
+        }
+        
+        // Determine Payroll and Invoice fields based on input
+        $payroll = isset($data['payroll_calculated']) ? 1 : 0;
+        $invoice = isset($vat) ? 1 : 0;
+        
+        // Insert data into tax_overview table
+        insertTaxOverview($pdo, $user, "South_Africa PIT", $status, $activity, $payroll, $invoice, $report);
+}
+?>
