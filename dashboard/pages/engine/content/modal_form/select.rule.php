@@ -6,7 +6,6 @@
                     <div class="col-12 col-xl-7"></div>
                     <div class="col-12 col-xl-5">
                         <h4 class="text-warning fw-500">Get Instant Tax Insights</h4>
-
                         <p class="text-white my-10 fs-16">
                         Receive accurate estimations and comprehensive summaries tailored to your region.
                         </p>
@@ -38,8 +37,10 @@
                             <option value="Kenya">Kenya</option>
                             <option value="Uganda">Uganda</option>
                             <option value="Tanzania">Tanzania</option>
-                            <option value="Rwanda">Rwanda</option>
-                            <option value="Burundi">Burundi</option>
+                            <option value="SouthAfrica">South Africa</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Morocco">Morocco</option>
                         </select>
                     </div>
                 </form>
@@ -61,7 +62,8 @@
         const taxTypes = {
             Kenya: ["PAYE", "VAT", "Payroll", "Custom", "Excise", "Corporate"],
             Uganda: ["Income Tax", "VAT", "Excise", "Custom", "Property"],
-            Tanzania: ["Income", "VAT", "Custom", "Excise"]
+            Tanzania: ["Income", "VAT", "Custom", "Excise"],
+            SouthAfrica: ["PIT", "VAT", "CGT", "CIT", "PAYE"]
         };
 
         function resetModal(modalId) {
@@ -72,6 +74,9 @@
         }
 
         function createTaxTypeModal(country) {
+            // Remove any existing modal to ensure a fresh one is created
+            $('#selectTaxTypeModal').remove();
+
             const modalHtml = `
                 <div class="modal fade modal-fill" id="selectTaxTypeModal" tabindex="-1" aria-labelledby="selectTaxTypeLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -104,17 +109,19 @@
             
             $('body').append(modalHtml);
 
-            // Handle the submission of the form
-            $('#submitTaxType').click(function() {
-                const selectedCountry = $('#countrySelect').val().toLowerCase();
-                const selectedTaxType = $('#taxTypeSelect').val().toLowerCase();
+            // Event handler for form submission to prevent redirect issues
+            $('#taxTypeForm').on('submit', function(event) {
+                event.preventDefault();
+                const selectedCountry = country.toLowerCase(); // Use lowercase for URL consistency
+                const selectedTaxType = $('#taxTypeSelect').val();
                 const actionUrl = `${selectedCountry}.${selectedTaxType}.php`;
 
+                // Update action attribute and submit form
                 $('#taxTypeForm').attr('action', actionUrl);
-                $('#taxTypeForm').submit();
+                this.submit();
             });
 
-            // Reset modal on close
+            // Reset and remove modal on close
             $('.modal .btn-secondary, .modal .close').click(function() {
                 resetModal('#selectTaxTypeModal');
                 $('#selectTaxTypeModal').remove();
