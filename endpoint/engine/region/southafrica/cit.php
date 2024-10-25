@@ -5,7 +5,7 @@ $config = include '/home/mdskenya/config/comply_tech/config.php';
 // Update the SouthAfricanCITCalculator class
 class SouthAfricanCITCalculator {
     private $pdo;
-    
+
     // Define the tax rate constant (example rate: 28%)
     private const STANDARD_RATE = 0.28;
 
@@ -228,53 +228,63 @@ class SouthAfricanCITCalculator {
     
 
     private function saveResults($companyInfo, $financials, $taxCalculation, $taxResults, $username) {
-        $stmt = $this->pdo->prepare("
-            INSERT INTO southafrica_cit_results (
-                company_name, registration_number, tax_year, year_end, company_type,
-                residency_status, annual_turnover, gross_income, operating_expenses,
-                capital_allowances, rd_expenses, learnership_allowances,
-                employment_tax_incentive, bad_debts, foreign_income,
-                foreign_tax_credits, assessed_losses, dividends_received,
-                taxable_income, total_deductions, tax_payable, final_tax_payable,
-                calculation_date, deductions_breakdown, Username
-            ) VALUES (
-                :company_name, :registration_number, :tax_year, :year_end, :company_type,
-                :residency_status, :annual_turnover, :gross_income, :operating_expenses,
-                :capital_allowances, :rd_expenses, :learnership_allowances,
-                :employment_tax_incentive, :bad_debts, :foreign_income,
-                :foreign_tax_credits, :assessed_losses, :dividends_received,
-                :taxable_income, :total_deductions, :tax_payable, :final_tax_payable,
-                NOW(), :deductions_breakdown, :username
-            )
-        ");
-
-        $stmt->execute([
-            ':company_name' => $companyInfo['company_name'],
-            ':registration_number' => $companyInfo['registration_number'],
-            ':tax_year' => $companyInfo['tax_year'],
-            ':year_end' => $companyInfo['year_end'],
-            ':company_type' => $companyInfo['company_type'],
-            ':residency_status' => $companyInfo['residency_status'],
-            ':annual_turnover' => $financials['annual_turnover'],
-            ':gross_income' => $financials['gross_income'],
-            ':operating_expenses' => $financials['operating_expenses'],
-            ':capital_allowances' => $financials['capital_allowances'],
-            ':rd_expenses' => $financials['rd_expenses'],
-            ':learnership_allowances' => $financials['learnership_allowances'],
-            ':employment_tax_incentive' => $financials['employment_tax_incentive'],
-            ':bad_debts' => $financials['bad_debts'],
-            ':foreign_income' => $financials['foreign_income'],
-            ':foreign_tax_credits' => $financials['foreign_tax_credits'],
-            ':assessed_losses' => $financials['assessed_losses'],
-            ':dividends_received' => $financials['dividends_received'],
-            ':taxable_income' => $taxCalculation['taxableIncome'],
-            ':total_deductions' => $taxCalculation['totalDeductions'],
-            ':tax_payable' => $taxResults['taxPayable'],
-            ':final_tax_payable' => $taxResults['finalTaxPayable'],
-            ':deductions_breakdown' => json_encode($taxCalculation['deductionsBreakdown']),
-            ':username' => $username // Bind the username
-        ]);
+        try {
+            $stmt = $this->pdo->prepare("
+                INSERT INTO southafrica_cit_results (
+                    company_name, registration_number, tax_year, year_end, company_type,
+                    residency_status, annual_turnover, gross_income, operating_expenses,
+                    capital_allowances, rd_expenses, learnership_allowances,
+                    employment_tax_incentive, bad_debts, foreign_income,
+                    foreign_tax_credits, assessed_losses, dividends_received,
+                    taxable_income, total_deductions, tax_payable, final_tax_payable,
+                    calculation_date, deductions_breakdown, username
+                ) VALUES (
+                    :company_name, :registration_number, :tax_year, :year_end, :company_type,
+                    :residency_status, :annual_turnover, :gross_income, :operating_expenses,
+                    :capital_allowances, :rd_expenses, :learnership_allowances,
+                    :employment_tax_incentive, :bad_debts, :foreign_income,
+                    :foreign_tax_credits, :assessed_losses, :dividends_received,
+                    :taxable_income, :total_deductions, :tax_payable, :final_tax_payable,
+                    NOW(), :deductions_breakdown, :username
+                )
+            ");
+    
+            if ($stmt) {
+                $stmt->execute([
+                    ':company_name' => $companyInfo['company_name'],
+                    ':registration_number' => $companyInfo['registration_number'],
+                    ':tax_year' => $companyInfo['tax_year'],
+                    ':year_end' => $companyInfo['year_end'],
+                    ':company_type' => $companyInfo['company_type'],
+                    ':residency_status' => $companyInfo['residency_status'],
+                    ':annual_turnover' => $financials['annual_turnover'],
+                    ':gross_income' => $financials['gross_income'],
+                    ':operating_expenses' => $financials['operating_expenses'],
+                    ':capital_allowances' => $financials['capital_allowances'],
+                    ':rd_expenses' => $financials['rd_expenses'],
+                    ':learnership_allowances' => $financials['learnership_allowances'],
+                    ':employment_tax_incentive' => $financials['employment_tax_incentive'],
+                    ':bad_debts' => $financials['bad_debts'],
+                    ':foreign_income' => $financials['foreign_income'],
+                    ':foreign_tax_credits' => $financials['foreign_tax_credits'],
+                    ':assessed_losses' => $financials['assessed_losses'],
+                    ':dividends_received' => $financials['dividends_received'],
+                    ':taxable_income' => $taxCalculation['taxableIncome'],
+                    ':total_deductions' => $taxCalculation['totalDeductions'],
+                    ':tax_payable' => $taxResults['taxPayable'],
+                    ':final_tax_payable' => $taxResults['finalTaxPayable'],
+                    ':deductions_breakdown' => json_encode($taxCalculation['deductionsBreakdown']),
+                    ':username' => $username
+                ]);
+            } else {
+                throw new Exception("Failed to prepare SQL statement.");
+            }
+        } catch (Exception $e) {
+            // Handle or log the exception
+            echo "Error saving results: " . $e->getMessage();
+        }
     }
+    
 
 }
 
