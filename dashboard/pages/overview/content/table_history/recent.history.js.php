@@ -25,17 +25,12 @@
                     // Extract just the type (e.g., "Custom", "VAT")
                     var taxTypeWithoutCountry = taxType.split(' ')[1];
                     // Check for country in the Tax_Type to display the flag
-                    var flagImg = '';
-                    if (taxType.includes('Kenya')) {
-                        flagImg = '/dashboard/img/flag/kenya.png';
-                    } else {
-                        flagImg = '/dashboard/img/gallery/default-flag.png';  // Default image if no match
-                    }
-                    if (taxType.includes('South_Africa')) {
-                        flagImg = '/dashboard/img/flag/south-africa.png';
-                    } else {
-                        flagImg = '/dashboard/img/gallery/default-flag.png';  // Default image if no match
-                    }
+                    const countryFlags = {
+                        'Kenya': '/dashboard/img/flag/kenya.png',
+                        'South_Africa': '/dashboard/img/flag/south-africa.png',
+                        // Add more countries here as needed
+                    };
+                    var flagImg = countryFlags[taxType] || '/dashboard/img/gallery/default-flag.png';
                     // Format the timestamp to show only the date
                     var formattedDate = timestamp.split(' ')[0];
                     // Set badge for status
