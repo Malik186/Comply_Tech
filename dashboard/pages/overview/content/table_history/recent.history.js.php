@@ -20,7 +20,7 @@
                     // Define the country flags
                     const countryFlags = {
                         'Kenya': '/dashboard/img/flag/kenya.png',
-                        'South_Africa': '/dashboard/img/flag/south_africa.png',
+                        'South_Africa': '/dashboard/img/flag/south-africa.png',
                         // Add more countries here as needed
                     };
 
