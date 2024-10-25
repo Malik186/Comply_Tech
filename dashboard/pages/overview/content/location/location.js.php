@@ -6,7 +6,7 @@
         "Kenya": { latLng: [-1.286389, 36.817223], activityTotal: 0 },
         "Uganda": { latLng: [0.347596, 32.582520], activityTotal: 0 },
         "Tanzania": { latLng: [-6.792354, 39.208328], activityTotal: 0 },
-        "South Africa": { latLng: [-25.747868, 28.229271], activityTotal: 0 },
+        "South_Africa": { latLng: [-25.747868, 28.229271], activityTotal: 0 },
         "Egypt": { latLng: [30.044420, 31.235712], activityTotal: 0 },
         "Morocco": { latLng: [33.573110, -7.589843], activityTotal: 0 },
         "USA": { latLng: [37.090240, -95.712891], activityTotal: 0 },

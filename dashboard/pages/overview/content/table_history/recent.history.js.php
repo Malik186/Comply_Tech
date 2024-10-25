@@ -31,6 +31,11 @@
                     } else {
                         flagImg = '/dashboard/img/gallery/default-flag.png';  // Default image if no match
                     }
+                    if (taxType.includes('South_Africa')) {
+                        flagImg = '/dashboard/img/flag/south-africa.png';
+                    } else {
+                        flagImg = '/dashboard/img/gallery/default-flag.png';  // Default image if no match
+                    }
                     // Format the timestamp to show only the date
                     var formattedDate = timestamp.split(' ')[0];
                     // Set badge for status
