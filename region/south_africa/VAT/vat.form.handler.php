@@ -18,7 +18,7 @@
                             <input type="number" class="form-control" name="quantity[]" required>
                         </div>
                         <div class="col-md-3">
-                            <label for="unitPrice${itemCount}" class="form-label">Unit Price (Ksh): <span class="text-danger">*</span></label>
+                            <label for="unitPrice${itemCount}" class="form-label">Unit Price (R): <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" name="unitPrice[]" required>
                         </div>
                         <div class="col-md-2 d-flex align-items-end">
