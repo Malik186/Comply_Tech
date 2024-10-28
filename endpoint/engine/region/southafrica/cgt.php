@@ -111,7 +111,7 @@ function updateTaxOverview($conn, $username) {
     try {
         $stmt = $conn->prepare("
             INSERT INTO tax_overview (
-                username, tax_type, status, activity, report, payroll, invoice
+                Username, Tax_Type, Status, Activity, Report, Payroll, Invoice
             ) VALUES (
                 ?, 'South_Africa CGT', 1, 1, 1, 0, 0
             )
