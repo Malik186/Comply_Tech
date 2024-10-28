@@ -215,6 +215,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $invoice = isset($vat) ? 1 : 0;
         
         // Insert data into tax_overview table
-        insertTaxOverview($pdo, $user, "Kenya VAT", $status, $activity, $payroll, $invoice, $report);
+        insertTaxOverview($pdo, $user, "South_Africa VAT", $status, $activity, $payroll, $invoice, $report);
 }
 ?>
