@@ -357,7 +357,7 @@ try {
         $invoice = isset($vat) ? 1 : 0;
         
         // Insert data into tax_overview table
-        insertTaxOverview($stmt, $username, "South_Africa CIT", $status, $activity, $payroll, $invoice, $report);
+        insertTaxOverview($pdo, $username, "South_Africa CIT", $status, $activity, $payroll, $invoice, $report);
         
     // Validate the request origin
     validateOrigin();
