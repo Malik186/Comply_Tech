@@ -306,20 +306,25 @@ function validateOrigin() {
     }
 }
   // Function to insert results into the tax_overview table
-        function insertTaxOverview($pdo, $username, $tax_type, $status, $activity, $payroll, $invoice, $report) {
-            $sql = "INSERT INTO tax_overview (Username, Tax_Type, Status, Activity, Payroll, Invoice, Report) 
-                    VALUES (:Username, :Tax_Type, :Status, :Activity, :Payroll, :Invoice, :Report)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ':Username' => $username,
-                ':Tax_Type' => $tax_type,
-                ':Status' => $status,
-                ':Activity' => $activity,
-                ':Payroll' => $payroll,
-                ':Invoice' => $invoice,
-                ':Report' => $report
-            ]);
+            function insertTaxOverview($pdo, $username, $tax_type, $status, $activity, $payroll, $invoice, $report) {
+                try {
+                    $sql = "INSERT INTO tax_overview (Username, Tax_Type, Status, Activity, Payroll, Invoice, Report) 
+                            VALUES (:Username, :Tax_Type, :Status, :Activity, :Payroll, :Invoice, :Report)";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute([
+                        ':Username' => $username,
+                        ':Tax_Type' => $tax_type,
+                        ':Status' => $status,
+                        ':Activity' => $activity,
+                        ':Payroll' => $payroll,
+                        ':Invoice' => $invoice,
+                        ':Report' => $report
+                    ]);
+                } catch (Exception $e) {
+                    throw new Exception("Error in insertTaxOverview: " . $e->getMessage());
+                }
             }
+
             // Try PAYE calculation
             try {
                 $status = 1;  // Calculation success
@@ -340,14 +345,29 @@ function validateOrigin() {
             insertTaxOverview($pdo, $user, "South_Africa CIT", $status, $activity, $payroll, $invoice, $report);
 // Usage example:
 try {
-        // Check if the session username is set
-        session_start(); // Ensure the session is started before accessing session variables
+       // Load the configuration file and initialize PDO
+        $config = include '/home/mdskenya/config/comply_tech/config.php';
+        $pdo = new PDO(
+            "mysql:host={$config['db_host']};dbname={$config['db_name']}",
+            $config['db_username'],
+            $config['db_password']
+        );
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Check session username
         if (!isset($_SESSION['user']['username'])) {
             echo json_encode(['error' => 'No active session or user not logged in']);
             exit;
         }
-    
+
         $user = $_SESSION['user']['username'];
+
+        // Now, you can safely call insertTaxOverview and other methods needing $pdo and $user
+        try {
+            insertTaxOverview($pdo, $user, "South_Africa CIT", $status, $activity, $payroll, $invoice, $report);
+        } catch (Exception $e) {
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     
         // Check if the request method is POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -358,14 +378,6 @@ try {
         
     // Validate the request origin
     validateOrigin();
-
-     // Database connection using loaded configuration
-     $pdo = new PDO(
-        "mysql:host={$config['db_host']};dbname={$config['db_name']}",
-        $config['db_username'],
-        $config['db_password']
-    );
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Initialize the calculator
     $calculator = new SouthAfricanCITCalculator($pdo);
