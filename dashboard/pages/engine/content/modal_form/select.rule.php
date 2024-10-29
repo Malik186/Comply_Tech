@@ -63,7 +63,8 @@
             Kenya: ["PAYE", "VAT", "Payroll", "Custom", "Excise", "Corporate"],
             Uganda: ["Income Tax", "VAT", "Excise", "Custom", "Property"],
             Tanzania: ["Income", "VAT", "Custom", "Excise"],
-            SouthAfrica: ["PIT", "VAT", "CGT", "CIT", "PAYE"]
+            SouthAfrica: ["PIT", "VAT", "CGT", "CIT", "PAYE"],
+            Nigeria: ["PIT", "VAT", "CIT"]
         };
 
         function resetModal(modalId) {

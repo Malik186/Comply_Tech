@@ -21,6 +21,9 @@
                     const countryFlags = {
                         'Kenya': '/dashboard/img/flag/kenya.png',
                         'South_Africa': '/dashboard/img/flag/south-africa.png',
+                        'Nigeria': '/dashboard/img/flag/nigeria.png',
+                        'Morocco': '/dashboard/img/flag/morocco.png',
+                        'Egypt': '/dashboard/img/flag/egypt.png',
                         // Add more countries here as needed
                     };
 
