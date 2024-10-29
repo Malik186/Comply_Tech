@@ -162,7 +162,7 @@ function saveResults($pdo, $data, $results, $username) {
             INSERT INTO tax_overview (
                 Username, Tax_Type, Status, Activity, Report, Payroll, Invoice
             ) VALUES (
-                ?, 'South_Africa PAYE', 1, 1, 1, 0, 0
+                ?, 'South_Africa PAYE', 1, 1, 1, 1, 0
             )
         ");
         
