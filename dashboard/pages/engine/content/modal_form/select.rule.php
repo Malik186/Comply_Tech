@@ -64,7 +64,9 @@
             Uganda: ["Income Tax", "VAT", "Excise", "Custom", "Property"],
             Tanzania: ["Income", "VAT", "Custom", "Excise"],
             SouthAfrica: ["PIT", "VAT", "CGT", "CIT", "PAYE"],
-            Nigeria: ["PIT", "VAT", "CIT"]
+            Nigeria: ["PIT", "VAT", "CIT"],
+            Egypt: ["PIT", "VAT", "CIT"],
+            Morocco: ["PIT", "VAT", "CIT"]
         };
 
         function resetModal(modalId) {
