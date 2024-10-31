@@ -157,7 +157,7 @@
 
                     <div class="text-end">
                         <button type="button" class="btn btn-secondary me-2" id="resetForm">Reset</button>
-                        <button type="submit" class="btn btn-primary">Calculate CIT</button>
+                        <button type="submit" id="calculate-cit" class="btn btn-primary">Calculate CIT</button>
                     </div>
                 </form>
             </div>
