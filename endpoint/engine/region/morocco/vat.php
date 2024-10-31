@@ -35,8 +35,8 @@ function validateOrigin() {
     }
 }
 
-// Function to calculate VAT (default rate: 14%)
-function calculateVAT($unit_price, $quantity, $vat_rate = 0.14) {
+// Function to calculate VAT (default rate: 20%)
+function calculateVAT($unit_price, $quantity, $vat_rate = 0.2) {
     $total_price = $unit_price * $quantity;
     $vat_amount = $total_price * $vat_rate;
     return $vat_amount;
